@@ -1,0 +1,20 @@
+import * as express from 'express';
+import googleOAuth from 'passport-google-oauth20';
+import { IncomingMessage } from 'http';
+
+export interface requestWithSession extends IncomingMessage {
+    session?: {
+        passport: {
+            user?: googleOAuth.Profile
+        }
+    },
+    sessionCookies : express.CookieOptions 
+}
+
+export interface PassportDataProps {
+    data : {
+        passport : {
+            user : googleOAuth.Profile
+        }
+    }
+}
