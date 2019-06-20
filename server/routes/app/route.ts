@@ -17,6 +17,7 @@ const gotProfile = (accessToken: string, refreshToken: string, profile: googleOA
     done(null, profile);
 }
 const isAuthenicated = (req: requestWithSession, res: express.Response, next: express.NextFunction) => {
+    // If session exist, that means the user is authenticated
     if (req.session) {
         next();
     } else {

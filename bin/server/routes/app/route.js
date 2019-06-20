@@ -17,6 +17,7 @@ const gotProfile = (accessToken, refreshToken, profile, done) => {
     done(null, profile);
 };
 const isAuthenicated = (req, res, next) => {
+    // If session exist, that means the user is authenticated
     if (req.session) {
         next();
     }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NextFC } from "next";
+import Link from "next/link";
 import { Layout } from "../src/styles/shared";
 import styled from "styled-components";
 
@@ -10,6 +11,13 @@ const LoginButton = styled.a`
   max-width: 200px;
   cursor: pointer;
   margin: 1rem;
+`;
+
+const StyledLink = styled.a`
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
 `;
 
 const LoginButtonLogo = styled.img`
@@ -46,16 +54,15 @@ const FormWrapper = styled.form`
   text-align: center;
 `;
 const FormSubmit = styled.button`
-	color: white;
-	font-size: 1em;
-	font-weight: 600;
-	width: 100%;
-	border: none;
-	border-radius: 3px;
-	padding: 0.65rem;
-	background: #8610f9;
-
-`
+  color: white;
+  font-size: 1em;
+  font-weight: 600;
+  width: 100%;
+  border: none;
+  border-radius: 3px;
+  padding: 0.65rem;
+  background: #8610f9;
+`;
 
 const Login: NextFC = (props: any) => {
   const [usernameInput, setUsernameInput] = useState("");
@@ -69,25 +76,33 @@ const Login: NextFC = (props: any) => {
         <DividerText>or</DividerText>
       </Divider>
       <FormWrapper>
-          <FormInput
-            onChange={e => {
-              setUsernameInput(e.target.value);
-            }}
-            value={usernameInput}
-			placeholder="Username / Email"
-            name="username"
-            type="email"
-          />
-          <FormInput
-            onChange={e => {
-              setPasswordInput(e.target.value);
-            }}
-			value={passwordInput}
-			placeholder="Password"
-            name="password"
-            type="password"
-          />
-	  <FormSubmit>Login</FormSubmit>
+        <FormInput
+          onChange={e => {
+            setUsernameInput(e.target.value);
+          }}
+          value={usernameInput}
+          placeholder="Username / Email"
+          name="username"
+          type="email"
+        />
+        <FormInput
+          onChange={e => {
+            setPasswordInput(e.target.value);
+          }}
+          value={passwordInput}
+          placeholder="Password"
+          name="password"
+          type="password"
+        />
+        <FormSubmit>Login</FormSubmit>
+        <Link href="/register">
+          <div>
+            <p>
+              New user ? <StyledLink>Signup </StyledLink>
+              here!
+            </p>
+          </div>
+        </Link>
       </FormWrapper>
     </Layout>
   );

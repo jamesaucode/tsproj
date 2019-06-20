@@ -2,7 +2,7 @@ import * as express from 'express';
 import googleOAuth from 'passport-google-oauth20';
 import { IncomingMessage } from 'http';
 
-export interface requestWithSession extends IncomingMessage {
+export interface requestWithSession extends express.Request {
     session?: {
         passport: {
             user?: googleOAuth.Profile
