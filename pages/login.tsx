@@ -3,6 +3,7 @@ import { NextFC } from "next";
 import Link from "next/link";
 import { Layout } from "../src/styles/shared";
 import styled from "styled-components";
+import fetch  from 'isomorphic-unfetch';
 
 const googleLoginButton = require("../static/images/btn_google_signin_dark_normal_web@2x.png");
 
@@ -49,7 +50,7 @@ const FormInput = styled.input`
     border: 1px solid #8610f9;
   }
 `;
-const FormWrapper = styled.form`
+const FormWrapper = styled.div`
   width: ${maxFormWidth};
   text-align: center;
 `;
@@ -67,6 +68,23 @@ const FormSubmit = styled.button`
 const Login: NextFC = (props: any) => {
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
+  const handleSubmit = (event : any) => {
+    // event.preventDefault();
+    console.log('Submitting Login Info')
+    fetch("/api/login" , {
+      method: "POST",
+      // credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: usernameInput,
+        password: passwordInput
+      })
+    })
+    .then(response => response.json())
+    .then(json => console.log(json));
+  }
   return (
     <Layout fadeIn>
       <LoginButton href="/auth/google">
@@ -94,7 +112,7 @@ const Login: NextFC = (props: any) => {
           name="password"
           type="password"
         />
-        <FormSubmit>Login</FormSubmit>
+        <FormSubmit onClick={handleSubmit}>Login</FormSubmit>
         <Link href="/register">
           <div>
             <p>

@@ -1,8 +1,10 @@
 import * as express from "express";
 import { requestWithSession } from "typings/express";
 import { NextFunction } from "connect";
-import { UserSchemaTypes, UserModel } from "../../schemas/User";
+import { UserSchemaTypes, UserModel, UserSchema } from "../../schemas/User";
+const bcrypt = require('bcrypt');
 
+const saltRounds = 10;
 const router = express.Router();
 
 const ProfileHandler = (
@@ -42,19 +44,39 @@ const RegisterHandler = (
   res: express.Response,
   next: NextFunction
 ) => {
-  console.log(req.body);
   if (req.body) {
-    const UserInstance = new UserModel(req.body);
-    UserInstance.save((err: Error) => {
-      if (err) return console.error(err);
-      console.log("User saved");
+    bcrypt.genSalt(saltRounds, (err: Error, salt: string) => {
+      bcrypt.hash(req.body.password, salt, (err: Error, hash: string) => {
+        const UserInstance = new UserModel({ ...req.body, password: hash });
+        UserInstance.save((err: Error) => {
+          if (err) return console.error(err);
+          console.log("User saved");
+        });
+      });
     });
   }
 };
+
+const LoginHandler = (req : Request | any, res : express.Response, next: NextFunction) => {
+  console.log("Logging in")
+  if (req.body) {
+    UserModel.findOne({email : req.body.email }, (err : Error, user : UserSchemaTypes) => {
+      bcrypt.compare(req.body.password, user.password, (err : Error, bRes : express.Response) => {
+        if (err) res.json({ message: "Login failed"});
+        if (bRes) {
+          res.json({ message: "Login success!!"});
+        } else {
+          res.json({ message: "Incorrect password"})
+        }
+      })
+    })
+  }
+}
 
 router.get("/profile", ProfileHandler);
 router.get("/logout", LogoutHandler);
 router.get("/session", SessionHandler);
 router.post("/register", RegisterHandler);
+router.post('/login', LoginHandler);
 
 export default router;
