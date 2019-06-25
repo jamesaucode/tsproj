@@ -44,22 +44,6 @@ const StudyCard = () => {
     })
     .then(response => response.json())
     .then(json => console.log(json));
-    //   try {
-    //     const response = await fetch(url, {
-    //       method: "POST",
-    //       credentials: "include",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       // body: JSON.stringify(...args)
-    //     });
-    //     if (response.ok) {
-    //       const json = await response.json();
-    //       return json;
-    //     }
-    //   } catch (error) {
-    //     throw new error();
-    //   }
   };
   return (
     <Wrapper>
