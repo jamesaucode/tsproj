@@ -1,0 +1,85 @@
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-height: 450px;
+  max-width: 450px;
+  font-size: calc(0.35vw + 16px);
+`;
+const Input = styled.input`
+  border: none;
+  font-size: 0.7em;
+  padding: 0.5em 1em;
+`;
+const Button = styled.button`
+  border: none;
+  padding: 0.25em 1em;
+  font-size: 0.8em;
+`;
+const StudyCard = () => {
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+  const formControls: {
+    [key: string]: React.Dispatch<React.SetStateAction<string>>;
+  } = {
+    question: setQuestion,
+    answer: setAnswer,
+  };
+
+  const changeHandler = ({
+    target: { name, value },
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    formControls[name](value);
+  };
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    fetch("/api/card", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ question, answer }),
+    })
+    .then(response => response.json())
+    .then(json => console.log(json));
+    //   try {
+    //     const response = await fetch(url, {
+    //       method: "POST",
+    //       credentials: "include",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       // body: JSON.stringify(...args)
+    //     });
+    //     if (response.ok) {
+    //       const json = await response.json();
+    //       return json;
+    //     }
+    //   } catch (error) {
+    //     throw new error();
+    //   }
+  };
+  return (
+    <Wrapper>
+      <Input
+        onChange={changeHandler}
+        value={question}
+        name="question"
+        type="text"
+        placeholder="Question"
+      />
+      <Input
+        onChange={changeHandler}
+        value={answer}
+        name="answer"
+        type="text"
+        placeholder="Answer"
+      />
+      <Button onClick={handleSubmit}>Save</Button>
+    </Wrapper>
+  );
+};
+
+export default StudyCard;

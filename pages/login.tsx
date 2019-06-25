@@ -69,11 +69,9 @@ const Login: NextFC = (props: any) => {
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const handleSubmit = (event : any) => {
-    // event.preventDefault();
     console.log('Submitting Login Info')
     fetch("/api/login" , {
       method: "POST",
-      // credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },

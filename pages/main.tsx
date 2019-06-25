@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Layout, Heading } from "../src/styles/shared";
 import { makeJsonRequest } from '../utils/httpRequest';
 import Spinner from "../src/components/Spinner";
+import StudyCard from '../src/components/StudyCard';
 import fetch from "isomorphic-unfetch";
 
 const Main: React.FunctionComponent = props => {
@@ -26,7 +27,8 @@ const Main: React.FunctionComponent = props => {
   } else if (loggedIn) {
     return (
       <Layout fadeIn>
-        <Heading>Main Page</Heading>
+        <Heading>Make a card!</Heading>
+        <StudyCard />
       </Layout>
     );
   } else {

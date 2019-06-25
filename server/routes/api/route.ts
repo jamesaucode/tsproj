@@ -2,7 +2,7 @@ import * as express from "express";
 import { requestWithSession } from "typings/express";
 import { NextFunction } from "connect";
 import { UserSchemaTypes, UserModel, UserSchema } from "../../schemas/User";
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 const saltRounds = 10;
 const router = express.Router();
@@ -57,26 +57,46 @@ const RegisterHandler = (
   }
 };
 
-const LoginHandler = (req : Request | any, res : express.Response, next: NextFunction) => {
-  console.log("Logging in")
+const LoginHandler = (
+  req: Request | any,
+  res: express.Response,
+  next: NextFunction
+) => {
   if (req.body) {
-    UserModel.findOne({email : req.body.email }, (err : Error, user : UserSchemaTypes) => {
-      bcrypt.compare(req.body.password, user.password, (err : Error, bRes : express.Response) => {
-        if (err) res.json({ message: "Login failed"});
-        if (bRes) {
-          res.json({ message: "Login success!!"});
-        } else {
-          res.json({ message: "Incorrect password"})
-        }
-      })
-    })
+    UserModel.findOne(
+      { email: req.body.email },
+      (err: Error, user: UserSchemaTypes) => {
+        bcrypt.compare(
+          req.body.password,
+          user.password,
+          (err: Error, bRes: express.Response) => {
+            if (err) res.json({ message: "Login failed" });
+            if (bRes) {
+              res.json({ message: "Login success!!" });
+            } else {
+              res.json({ message: "Incorrect password" });
+            }
+          }
+        );
+      }
+    );
   }
-}
+};
+const SaveCardHandler = (
+  req: Request | any,
+  res: express.Response,
+  next: NextFunction
+) => {
+  if (req.body) {
+    console.log(req.body);
+  }
+};
 
 router.get("/profile", ProfileHandler);
 router.get("/logout", LogoutHandler);
 router.get("/session", SessionHandler);
 router.post("/register", RegisterHandler);
-router.post('/login', LoginHandler);
+router.post("/login", LoginHandler);
+router.post("/card", SaveCardHandler);
 
 export default router;

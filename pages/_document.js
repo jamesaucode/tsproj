@@ -10,7 +10,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head />
-        <title>Custom title here</title>
+        <title>Study App</title>
         <link rel="stylesheet" href="../static/reset.css" />
         <link rel="stylesheet" href="../static/fa.css"/>
         <link rel="stylesheet" href="../static/nprogress.css"/>

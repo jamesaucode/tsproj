@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const User_1 = require("../../schemas/User");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const router = express.Router();
 const ProfileHandler = (req, res, next) => {
@@ -42,7 +42,6 @@ const RegisterHandler = (req, res, next) => {
     }
 };
 const LoginHandler = (req, res, next) => {
-    console.log("Logging in");
     if (req.body) {
         User_1.UserModel.findOne({ email: req.body.email }, (err, user) => {
             bcrypt.compare(req.body.password, user.password, (err, bRes) => {
@@ -58,10 +57,16 @@ const LoginHandler = (req, res, next) => {
         });
     }
 };
+const SaveCardHandler = (req, res, next) => {
+    if (req.body) {
+        console.log(req.body);
+    }
+};
 router.get("/profile", ProfileHandler);
 router.get("/logout", LogoutHandler);
 router.get("/session", SessionHandler);
 router.post("/register", RegisterHandler);
-router.post('/login', LoginHandler);
+router.post("/login", LoginHandler);
+router.post("/card", SaveCardHandler);
 exports.default = router;
 //# sourceMappingURL=route.js.map
