@@ -1,7 +1,9 @@
 import * as express from "express";
 import { requestWithSession } from "typings/express";
 import { NextFunction } from "connect";
-import { UserSchemaTypes, UserModel, UserSchema } from "../../schemas/User";
+import { UserSchemaTypes, UserModel } from "../../schemas/User";
+import { CardsScehmaTypes, CardsModel } from '../../schemas/Cards';
+
 const bcrypt = require("bcrypt");
 
 const saltRounds = 10;
@@ -89,6 +91,11 @@ const SaveCardHandler = (
 ) => {
   if (req.body) {
     console.log(req.body);
+    const CardInstance = new CardsModel(req.body);
+    CardInstance.save((err : Error) => {
+      if (err) return console.error(err);
+      console.log('Card saved');
+    })
   }
 };
 

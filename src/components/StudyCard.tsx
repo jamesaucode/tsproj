@@ -18,7 +18,10 @@ const Button = styled.button`
   padding: 0.25em 1em;
   font-size: 0.8em;
 `;
-const StudyCard = () => {
+interface Props {
+  session: any 
+}
+const StudyCard: React.FunctionComponent<Props> = ({ session }) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const formControls: {
@@ -40,7 +43,7 @@ const StudyCard = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ question, answer }),
+      body: JSON.stringify({ question, answer, id : session.passport.user.id }),
     })
     .then(response => response.json())
     .then(json => console.log(json));

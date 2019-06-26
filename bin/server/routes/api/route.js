@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const User_1 = require("../../schemas/User");
+const Cards_1 = require("../../schemas/Cards");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const router = express.Router();
@@ -60,6 +61,12 @@ const LoginHandler = (req, res, next) => {
 const SaveCardHandler = (req, res, next) => {
     if (req.body) {
         console.log(req.body);
+        const CardInstance = new Cards_1.CardsModel(req.body);
+        CardInstance.save((err) => {
+            if (err)
+                return console.error(err);
+            console.log('Card saved');
+        });
     }
 };
 router.get("/profile", ProfileHandler);

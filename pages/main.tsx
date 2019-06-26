@@ -28,7 +28,7 @@ const Main: React.FunctionComponent = props => {
     return (
       <Layout fadeIn>
         <Heading>Make a card!</Heading>
-        <StudyCard />
+        <StudyCard session={session}/>
       </Layout>
     );
   } else {
