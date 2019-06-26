@@ -1,5 +1,6 @@
 import React from "react";
 import App, { Container } from "next/app";
+import { makeJsonRequest } from "../utils/httpRequest";
 import NavBar from "../src/components/NavBar";
 import Router from "next/router";
 import NProgress from "nprogress";
@@ -25,19 +26,27 @@ export default class MyApp extends App {
       pageProps = await Component.getInitialProps(ctx);
     }
     if (ctx.req) {
-      console.log("here Lol");
+      console.log("Getting Session ...");
       pageProps.session = ctx.req.session;
+      console.log("Server side");
+    } else {
+      const url = `http://${window.location.host}/api/session`;
+      console.log("Client Side");
+      await makeJsonRequest(url).then(json => {
+        console.log("Getting Session ...");
+        console.log(json);
+        pageProps.session = json;
+      });
     }
-
+    console.log('Returning page props');
     return { pageProps };
   }
-
   render() {
     const { Component, pageProps } = this.props;
     return (
       <Container {...pageProps}>
         <NavBar {...pageProps} />
-        <Component />
+        <Component {...pageProps} />
       </Container>
     );
   }

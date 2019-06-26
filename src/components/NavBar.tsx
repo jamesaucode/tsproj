@@ -74,6 +74,9 @@ const NavBar: NextFC<NavBarProps> = (props) => {
           <Link href="/main">
             <NavLink>Main</NavLink>
           </Link>
+          <Link href="/user/cards">
+            <NavLink>Cards</NavLink>
+          </Link>
           <Link href="/about">
             <NavLink>About</NavLink>
           </Link>
@@ -83,17 +86,3 @@ const NavBar: NextFC<NavBarProps> = (props) => {
     );
 }
 export default NavBar;
-  // static async getInitialProps(ctx: NextContext) {
-  //       const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
-  //       const isBrowser = typeof window !== undefined;
-  //       let apiUrl = ''; 
-  //       if (ctx.req) {
-  //         apiUrl = isBrowser
-  //         ? `${protocol}://${window.location.host}/api/login.js`
-  //         : `${protocol}://${ctx.req.headers.host}/api/login.js`;
-  //       } else {
-  //         apiUrl = `${protocol}://${window.location.host}/api/login.js`;
-  //       }
-
-  //       return { apiUrl };
-  // }

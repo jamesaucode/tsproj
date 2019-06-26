@@ -4,7 +4,10 @@ import * as googleOAuth from 'passport-google-oauth20';
 import { parse } from 'url';
 import nextApp from '../../nextApp';
 import { requestWithSession } from '../../../typings/express';
+const path = require('path');
 require('dotenv').config();
+console.log("RUNNING");
+console.log(process.env.GOOGLE_CLIENTID);
 
 const router = express.Router();
 const handler = nextApp.getRequestHandler();

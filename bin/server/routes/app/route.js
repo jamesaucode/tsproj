@@ -5,7 +5,10 @@ const passport = require("passport");
 const googleOAuth = require("passport-google-oauth20");
 const url_1 = require("url");
 const nextApp_1 = require("../../nextApp");
+const path = require('path');
 require('dotenv').config();
+console.log("RUNNING");
+console.log(process.env.GOOGLE_CLIENTID);
 const router = express.Router();
 const handler = nextApp_1.default.getRequestHandler();
 const googleLogin = {

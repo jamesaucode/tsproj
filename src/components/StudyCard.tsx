@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { withErrorMessage }from './Hoc';
 
-const Wrapper = styled.div`
+const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  background: #77dd77;
+  padding: 5em 8em;
   max-height: 450px;
   max-width: 450px;
   font-size: calc(0.35vw + 16px);
@@ -49,7 +52,7 @@ const StudyCard: React.FunctionComponent<Props> = ({ session }) => {
     .then(json => console.log(json));
   };
   return (
-    <Wrapper>
+    <CardWrapper>
       <Input
         onChange={changeHandler}
         value={question}
@@ -65,8 +68,8 @@ const StudyCard: React.FunctionComponent<Props> = ({ session }) => {
         placeholder="Answer"
       />
       <Button onClick={handleSubmit}>Save</Button>
-    </Wrapper>
+    </CardWrapper>
   );
 };
 
-export default StudyCard;
+export default React.memo(StudyCard);
