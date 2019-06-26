@@ -5,17 +5,15 @@ import Spinner from "../../src/components/Spinner";
 import fetch from "isomorphic-unfetch";
 import styled from "styled-components";
 
-const Cards = () => {
+const Cards = (props : any) => {
   const [session, setSession] = useState(undefined);
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const url = `http://${window.location.host}/api/session`;
-    makeJsonRequest(url).then(json => {
-      setSession(json);
-      setLoggedIn(json !== undefined);
-      setLoading(false);
-    });
+    if (props.session) {
+      setLoggedIn(props.session.length > 0);
+    } 
+    setLoading(false);
   }, []);
   if (loading) {
     return (
@@ -23,7 +21,13 @@ const Cards = () => {
         <Spinner />
       </Layout>
     );
-  } else {
+  } else if (!loggedIn) {
+      return (
+          <Layout>
+              <Heading>Please Login.</Heading>
+          </Layout>
+      )
+  } {
     return (
       <Layout>
         <Heading>Your cards</Heading>

@@ -35,7 +35,11 @@ export default class MyApp extends App {
       await makeJsonRequest(url).then(json => {
         console.log("Getting Session ...");
         console.log(json);
+        try {
         pageProps.session = json;
+        } catch (err) {
+          console.log(err.message);
+        }
       });
     }
     console.log('Returning page props');

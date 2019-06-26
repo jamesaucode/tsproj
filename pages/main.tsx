@@ -5,18 +5,16 @@ import Spinner from "../src/components/Spinner";
 import StudyCard from '../src/components/StudyCard';
 import fetch from "isomorphic-unfetch";
 
-const Main: React.FunctionComponent = props => {
+const Main: React.FunctionComponent = (props : any) => {
   const [session, setSession] = useState(undefined);
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const url = `http://${window.location.host}/api/session`;
-    makeJsonRequest(url)
-      .then(json => {
-        setSession(json);
-        setLoggedIn(json !== undefined);
-        setLoading(false);
-      });
+    console.log(props);
+    if (props.session) {
+      setLoggedIn(props.session.length > 0);
+    } 
+    setLoading(false);
   }, []);
   if (loading) {
     return (
@@ -40,4 +38,4 @@ const Main: React.FunctionComponent = props => {
   }
 };
 
-export default Main;
+export default React.memo(Main);
