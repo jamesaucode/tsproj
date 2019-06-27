@@ -5,6 +5,7 @@ const passport = require("passport");
 const googleOAuth = require("passport-google-oauth20");
 const url_1 = require("url");
 const nextApp_1 = require("../../nextApp");
+const Cards_1 = require("../../schemas/Cards");
 const path = require('path');
 require('dotenv').config();
 console.log("RUNNING");
@@ -36,18 +37,23 @@ router.get('/auth/redirect', (req, res, next) => {
     next();
 }, passport.authenticate("google"), (req, res) => {
     console.log("Logged in");
-    res.redirect('/main');
+    res.redirect('/user/main');
 });
-router.get('/main', isAuthenicated);
 router.get('/*', (req, res) => {
     const { pathname, query } = url_1.parse(req.url, true);
     handler(req, res, url_1.parse(req.url, true));
 });
 passport.serializeUser((user, done) => {
+    console.log('Serializing');
     done(null, user);
 });
 passport.deserializeUser((user, done) => {
-    done(null, user);
+    // console.log('Deserializing');
+    // console.log(user);
+    Cards_1.CardsModel.find({ id: user.id }, (err, cards) => {
+        user.cards = cards;
+        done(null, user);
+    });
 });
 exports.default = router;
 //# sourceMappingURL=route.js.map

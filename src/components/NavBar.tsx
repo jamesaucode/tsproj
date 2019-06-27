@@ -71,7 +71,7 @@ const NavBar: NextFC<NavBarProps> = (props) => {
           <Link href="/">
             <NavLink>Home</NavLink>
           </Link>
-          <Link href="/main">
+          <Link href="/user/main">
             <NavLink>Main</NavLink>
           </Link>
           <Link href="/user/cards">

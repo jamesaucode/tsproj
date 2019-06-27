@@ -4,6 +4,8 @@ import * as googleOAuth from 'passport-google-oauth20';
 import { parse } from 'url';
 import nextApp from '../../nextApp';
 import { requestWithSession } from '../../../typings/express';
+import { CardsModel, CardsScehmaTypes } from '../../schemas/Cards';
+
 const path = require('path');
 require('dotenv').config();
 console.log("RUNNING");
@@ -27,6 +29,7 @@ const isAuthenicated = (req: requestWithSession, res: express.Response, next: ex
         res.redirect('/');
     }
 }
+
 const googleAuthentication = new googleOAuth.Strategy(googleLogin, gotProfile);
 
 passport.use(googleAuthentication);
@@ -43,22 +46,24 @@ router.get('/auth/redirect',
     passport.authenticate("google"),
     (req: express.Request, res: express.Response) => {
         console.log("Logged in");
-        res.redirect('/main');
+        res.redirect('/user/main');
     })
-
-router.get('/main',
- <express.Application>isAuthenicated
-)
 
 router.get('/*', (req, res) => {
     const { pathname, query } = parse(req.url, true);
     handler(req, res, parse(req.url, true));
 })
 passport.serializeUser<googleOAuth.Profile, any>((user, done) => {
+    console.log('Serializing');
     done(null, user);
 })
-passport.deserializeUser((user, done) => {
-    done(null, user);
+passport.deserializeUser<googleOAuth.Profile, any>((user, done) => {
+    // console.log('Deserializing');
+    // console.log(user);
+    CardsModel.find({id : user.id}, (err : Error,cards : CardsScehmaTypes) => {
+        user.cards = cards;
+        done(null, user)
+    })
 })
 
 export default router;

@@ -11,8 +11,8 @@ export interface requestWithSession extends express.Request {
     sessionCookies : express.CookieOptions 
 }
 
-export interface PassportDataProps {
-    data : {
+export interface SessionProps {
+    session : {
         passport : {
             user : googleOAuth.Profile
         }

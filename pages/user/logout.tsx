@@ -25,14 +25,14 @@ interface CustomRequest extends IncomingMessage {
 Logout.getInitialProps = async (
   ctx: NextContext<DefaultQuery, CustomRequest>
 ) => {
-  if (ctx.req) {
+  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+  const isBrowser = typeof window !== "undefined";
+  if (!isBrowser) {
     if (ctx.req.session) {
       ctx.req.session = null;
       return redirectWithDelay(ctx);
     }
   }
-  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
-  const isBrowser = typeof window !== "undefined";
   let apiUrl = "";
   if (ctx.req) {
     isBrowser

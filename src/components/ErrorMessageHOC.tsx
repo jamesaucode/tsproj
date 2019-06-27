@@ -1,20 +1,5 @@
 import React, { Component } from "react";
 
-export const logProps = (WrapperComponent : any) => {
-  return class extends Component {
-    componentDidMount() {
-      console.log("Mounted")
-    }
-    componentWillReceiveProps(nextProps : any) {
-      console.log("Current Props", this.props);
-      console.log("Next props", nextProps);
-    }
-    render() {
-      return <WrapperComponent {...this.props} />;
-    }
-  };
-};
-
 const ErrorMessage = (props: any) => {
   if (props.show) {
     return (

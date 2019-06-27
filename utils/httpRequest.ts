@@ -5,9 +5,9 @@ export const makeJsonRequest = async (url: string) => {
       const json = await response.json();
       return json; // returns a promise that needs to be resolved
     }
-    return ;
+    return response.ok;
   } catch (error) {
-    throw new error();
+    return error.message;
   }
 };
 

@@ -69,9 +69,24 @@ const SaveCardHandler = (req, res, next) => {
         });
     }
 };
+const getCardHandler = async (req, res, next) => {
+    if (req.user) {
+        console.log(req.user.id);
+        Cards_1.CardsModel.find({ id: req.user.id }, (err, cards) => {
+            if (err)
+                throw err;
+            console.log(cards);
+            res.json(cards);
+        });
+    }
+    else {
+        next();
+    }
+};
 router.get("/profile", ProfileHandler);
 router.get("/logout", LogoutHandler);
 router.get("/session", SessionHandler);
+router.get('/cards', getCardHandler);
 router.post("/register", RegisterHandler);
 router.post("/login", LoginHandler);
 router.post("/card", SaveCardHandler);

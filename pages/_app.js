@@ -28,22 +28,24 @@ export default class MyApp extends App {
     if (ctx.req) {
       console.log("Getting Session ...");
       pageProps.session = ctx.req.session;
+      pageProps.cards = ctx.req.user.cards;
       console.log("Server side");
+      console.log("Returning page props");
+      return { pageProps };
     } else {
-      const url = `http://${window.location.host}/api/session`;
+      const sessionUrl = `http://${window.location.host}/api/session`;
+      const cardsUrl = `http://${window.location.host}/api/cards`;
       console.log("Client Side");
-      await makeJsonRequest(url).then(json => {
-        console.log("Getting Session ...");
-        console.log(json);
-        try {
-        pageProps.session = json;
-        } catch (err) {
-          console.log(err.message);
-        }
-      });
+      const sessionRequest = makeJsonRequest(sessionUrl);
+      const cardsRequest = makeJsonRequest(cardsUrl);
+      const allPromises = Promise.all([sessionRequest, cardsRequest]);
+      return allPromises.then(result => ({
+        pageProps: {
+          session: result[0],
+          cards: result[1],
+        },
+      }));
     }
-    console.log('Returning page props');
-    return { pageProps };
   }
   render() {
     const { Component, pageProps } = this.props;

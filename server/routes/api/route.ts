@@ -99,9 +99,30 @@ const SaveCardHandler = (
   }
 };
 
+const getCardHandler = async (
+  req: Request | any,
+  res: express.Response,
+  next: NextFunction 
+) => {
+  if (req.user) {
+  console.log(req.user.id);
+  CardsModel.find(
+    { id: req.user.id },
+    (err: Error, cards: CardsScehmaTypes) => {
+      if (err) throw err;
+      console.log(cards);
+      res.json( cards );
+    }
+  );
+  } else {
+    next();
+  }
+}
+
 router.get("/profile", ProfileHandler);
 router.get("/logout", LogoutHandler);
 router.get("/session", SessionHandler);
+router.get('/cards', getCardHandler);
 router.post("/register", RegisterHandler);
 router.post("/login", LoginHandler);
 router.post("/card", SaveCardHandler);
