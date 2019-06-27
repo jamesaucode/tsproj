@@ -80,8 +80,12 @@ const Login: NextFC = (props: any) => {
         password: passwordInput
       })
     })
-    .then(response => response.json())
-    .then(json => console.log(json));
+    .then(response => {
+      if (response.ok && response.redirected) {
+        console.log(response.url);
+        window.location.href = response.url; 
+      }
+    })
   }
   return (
     <Layout fadeIn>

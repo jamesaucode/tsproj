@@ -1,26 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { withErrorMessage }from './ErrorMessageHOC';
-import { SessionProps } from '../../typings/express';
+import { SessionProps } from "../../typings/express";
 
 const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background: #008f00;
-  padding: 5em 8em;
-  max-height: 450px;
-  max-width: 450px;
+  background: #00b800;
   font-size: calc(0.35vw + 16px);
+  width: 100%;
+  height: 100%;
 `;
-const Input = styled.input`
+const Input = styled.textarea`
+  width: 100%;
   border: none;
+  background: transparent;
+  flex: 1 auto;
   font-size: 0.7em;
   padding: 0.5em 1em;
+  color: rgba(255, 255, 255, 0.85);
+  resize: none;
+  box-sizing: border-box;
+  &::placeholder {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+  }
 `;
 const Button = styled.button`
   border: none;
-  padding: 0.25em 1em;
-  font-size: 0.8em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  width: 100%;
+  padding: 0.5em 1em;
+  background: #8610f9;
+  color: white;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+const Wrapper = styled.div`
+  min-height: 300px;
+  max-height: 450px;
+  min-width: 350px;
+  max-width: 800px;
 `;
 const StudyCard: React.FunctionComponent<SessionProps> = ({ session }) => {
   const [question, setQuestion] = useState("");
@@ -34,39 +55,47 @@ const StudyCard: React.FunctionComponent<SessionProps> = ({ session }) => {
 
   const changeHandler = ({
     target: { name, value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
+  }: React.ChangeEvent<HTMLTextAreaElement>) => {
     formControls[name](value);
   };
+  const clearInput = () => {
+    setQuestion("");
+    setAnswer("");
+  };
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const JSONHeader: Headers = new Headers({
+      "Content-Type": "application/json",
+    });
     fetch("/api/card", {
       method: "POST",
       credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ question, answer, id : session.passport.user.id }),
-    })
-    .then(response => response.json())
-    .then(json => console.log(json));
+      headers: JSONHeader,
+      body: JSON.stringify({ question, answer, id: session.passport.user.id }),
+    }).then(response => {
+      if (response.ok) {
+        console.log("OK!");
+        clearInput();
+      }
+    });
   };
   return (
-    <CardWrapper>
-      <Input
-        onChange={changeHandler}
-        value={question}
-        name="question"
-        type="text"
-        placeholder="Question"
-      />
-      <Input
-        onChange={changeHandler}
-        value={answer}
-        name="answer"
-        type="text"
-        placeholder="Answer"
-      />
+    <Wrapper>
+      <CardWrapper>
+        <Input
+          onChange={changeHandler}
+          value={question}
+          name="question"
+          placeholder="Question"
+        />
+        <Input
+          onChange={changeHandler}
+          value={answer}
+          name="answer"
+          placeholder="Answer"
+        />
+      </CardWrapper>
       <Button onClick={handleSubmit}>Save</Button>
-    </CardWrapper>
+    </Wrapper>
   );
 };
 

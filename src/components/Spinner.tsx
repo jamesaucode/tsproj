@@ -28,4 +28,4 @@ const Spinner: React.FunctionComponent = () => {
   return <Loader></Loader>;
 };
 
-export default Spinner;
+export default React.memo(Spinner);

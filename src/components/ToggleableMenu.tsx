@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, ReactEventHandler } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import { NavLink } from "../components/NavBar";
@@ -17,7 +17,6 @@ const DropDownWrapper = styled.div`
   align-items: center;
   margin: 0 auto;
 `;
-
 
 const DropdownMenu = styled.div<MenuProps>`
   border: none;
@@ -55,6 +54,18 @@ const ProfileIcon = styled.i``;
 
 const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
   const [expanded, setExpanded] = useState(false);
+  useEffect(() => {
+    const collapse = () => { 
+        setExpanded(false);
+    };
+    const main = document.getElementById('main');
+    if (main) {
+      main.addEventListener("click", collapse);
+    }
+    return () => {
+      main ? main.removeEventListener("click", collapse) : null;
+    };
+  }, [])
   const handleToggleClick = (event: React.MouseEvent) => {
     setExpanded(!expanded);
   };
@@ -87,4 +98,4 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
   }
 };
 
-export default ToggleableMenu;
+export default React.memo(ToggleableMenu);

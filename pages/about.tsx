@@ -4,7 +4,7 @@ import { Layout, Heading } from '../src/styles/shared';
 const About = () => {
   return (
     <Layout>
-      <Heading>About Page</Heading>
+      <Heading>This is a study app.</Heading>
     </Layout>
   );
 };

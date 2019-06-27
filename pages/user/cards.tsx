@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Layout, Heading } from "../../src/styles/shared";
 import { withAuthorization } from "../../src/components/AuthorizationHOC";
 import { SessionProps } from "../../typings/express";
@@ -19,26 +19,47 @@ const Card = styled.div`
   flex-direction: column;
   font-size: calc(0.35vw + 16px);
   align-items: stretch;
-`
+`;
 const CardText = styled.span`
-  font-size: .9em;
+  font-size: 0.9em;
   color: white;
-`
+`;
+
 const Cards: NextFC<SessionProps> = (props: any) => {
-  console.log(props);
-  if (props.cards.length > 0) {
+  const [cards, setCards] = useState(props.cards);
+  const deleteCardHandler = (cardId: string) => {
+    fetch("/api/card", {
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ id: cardId })
+    }).then(response => {
+      console.log(response);
+      if (response.ok) {
+        setCards(cards.filter(card => card._id !== cardId));
+      }
+    });
+  };
+  if (cards.length > 0) {
     return (
       <Layout>
         <Heading>Your cards</Heading>
         <ul>
-          {props.cards.map(card => (
-            <CardWrapper>
-              <Card>
-              <CardText>{card.question}</CardText>
-              <CardText>{card.answer}</CardText>
-              </Card>
-            </CardWrapper>
-          ))}
+          {cards.map(card => {
+            return (
+              <CardWrapper key={card._id}>
+                <Card>
+                  <CardText>{card.question}</CardText>
+                  <CardText>{card.answer}</CardText>
+                  <button onClick={() => deleteCardHandler(card._id)}>
+                    Delete
+                  </button>
+                </Card>
+              </CardWrapper>
+            );
+          })}
         </ul>
       </Layout>
     );

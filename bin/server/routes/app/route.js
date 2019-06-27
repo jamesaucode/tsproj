@@ -1,15 +1,47 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
-const passport = require("passport");
 const googleOAuth = require("passport-google-oauth20");
+const passport = require("passport");
 const url_1 = require("url");
 const nextApp_1 = require("../../nextApp");
 const Cards_1 = require("../../schemas/Cards");
-const path = require('path');
+const User_1 = require("../../schemas/User");
 require('dotenv').config();
 console.log("RUNNING");
-console.log(process.env.GOOGLE_CLIENTID);
+const bcrypt = require("bcrypt");
+const path = require('path');
+// Own passport strategy , using bcrypt to compare the password hash
+const LocalStrategy = require('passport-local').Strategy;
+const LocalAuthentication = new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    session: true
+}, function (email, password, done) {
+    User_1.UserModel.findOne({ email }, (err, user) => {
+        if (err) {
+            return done(err);
+        }
+        if (!user) {
+            return done(null, false, { message: "Failed" });
+        }
+        ;
+        bcrypt.compare(password, user.password, (err, isCorrect) => {
+            if (err) {
+                return done(err);
+            }
+            if (isCorrect) {
+                console.log('Correct credentials, logging you in');
+                done(null, user);
+            }
+            else {
+                console.log('Incorrect Credentials');
+                done(null, false, { message: "Failed" });
+            }
+        });
+    });
+});
+passport.use(LocalAuthentication);
 const router = express.Router();
 const handler = nextApp_1.default.getRequestHandler();
 const googleLogin = {
@@ -20,15 +52,6 @@ const googleLogin = {
 const gotProfile = (accessToken, refreshToken, profile, done) => {
     done(null, profile);
 };
-const isAuthenicated = (req, res, next) => {
-    // If session exist, that means the user is authenticated
-    if (req.session) {
-        next();
-    }
-    else {
-        res.redirect('/');
-    }
-};
 const googleAuthentication = new googleOAuth.Strategy(googleLogin, gotProfile);
 passport.use(googleAuthentication);
 router.get('/auth/google', passport.authenticate("google", { scope: ["profile", "email"] }));
@@ -37,20 +60,42 @@ router.get('/auth/redirect', (req, res, next) => {
     next();
 }, passport.authenticate("google"), (req, res) => {
     console.log("Logged in");
-    res.redirect('/user/main');
+    res.redirect('/user/create');
 });
 router.get('/*', (req, res) => {
     const { pathname, query } = url_1.parse(req.url, true);
+    // console.log(`pathname : ${pathname}`);
+    // console.log(`query : ${query}`);
     handler(req, res, url_1.parse(req.url, true));
 });
 passport.serializeUser((user, done) => {
     console.log('Serializing');
-    done(null, user);
+    console.log(user);
+    User_1.UserModel.findOne({ id: user.id }, (err, userFound) => {
+        if (userFound) {
+            console.log("User already exist");
+            done(null, user);
+        }
+        else {
+            const UserInstance = new User_1.UserModel({
+                firstName: user.name.givenName,
+                lastName: user.name.familyName,
+                displayName: user.displayName,
+                email: user.emails ? user.emails[0].value : '',
+                id: user.id,
+                group: []
+            });
+            UserInstance.save((err) => {
+                if (err)
+                    console.error(err);
+                console.log('User saved');
+                done(null, user);
+            });
+        }
+    });
 });
 passport.deserializeUser((user, done) => {
-    // console.log('Deserializing');
-    // console.log(user);
-    Cards_1.CardsModel.find({ id: user.id }, (err, cards) => {
+    Cards_1.CardsModel.findById(user.id, (err, cards) => {
         user.cards = cards;
         done(null, user);
     });

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
+const passport = require("passport");
 const User_1 = require("../../schemas/User");
 const Cards_1 = require("../../schemas/Cards");
 const bcrypt = require("bcrypt");
@@ -32,7 +33,9 @@ const RegisterHandler = (req, res, next) => {
     if (req.body) {
         bcrypt.genSalt(saltRounds, (err, salt) => {
             bcrypt.hash(req.body.password, salt, (err, hash) => {
-                const UserInstance = new User_1.UserModel({ ...req.body, password: hash });
+                const displayName = [req.body.firstName, req.body.lastName].join(' ');
+                console.log(displayName);
+                const UserInstance = new User_1.UserModel({ ...req.body, password: hash, displayName });
                 UserInstance.save((err) => {
                     if (err)
                         return console.error(err);
@@ -44,32 +47,30 @@ const RegisterHandler = (req, res, next) => {
 };
 const LoginHandler = (req, res, next) => {
     if (req.body) {
-        User_1.UserModel.findOne({ email: req.body.email }, (err, user) => {
-            bcrypt.compare(req.body.password, user.password, (err, bRes) => {
-                if (err)
-                    res.json({ message: "Login failed" });
-                if (bRes) {
-                    res.json({ message: "Login success!!" });
-                }
-                else {
-                    res.json({ message: "Incorrect password" });
-                }
-            });
-        });
+        if (!req.body.email || !req.body.password) {
+            res.sendStatus(400);
+            return;
+        }
     }
 };
 const SaveCardHandler = (req, res, next) => {
     if (req.body) {
         console.log(req.body);
+        if (!req.body.question || !req.body.answer) {
+            console.log('Empty question or answer, cannot be saved!');
+            res.sendStatus(400);
+            return;
+        }
         const CardInstance = new Cards_1.CardsModel(req.body);
         CardInstance.save((err) => {
             if (err)
                 return console.error(err);
             console.log('Card saved');
+            res.json({ 'message': 'success' });
         });
     }
 };
-const getCardHandler = async (req, res, next) => {
+const getCardHandler = (req, res, next) => {
     if (req.user) {
         console.log(req.user.id);
         Cards_1.CardsModel.find({ id: req.user.id }, (err, cards) => {
@@ -80,7 +81,23 @@ const getCardHandler = async (req, res, next) => {
         });
     }
     else {
+        res.sendStatus(400);
         next();
+    }
+};
+const deleteCardHandler = (req, res, next) => {
+    if (req.user && req.body) {
+        Cards_1.CardsModel.deleteOne({ _id: req.body.id }, (err) => {
+            if (err)
+                console.error(err.message);
+            console.log(`Card ${req.body.id} deleted`);
+            res.sendStatus(200);
+        });
+    }
+};
+const isAuthenticated = (req, res, next) => {
+    if (req.user) {
+        return next();
     }
 };
 router.get("/profile", ProfileHandler);
@@ -88,7 +105,10 @@ router.get("/logout", LogoutHandler);
 router.get("/session", SessionHandler);
 router.get('/cards', getCardHandler);
 router.post("/register", RegisterHandler);
-router.post("/login", LoginHandler);
+router.post("/login", passport.authenticate('local'), isAuthenticated, (req, res) => {
+    res.redirect(302, '/user/create');
+});
 router.post("/card", SaveCardHandler);
+router.delete("/card", deleteCardHandler);
 exports.default = router;
 //# sourceMappingURL=route.js.map

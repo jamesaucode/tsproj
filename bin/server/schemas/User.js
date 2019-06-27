@@ -8,7 +8,9 @@ exports.UserSchema = new Schema({
     lastName: String,
     email: String,
     password: String,
-    id: String
+    displayName: String,
+    id: String,
+    group: [[Schema.Types.ObjectId]]
 });
 exports.UserModel = Model('User', exports.UserSchema);
 //# sourceMappingURL=User.js.map

@@ -1,15 +1,41 @@
 import * as express from 'express';
-import * as passport from 'passport';
 import * as googleOAuth from 'passport-google-oauth20';
+import * as passport from 'passport';
 import { parse } from 'url';
 import nextApp from '../../nextApp';
-import { requestWithSession } from '../../../typings/express';
 import { CardsModel, CardsScehmaTypes } from '../../schemas/Cards';
+import { UserModel, UserSchemaTypes } from '../../schemas/User';
 
-const path = require('path');
 require('dotenv').config();
 console.log("RUNNING");
-console.log(process.env.GOOGLE_CLIENTID);
+
+const bcrypt = require("bcrypt");
+const path = require('path');
+// Own passport strategy , using bcrypt to compare the password hash
+const LocalStrategy = require('passport-local').Strategy;
+const LocalAuthentication = new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    session: true
+},
+    function (email: string, password: string, done: any) {
+        UserModel.findOne({ email }, (err: Error, user: UserSchemaTypes) => {
+            if (err) { return done(err); }
+            if (!user) { return done(null, false, { message: "Failed" }) };
+            bcrypt.compare(password, user.password, (err: Error, isCorrect: boolean) => {
+                if (err) { return done(err) }
+                if (isCorrect) {
+                    console.log('Correct credentials, logging you in');
+                    done(null, user);
+                } else {
+                    console.log('Incorrect Credentials');
+                    done(null, false, { message: "Failed" });
+                }
+            })
+        })
+    }
+)
+passport.use(LocalAuthentication);
 
 const router = express.Router();
 const handler = nextApp.getRequestHandler();
@@ -20,14 +46,6 @@ const googleLogin: googleOAuth.StrategyOptions = {
 }
 const gotProfile = (accessToken: string, refreshToken: string, profile: googleOAuth.Profile, done: any) => {
     done(null, profile);
-}
-const isAuthenicated = (req: requestWithSession, res: express.Response, next: express.NextFunction) => {
-    // If session exist, that means the user is authenticated
-    if (req.session) {
-        next();
-    } else {
-        res.redirect('/');
-    }
 }
 
 const googleAuthentication = new googleOAuth.Strategy(googleLogin, gotProfile);
@@ -46,21 +64,41 @@ router.get('/auth/redirect',
     passport.authenticate("google"),
     (req: express.Request, res: express.Response) => {
         console.log("Logged in");
-        res.redirect('/user/main');
+        res.redirect('/user/create');
     })
 
 router.get('/*', (req, res) => {
     const { pathname, query } = parse(req.url, true);
+    // console.log(`pathname : ${pathname}`);
+    // console.log(`query : ${query}`);
     handler(req, res, parse(req.url, true));
 })
-passport.serializeUser<googleOAuth.Profile, any>((user, done) => {
+passport.serializeUser<googleOAuth.Profile | any, any>((user, done) => {
     console.log('Serializing');
-    done(null, user);
+    console.log(user);
+    UserModel.findOne({ id: user.id }, (err: Error, userFound: googleOAuth.Profile) => {
+        if (userFound) {
+            console.log("User already exist");
+            done(null, user);
+        } else {
+            const UserInstance = new UserModel({
+                firstName: user.name.givenName,
+                lastName: user.name.familyName,
+                displayName: user.displayName,
+                email: user.emails ? user.emails[0].value : '',
+                id: user.id,
+                group: []
+            });
+            UserInstance.save((err: Error) => {
+                if (err) console.error(err);
+                console.log('User saved');
+                done(null, user);
+            })
+        }
+    })
 })
 passport.deserializeUser<googleOAuth.Profile, any>((user, done) => {
-    // console.log('Deserializing');
-    // console.log(user);
-    CardsModel.find({id : user.id}, (err : Error,cards : CardsScehmaTypes) => {
+    CardsModel.findById(user.id, (err: Error, cards: CardsScehmaTypes) => {
         user.cards = cards;
         done(null, user)
     })

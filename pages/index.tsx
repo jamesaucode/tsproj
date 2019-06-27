@@ -1,21 +1,6 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { NextContext } from "next";
-import { Heading } from "../src/styles/shared";
-import { DefaultQuery } from "next/router";
-import { IncomingMessage } from "http";
-
-const Layout = styled.div`
-  max-width: 1200px;
-  margin: 2rem auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-interface CustomRequest extends IncomingMessage {
-  session?: CookieSessionInterfaces.CookieSessionObject | null;
-}
+import Spinner from '../src/components/Spinner';
+import { Layout, Heading } from "../src/styles/shared";
 
 const Index = (props: any) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -25,31 +10,26 @@ const Index = (props: any) => {
       setLoggedIn(props.session.hasOwnProperty("passport"));
     }
     setLoading(false);
-  }, []);
-  if (loggedIn) {
+  }, [loggedIn]);
+  if (loading) {
     return (
       <Layout>
-        <Heading>Welcome. {props.session.passport.user.displayName} </Heading>
+        <Spinner />
+      </Layout>
+    )
+  } else if (loggedIn) {
+    return (
+      <Layout fadeIn>
+        <Heading sub>Welcome. {props.session.passport.user.displayName} </Heading>
       </Layout>
     );
   } else {
     return (
-      <Layout>
-        <Heading>Welcome to Study App. You can sign in with you Google Account !</Heading>
+      <Layout fadeIn>
+        <Heading>You can sign in with you Google Account !</Heading>
       </Layout>
     )
   }
 };
 
 export default React.memo(Index);
-
-// export default class Index extends PureComponent {
-//   render() {
-//     console.log(this.props);
-//     return (
-//       <Layout>
-//         <Heading>Welcome.</Heading>
-//       </Layout>
-//     );
-//   }
-// }

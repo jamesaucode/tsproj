@@ -1,8 +1,8 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import ToggleableMenu from "./ToggleableMenu";
-import { NextContext, NextFC } from "next";
+import { NextFC } from "next";
 
 const NavWrapper = styled.div`
   width: 100%;
@@ -35,54 +35,43 @@ interface NavBarProps {
   session: any;
 }
 
-const NavBar: NextFC<NavBarProps> = (props) => {
-    const [session, setSession] = useState(undefined);
+const NavBar: NextFC<NavBarProps> = props => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    let url = `http://${window.location.host}/api/session`;
-    fetch(url, {
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(
-        response => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            return;
-          }
-        },
-        err => {
-          throw err;
-        }
-      )
-      .then(json => {
-        setSession(json);
-        setLoggedIn(json !== undefined);
-        setLoading(false);
-      });
-  }, []);
+    setLoading(false);
+    setLoggedIn(props.session.hasOwnProperty("passport"));
+  }, [props.session]);
+  if (loading) {
+    return (
+      <NavWrapper>
+        <Nav />
+      </NavWrapper>
+    );
+  } else
     return (
       <NavWrapper>
         <Nav>
           <Link href="/">
             <NavLink>Home</NavLink>
           </Link>
-          <Link href="/user/main">
-            <NavLink>Main</NavLink>
-          </Link>
-          <Link href="/user/cards">
-            <NavLink>Cards</NavLink>
-          </Link>
           <Link href="/about">
             <NavLink>About</NavLink>
           </Link>
+          {/* Protected Nav Items */}
+          {loggedIn && (
+            <React.Fragment>
+              <Link href="/user/create">
+                <NavLink>Make Card</NavLink>
+              </Link>
+              <Link href="/user/cards">
+                <NavLink>Cards</NavLink>
+              </Link>
+            </React.Fragment>
+          )}
         </Nav>
         <ToggleableMenu loggedIn={loggedIn} iconName="fas fa-user-circle" />
       </NavWrapper>
     );
-}
-export default NavBar;
+};
+export default React.memo(NavBar);
