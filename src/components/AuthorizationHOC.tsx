@@ -36,11 +36,7 @@ export const withAuthorization = (WrapperComponent: any) => {
         );
       } else {
           console.log('User is not logged in');
-        return (
-          <React.Fragment>
-              <Unauthorized />
-          </React.Fragment>
-        );
+        return <Unauthorized />;
       }
     }
   };

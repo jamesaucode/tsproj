@@ -36,9 +36,7 @@ export default class MyApp extends App {
       const sessionUrl = `http://${window.location.host}/api/session`;
       const cardsUrl = `http://${window.location.host}/api/cards`;
       console.log("Client Side");
-      const sessionRequest = makeJsonRequest(sessionUrl);
-      const cardsRequest = makeJsonRequest(cardsUrl);
-      const allPromises = Promise.all([sessionRequest, cardsRequest]);
+      const allPromises = Promise.all([makeJsonRequest(sessionUrl), makeJsonRequest(cardsUrl)]);
       return allPromises.then(result => ({
         pageProps: {
           session: result[0],
