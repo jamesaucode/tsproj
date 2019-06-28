@@ -17,6 +17,7 @@ const Wrapper = styled.div<WrapperProps>`
   padding: 0.5rem;
   box-sizing: border-box;
   transition: 0.5s ease-in-out opacity;
+  /* animation: ${fadeIn} 0.5s ease-in-out 1; */
 `;
 const Important = styled.span`
   font-weight: 700;
@@ -29,24 +30,8 @@ const NotificationMessage: NextFC<MessageType> = ({
   delay = 3000,
   removeNotification
 }) => {
-  const [inProp, setInProp] = useState(true);
-  const timer = useRef<number[]>([]);
-  useEffect(() => {
-    console.log("Mounted");
-    setInProp(true);
-    const timerId = setTimeout(() => {
-      setInProp(false);
-      timer.current.splice(0, 1);
-    }, delay - 500);
-    timer.current.push(timerId);
-    return () => {
-      console.log("Unmounting");
-      setInProp(false);
-      timer.current.forEach(clearTimeout);
-    };
-  }, []);
   return (
-    <Wrapper mounted={inProp} key={id}>
+    <Wrapper key={id}>
       <Message success={success}>
         <div>
           {success ? renderImportant("Success! ") : renderImportant("Oops! ")}

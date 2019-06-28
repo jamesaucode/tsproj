@@ -45,21 +45,12 @@ const RegisterHandler = (req, res, next) => {
         });
     }
 };
-const LoginHandler = (req, res, next) => {
-    if (req.body) {
-        if (!req.body.email || !req.body.password) {
-            res.sendStatus(400);
-            return;
-        }
-    }
-};
 const SaveCardHandler = (req, res, next) => {
     if (req.body) {
         console.log(req.body);
         if (!req.body.question || !req.body.answer) {
             console.log('Empty question or answer, cannot be saved!');
-            // res.sendStatus(400);
-            res.json({ message: "Cannot save this card", good: false });
+            res.status(400).json({ message: "Cannot save this card", good: false });
             return;
         }
         const CardInstance = new Cards_1.CardsModel(req.body);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import NotificationMessage from "./NotificationMessage";
 import { MessageType } from "../../../typings/message";
 import styled from "styled-components";

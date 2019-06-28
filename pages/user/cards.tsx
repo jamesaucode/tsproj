@@ -7,23 +7,30 @@ import styled from "styled-components";
 
 const CardWrapper = styled.li`
   border-radius: 3px;
-  background: #008f00;
-  padding: 1em;
+  width: 100%;
   min-width: 200px;
-  max-width: 400px;
-  height: 50px;
+  max-width: 888px;
+  padding: 0.5em;
   margin-bottom: 1em;
+  border-bottom: 1px solid grey;
 `;
 const Card = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   font-size: calc(0.35vw + 16px);
   align-items: stretch;
 `;
 const CardText = styled.span`
-  font-size: 0.9em;
-  color: white;
+  font-size: 0.8em;
+  color: #333;
 `;
+const CardTextBox = styled.div`
+  
+`
+const CardTag = styled.span`
+  font-size: 0.65em;
+  color: #555;
+`
 
 const Cards: NextFC = (props: any) => {
   const [cards, setCards] = useState(props.cards);

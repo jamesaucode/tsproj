@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { SessionProps } from "../../typings/express";
+import { handleResponse } from "../../services/fetch.service";
 
 const CardWrapper = styled.div`
   display: flex;
@@ -43,8 +44,10 @@ const Wrapper = styled.div`
   min-width: 350px;
   max-width: 800px;
 `;
-// const StudyCard: React.FunctionComponent<SessionProps> = ({ session }) => {
-const StudyCard: React.FunctionComponent<any> = ({ session, pushNotification, popNotification }) => {
+const StudyCard: React.FunctionComponent<SessionProps | any> = ({
+  session,
+  pushNotification
+}) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const formControls: {
@@ -64,26 +67,26 @@ const StudyCard: React.FunctionComponent<any> = ({ session, pushNotification, po
     setAnswer("");
   };
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const JSONHeader: Headers = new Headers({
-      "Content-Type": "application/json",
-    });
     fetch("/api/card", {
       method: "POST",
       credentials: "include",
-      headers: JSONHeader,
-      body: JSON.stringify({ question, answer, id: session.passport.user.id }),
-    }).then(response => {
-      if (response.ok) {
-        console.log("OK!");
-        clearInput();
-      }
-      return response.json();
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        question,
+        answer,
+        id: session.passport.user.id,
+      }),
     })
-    .then(json => {
-      if (json) {
-        pushNotification(json.message,json.good);
-      }
-    });
+      .then(handleResponse)
+      .then(json => {
+        pushNotification(json.message, true);
+        clearInput();
+      })
+      .catch(error => {
+        pushNotification(error.message, false);
+      });
   };
   return (
     <Wrapper>
