@@ -71,7 +71,7 @@ const StudyCard: React.FunctionComponent<any> = ({ session, pushNotification, po
       method: "POST",
       credentials: "include",
       headers: JSONHeader,
-      body: JSON.stringify({ question, answer, id: session.passport.user.id }),
+      body: JSON.stringify({ question, answer, id: session.passport.id }),
     }).then(response => {
       if (response.ok) {
         console.log("OK!");
@@ -82,9 +82,6 @@ const StudyCard: React.FunctionComponent<any> = ({ session, pushNotification, po
     .then(json => {
       if (json) {
         pushNotification(json.message,json.good);
-        setTimeout(() => {
-          popNotification();
-        }, 3000);
       }
     });
   };

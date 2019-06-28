@@ -2,7 +2,7 @@ import React from "react";
 import App, { Container } from "next/app";
 import { makeJsonRequest } from "../utils/httpRequest";
 import NavBar from "../src/components/NavBar";
-import Notification from "../src/components/Notification";
+import Notification from "../src/components/Notification/Notification";
 import Router from "next/router";
 import NProgress from "nprogress";
 
@@ -30,7 +30,9 @@ export default class MyApp extends App {
     if (ctx.req) {
       console.log("Getting Session ...");
       pageProps.session = {
-        passport: ctx.req.user
+        passport: {
+          user: ctx.req.user,
+        },
       };
       if (ctx.req.user) {
         pageProps.cards = ctx.req.user.cards;
@@ -55,11 +57,11 @@ export default class MyApp extends App {
     }
   }
   componentDidMount() {
-    console.log('My App Mounted')
+    console.log("My App Mounted");
   }
   addNotification = () => {
     console.log(this.state.notification);
-  }
+  };
   render() {
     const { Component, pageProps } = this.props;
     return (
