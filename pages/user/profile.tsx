@@ -11,7 +11,6 @@ const Profile: NextFC<SessionProps|any> = (props) => {
       <Layout fadeIn>
         <Heading sub>Hello, {user.displayName}</Heading>
         <Heading sub>Email: {user.emails[0].value || user.email}</Heading>
-        {/* <img src={user.photos[0].value} alt="Google profile picture"/> */}
       </Layout>
     );
 };

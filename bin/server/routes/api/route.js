@@ -58,15 +58,17 @@ const SaveCardHandler = (req, res, next) => {
         console.log(req.body);
         if (!req.body.question || !req.body.answer) {
             console.log('Empty question or answer, cannot be saved!');
-            res.sendStatus(400);
+            // res.sendStatus(400);
+            res.json({ message: "Cannot save this card", good: false });
             return;
         }
         const CardInstance = new Cards_1.CardsModel(req.body);
         CardInstance.save((err) => {
             if (err)
-                return console.error(err);
+                return res.json({ message: err.message, good: false });
             console.log('Card saved');
-            res.json({ 'message': 'success' });
+            res.json({ message: 'success', good: true });
+            return;
         });
     }
 };

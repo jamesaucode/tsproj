@@ -11,9 +11,6 @@ export const makeJsonRequest = async (url: string) => {
   }
 };
 
-const restToObject = (...args : any) => {
-}
-
 export const makePostRequest = async (url: string, ...args : any) => {
   try {
     const response = await fetch(url, {
@@ -22,7 +19,6 @@ export const makePostRequest = async (url: string, ...args : any) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      // body: JSON.stringify(...args)
     });
     if (response.ok) {
       const json = await response.json(); 

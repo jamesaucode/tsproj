@@ -4,6 +4,7 @@ import { requestWithSession } from "typings/express";
 import { NextFunction } from "connect";
 import { UserSchemaTypes, UserModel } from "../../schemas/User";
 import { CardsScehmaTypes, CardsModel } from '../../schemas/Cards';
+import { resolveNaptr } from "dns";
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -83,14 +84,16 @@ const SaveCardHandler = (
     console.log(req.body);
     if (!req.body.question || !req.body.answer) {
       console.log('Empty question or answer, cannot be saved!');
-      res.sendStatus(400);
+      // res.sendStatus(400);
+      res.json({ message: "Cannot save this card", good: false });
       return;
     }
     const CardInstance = new CardsModel(req.body);
     CardInstance.save((err: Error) => {
-      if (err) return console.error(err);
+      if (err) return res.json({ message:err.message, good: false});
       console.log('Card saved');
-      res.json({ 'message': 'success' })
+      res.json({ message: 'success', good: true });
+      return ;
     })
   }
 };

@@ -43,7 +43,8 @@ const Wrapper = styled.div`
   min-width: 350px;
   max-width: 800px;
 `;
-const StudyCard: React.FunctionComponent<SessionProps> = ({ session }) => {
+// const StudyCard: React.FunctionComponent<SessionProps> = ({ session }) => {
+const StudyCard: React.FunctionComponent<any> = ({ session, pushNotification, popNotification }) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const formControls: {
@@ -75,6 +76,15 @@ const StudyCard: React.FunctionComponent<SessionProps> = ({ session }) => {
       if (response.ok) {
         console.log("OK!");
         clearInput();
+      }
+      return response.json();
+    })
+    .then(json => {
+      if (json) {
+        pushNotification(json.message,json.good);
+        setTimeout(() => {
+          popNotification();
+        }, 3000);
       }
     });
   };

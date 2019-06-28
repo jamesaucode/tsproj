@@ -40,7 +40,9 @@ const NavBar: NextFC<NavBarProps> = props => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(false);
-    setLoggedIn(props.session.hasOwnProperty("passport"));
+    if (props.session) {
+      setLoggedIn(props.session.hasOwnProperty("passport"));
+    }
   }, [props.session]);
   if (loading) {
     return (
