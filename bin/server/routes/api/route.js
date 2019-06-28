@@ -36,10 +36,18 @@ const RegisterHandler = (req, res, next) => {
                 const displayName = [req.body.firstName, req.body.lastName].join(' ');
                 console.log(displayName);
                 const UserInstance = new User_1.UserModel({ ...req.body, password: hash, displayName });
-                UserInstance.save((err) => {
-                    if (err)
-                        return console.error(err);
-                    console.log("User saved");
+                User_1.UserModel.findOne({ $or: [{ email: req.body.email }] }, (err, found) => {
+                    if (found) {
+                        res.status(400).json({ message: "Cannot register this user. User already exist." });
+                    }
+                    else {
+                        UserInstance.save((err) => {
+                            if (err)
+                                return res.status(400).json({ message: "Cannot register this user." });
+                            console.log("User saved");
+                            res.status(200).json({ message: "User registered!" });
+                        });
+                    }
                 });
             });
         });
