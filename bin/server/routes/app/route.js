@@ -60,7 +60,10 @@ router.get('/auth/redirect', (req, res, next) => {
     next();
 }, passport.authenticate("google"), (req, res) => {
     console.log("Logged in");
-    res.redirect('/user/create');
+    if (req.user) {
+        nextApp_1.default.render(req, res, '/user/create');
+    }
+    // res.redirect('/user/create');
 });
 router.get('/*', (req, res) => {
     const { pathname, query } = url_1.parse(req.url, true);
@@ -95,7 +98,8 @@ passport.serializeUser((user, done) => {
     });
 });
 passport.deserializeUser((user, done) => {
-    Cards_1.CardsModel.findById(user.id, (err, cards) => {
+    console.log('Deserializing');
+    Cards_1.CardsModel.find({ id: user.id }, (err, cards) => {
         user.cards = cards;
         done(null, user);
     });

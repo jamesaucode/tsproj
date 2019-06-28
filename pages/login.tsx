@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { NextFC } from "next";
 import Link from "next/link";
+import Router from "next/router";
 import { Layout } from "../src/styles/shared";
 import styled from "styled-components";
 import fetch  from 'isomorphic-unfetch';
+import { InputValidator } from '../services/validation.service';
 
 const googleLoginButton = require("../static/images/btn_google_signin_dark_normal_web@2x.png");
 
@@ -63,6 +65,8 @@ const FormSubmit = styled.button`
   border-radius: 3px;
   padding: 0.65rem;
   background: #8610f9;
+  opacity: ${({ disabled }) => disabled ? 0.75 : 1};
+  cursor: ${({ disabled }) => disabled ? "not-allowed" : "pointer"};
 `;
 
 const Login: NextFC = (props: any) => {
@@ -82,10 +86,18 @@ const Login: NextFC = (props: any) => {
     })
     .then(response => {
       if (response.ok && response.redirected) {
+        console.log(response);
         console.log(response.url);
-        window.location.href = response.url; 
+        Router.push(response.url);
+        props.pushNotification("Welcome back!", true);
+      } else {
+        props.pushNotification("Incorrect credentials, please try again.", false);
+        setPasswordInput("");
       }
     })
+  }
+  const validateInput = (email : string, password: string) => {
+    return InputValidator.email(email) && InputValidator.password(password);
   }
   return (
     <Layout fadeIn>
@@ -114,7 +126,7 @@ const Login: NextFC = (props: any) => {
           name="password"
           type="password"
         />
-        <FormSubmit onClick={handleSubmit}>Login</FormSubmit>
+        <FormSubmit disabled={!validateInput(usernameInput, passwordInput)} onClick={handleSubmit}>Login</FormSubmit>
         <Link href="/register">
           <div>
             <p>

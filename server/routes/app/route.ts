@@ -64,7 +64,10 @@ router.get('/auth/redirect',
     passport.authenticate("google"),
     (req: express.Request, res: express.Response) => {
         console.log("Logged in");
-        res.redirect('/user/create');
+        if (req.user) {
+            nextApp.render(req, res, '/user/create');
+        }
+        // res.redirect('/user/create');
     })
 
 router.get('/*', (req, res) => {
@@ -98,7 +101,8 @@ passport.serializeUser<googleOAuth.Profile | any, any>((user, done) => {
     })
 })
 passport.deserializeUser<googleOAuth.Profile, any>((user, done) => {
-    CardsModel.findById(user.id, (err: Error, cards: CardsScehmaTypes) => {
+    console.log('Deserializing');
+    CardsModel.find({ id : user.id }, (err: Error, cards: CardsScehmaTypes) => {
         user.cards = cards;
         done(null, user)
     })

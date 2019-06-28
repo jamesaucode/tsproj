@@ -1,9 +1,11 @@
 import * as express from "express";
 import * as passport from 'passport';
+import NextApp from '../../nextApp';
 import { requestWithSession } from "typings/express";
 import { NextFunction } from "connect";
 import { UserSchemaTypes, UserModel } from "../../schemas/User";
 import { CardsScehmaTypes, CardsModel } from '../../schemas/Cards';
+import { IncomingMessage } from "http";
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -126,8 +128,8 @@ router.post("/register", RegisterHandler);
 router.post("/login",
   passport.authenticate('local'),
   isAuthenticated,
-  (req: express.Request, res: express.Response) => {
-    res.redirect(302, '/user/create');
+  (req: IncomingMessage | any, res: express.Response) => {
+    res.redirect(302, '/user/create')
   }
 );
 router.post("/card", SaveCardHandler);

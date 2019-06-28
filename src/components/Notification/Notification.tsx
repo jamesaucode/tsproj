@@ -57,6 +57,7 @@ const Notification = (props: any) => {
           {notifications.map((notification: MessageType) => {
             return (
               <NotificationMessage
+                key={notification.id}
                 message={notification.message}
                 success={notification.success}
                 id={notification.id}

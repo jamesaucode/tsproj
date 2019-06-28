@@ -29,6 +29,7 @@ export default class MyApp extends App {
     // If this is server side render
     if (ctx.req) {
       console.log("Getting Session ...");
+      console.log(ctx.req.user);
       pageProps.session = {
         passport: {
           user: ctx.req.user,
