@@ -25,7 +25,7 @@ const CardText = styled.span`
   color: white;
 `;
 
-const Cards: NextFC<SessionProps> = (props: any) => {
+const Cards: NextFC = (props: any) => {
   const [cards, setCards] = useState(props.cards);
   const deleteCardHandler = (cardId: string) => {
     fetch("/api/card", {
@@ -36,7 +36,6 @@ const Cards: NextFC<SessionProps> = (props: any) => {
       },
       body: JSON.stringify({ id: cardId })
     }).then(response => {
-      console.log(response);
       if (response.ok) {
         setCards(cards.filter(card => card._id !== cardId));
       }
@@ -71,5 +70,9 @@ const Cards: NextFC<SessionProps> = (props: any) => {
     );
   }
 };
+
+Cards.defaultProps = {
+  cards: []
+}
 
 export default React.memo(withAuthorization(Cards));

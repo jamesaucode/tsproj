@@ -71,7 +71,7 @@ const StudyCard: React.FunctionComponent<any> = ({ session, pushNotification, po
       method: "POST",
       credentials: "include",
       headers: JSONHeader,
-      body: JSON.stringify({ question, answer, id: session.passport.id }),
+      body: JSON.stringify({ question, answer, id: session.passport.user.id }),
     }).then(response => {
       if (response.ok) {
         console.log("OK!");

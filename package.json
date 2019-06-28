@@ -8,12 +8,14 @@
   "scripts": {
     "start": "nodemon ./bin/server/server.js",
     "compile": "tsc --project tsconfig.server.json -w",
-    "build": "next build && tsc --project tsconfig.server.json"
+    "build": "next build && tsc --project tsconfig.server.json",
+    "start-prod": "NODE_ENV=production nodemon ./bin/server/server.js"
   },
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/cookie-session": "^2.0.37",
     "@types/express": "^4.17.0",
+    "@types/lodash": "^4.14.135",
     "@types/next": "^8.0.5",
     "@types/node": "^12.0.8",
     "@types/passport": "^1.0.0",
@@ -21,6 +23,7 @@
     "@types/passport-google-oauth20": "^2.0.1",
     "@types/react": "^16.8.20",
     "@types/react-dom": "^16.8.4",
+    "@types/react-inlinesvg": "^0.8.1",
     "@types/react-transition-group": "^2.9.2",
     "@types/styled-components": "^4.1.16",
     "@zeit/next-css": "^1.0.1",
@@ -32,6 +35,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "isomorphic-unfetch": "^3.0.0",
+    "lodash": "^4.17.11",
     "mongoose": "^5.6.0",
     "next": "^8.1.0",
     "next-cookies": "^1.1.2",
@@ -44,6 +48,7 @@
     "passport-local": "^1.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-inlinesvg": "^0.8.4",
     "react-transition-group": "^4.1.1",
     "source-map-loader": "^0.2.4",
     "styled-components": "^4.3.1",

@@ -92,7 +92,7 @@ const SaveCardHandler = (
     CardInstance.save((err: Error) => {
       if (err) return res.json({ message:err.message, good: false});
       console.log('Card saved');
-      res.json({ message: 'success', good: true });
+      res.json({ message: 'Card saved!', good: true });
       return ;
     })
   }

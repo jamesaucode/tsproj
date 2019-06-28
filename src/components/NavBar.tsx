@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import ToggleableMenu from "./ToggleableMenu";
 import { NextFC } from "next";
+import { isEmpty } from 'lodash';
 
 const NavWrapper = styled.div`
   width: 100%;
@@ -41,7 +42,9 @@ const NavBar: NextFC<NavBarProps> = props => {
   useEffect(() => {
     setLoading(false);
     if (props.session) {
-      setLoggedIn(props.session.hasOwnProperty("passport"));
+      setLoggedIn(props.session.hasOwnProperty("passport") && !isEmpty(props.session.passport.user));
+    } else {
+      setLoggedIn(false);
     }
   }, [props.session]);
   if (loading) {

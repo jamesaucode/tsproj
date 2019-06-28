@@ -66,8 +66,8 @@ export default class MyApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <Container {...pageProps}>
-        <NavBar {...pageProps} />
         <Notification>
+          <NavBar {...pageProps} />
           <Component {...pageProps} />
         </Notification>
       </Container>

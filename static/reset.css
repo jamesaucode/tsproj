@@ -51,3 +51,7 @@ table {
 html {
 	font-family: Arial, Helvetica, sans-serif;
 }
+
+.small-icon > svg {
+	height: 16px;
+}

@@ -12,6 +12,7 @@ interface LayoutProps {
   fadeIn?: boolean;
 }
 export const Layout = styled.main<LayoutProps>`
+  height: 200vh;
   box-sizing: border-box;
   max-width: 1200px;
   margin: 2rem auto;
@@ -39,7 +40,9 @@ export const Heading = styled.h1<HeadingProps>`
 interface MessageProps {
   readonly success?: boolean;
 }
-export const Message = styled.h2<MessageProps>`
+export const Message = styled.div<MessageProps>`
+display: flex;
+justify-content: space-between;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em;
   font-weight: 400;
@@ -51,4 +54,8 @@ export const Message = styled.h2<MessageProps>`
   background: ${props => (props.success ? "#51CD80" : "#ff243d")};
   padding: 1rem 2rem;
   border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.9;
+  }
 `;

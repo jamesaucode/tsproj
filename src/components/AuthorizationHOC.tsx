@@ -1,13 +1,14 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, ReactComponentElement, ReactNode } from "react";
 import { SessionProps } from '../../typings/express';
 import Unauthorized from "../../src/components/Unauthorized";
+import { isEmpty } from 'lodash';
 
 interface StateTypes {
   loggedIn: boolean;
   loading: boolean;
 }
 export const withAuthorization = (WrapperComponent: any) => {
-  return class extends PureComponent<SessionProps, StateTypes> {
+  return class AuthorizeCheck extends PureComponent<SessionProps, StateTypes> {
     constructor(props: SessionProps) {
       super(props);
       this.state = {
@@ -20,7 +21,7 @@ export const withAuthorization = (WrapperComponent: any) => {
       console.log(this.props);
       try {
         this.setState({
-          loggedIn: this.props.session.hasOwnProperty("passport"),
+          loggedIn: this.props.session.hasOwnProperty("passport") && !isEmpty(this.props.session.passport)
         });
       } catch (error) {
         console.log(error.message);

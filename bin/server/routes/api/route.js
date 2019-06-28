@@ -67,7 +67,7 @@ const SaveCardHandler = (req, res, next) => {
             if (err)
                 return res.json({ message: err.message, good: false });
             console.log('Card saved');
-            res.json({ message: 'success', good: true });
+            res.json({ message: 'Card saved!', good: true });
             return;
         });
     }
