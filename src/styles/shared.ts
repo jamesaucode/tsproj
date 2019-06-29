@@ -12,7 +12,8 @@ interface LayoutProps {
   fadeIn?: boolean;
 }
 export const Layout = styled.main<LayoutProps>`
-  height: 200vh;
+  /* height: 200vh; */
+  height: 100%;
   box-sizing: border-box;
   max-width: 1200px;
   margin: 2rem auto;
