@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
-import { fadeIn, Layout, Heading } from "../../styles/shared";
+import { fadeIn } from "../../styles/shared";
 
 const ModalWrapper = styled.div`
   max-height: 500px;
@@ -39,8 +39,9 @@ const DivWrapper = styled.div`
   position: fixed;
   top: 0;
   z-index: 10;
-`
+`;
 const Modal = ({ Embedded, isOpen, toggleOpen, title }: any) => {
+  // For testing
   useEffect(() => {
     console.log("Modal Mounted");
     // Cleanup function
@@ -50,12 +51,15 @@ const Modal = ({ Embedded, isOpen, toggleOpen, title }: any) => {
   }, []);
   return isOpen
     ? ReactDOM.createPortal(
-      <DivWrapper onClick={() => toggleOpen()}>
-        <ModalWrapper>
-          {title && <ModalHeading>{title}</ModalHeading>}
-          <Embedded />
-        </ModalWrapper>
-      </DivWrapper>, document.body)
+        <>
+          <DivWrapper onClick={() => toggleOpen()} />
+          <ModalWrapper>
+            {title && <ModalHeading>{title}</ModalHeading>}
+            <Embedded />
+          </ModalWrapper>
+        </>,
+        document.body
+      )
     : null;
 };
 
