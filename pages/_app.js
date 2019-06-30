@@ -1,11 +1,10 @@
 import React from "react";
 import App, { Container } from "next/app";
-import { makeJsonRequest } from "../utils/httpRequest";
 import NavBar from "../src/components/NavBar";
 import Notification from "../src/components/Notification/Notification";
 import Router from "next/router";
 import NProgress from "nprogress";
-import { UserProvider } from '../src/context/UserContext';
+import { UserProvider } from "../src/context/UserContext";
 
 Router.events.on("routeChangeStart", url => {
   console.log(`Loading ${url}`);
@@ -27,50 +26,17 @@ export default class MyApp extends App {
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
-    // return { pageProps: pageProps };
-    // If this is server side render
-    if (ctx.req) {
-      // console.log("Getting Session ...");
-      // console.log(ctx.req.user);
-      // pageProps.session = {
-      //   passport: {
-      //     user: ctx.req.user,
-      //   },
-      // };
-      // if (ctx.req.user) {
-        // pageProps.cards = ctx.req.user.cards;
-      // }
-      console.log("Server side");
-      console.log("Returning page props");
-      return { pageProps };
-    } else {
-      console.log('Client Side')
-      return { pageProps };
-      // const sessionUrl = `http://${window.location.host}/api/session`;
-      // const cardsUrl = `http://${window.location.host}/api/cards`;
-      // console.log("Client Side");
-      // const allPromises = Promise.all([
-      //   makeJsonRequest(sessionUrl),
-      //   makeJsonRequest(cardsUrl),
-      // ]);
-      // return allPromises.then(result => ({
-      //   pageProps: {
-      //     session: result[0],
-      //     cards: result[1],
-      //   },
-      // }));
-    }
+    return { pageProps };
   }
   componentDidMount() {
     console.log("My App Mounted");
   }
   render() {
     const { Component, pageProps } = this.props;
-    console.log(pageProps);
     return (
-      <Container >
-        <UserProvider >
-          <Notification >
+      <Container>
+        <UserProvider>
+          <Notification>
             <NavBar {...pageProps} />
             <Component {...pageProps} />
           </Notification>
