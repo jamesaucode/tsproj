@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { fadeIn } from "../../styles/shared";
@@ -23,11 +23,6 @@ const ModalWrapper = styled.div`
   z-index: 100;
   animation: ${fadeIn} 0.5s ease-out 1;
 `;
-const ModalHeading = styled.h1`
-  text-align: center;
-  font-size: 1.5em;
-  padding: 2rem;
-`;
 const DivOverlay = styled.div`
   height: 100vh;
   width: 100vw;
@@ -37,12 +32,10 @@ const DivOverlay = styled.div`
   z-index: 10;
 `;
 interface ModalProps {
-  Embedded : React.FC
-  isOpen: boolean
+  Embedded?: React.FC
   toggleOpen: (value: void ) => void
-  title?: string
 }
-const Modal : NextFC<ModalProps> = ({ Embedded, isOpen, toggleOpen, title }) => {
+const Modal : NextFC<ModalProps> = ({ Embedded, toggleOpen, children }) => {
   // For testing
   useEffect(() => {
     console.log("Modal Mounted");
@@ -51,21 +44,18 @@ const Modal : NextFC<ModalProps> = ({ Embedded, isOpen, toggleOpen, title }) => 
       console.log("Unmounting");
     };
   }, []);
-  return isOpen
-    ? ReactDOM.createPortal(
+   return ReactDOM.createPortal(
         <>
-          <DivOverlay onClick={() => { toggleOpen() }} />
+          <DivOverlay onClick={() => { toggleOpen(); }} />
           <ModalWrapper>
-            {title && <ModalHeading>{title}</ModalHeading>}
-            <Embedded />
+            { Embedded ? <Embedded /> : children }
           </ModalWrapper>
         </>, document.body
-      )
-    : null;
+   )
 };
 
 Modal.defaultProps = {
-  isOpen: false
+  toggleOpen: ()  => {console.log('No function was passed in..')}
 }
 
 export default Modal;
