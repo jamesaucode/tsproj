@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Spinner from "../src/components/Spinner";
 import { Layout, Heading } from "../src/styles/shared";
-import Modal from "../src/components/Modal";
-import Login from "../src/components/Login";
 
 const Index = (props: any) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (props.session) {
@@ -19,13 +16,6 @@ const Index = (props: any) => {
     setLoading(false);
   }, [loggedIn]);
 
-  const getModalProps = () => {
-    return {
-      Embedded: Login,
-      isOpen: showModal,
-      toggleOpen: () => { setShowModal(!showModal) }
-    };
-  };
   if (loading) {
     return (
       <Layout>
@@ -44,14 +34,6 @@ const Index = (props: any) => {
     return (
       <Layout fadeIn>
         <Heading>You can sign in with you Google Account !</Heading>
-        {showModal && <Modal {...getModalProps()} />}
-        <button
-          onClick={() => {
-            setShowModal(true);
-          }}
-        >
-          Login Here
-        </button>
       </Layout>
     );
   }

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Link from "next/link";
 import Modal from '../components/Modal';
 import Login from '../components/Login';
-
 import { NavLink } from "../components/NavBar";
 
 interface PropTypes {
@@ -101,9 +100,6 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
   } else {
     return (
       <DropDownWrapper>
-        {/* <Link href="/login">
-          <NavLink onClick={handleToggleClick}>Login</NavLink>
-        </Link> */}
         <NavLink onClick={() => {setShowModal(true)}}>Login</NavLink>
         {showModal && <Modal {...getModalProps()}/>}
       </DropDownWrapper>
