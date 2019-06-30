@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Spinner from "../src/components/Spinner";
 import { Layout, Heading } from "../src/styles/shared";
+import { useUserData } from "../src/hooks/useUserData";
+import { NextFC } from "next";
 
-const Index = (props: any) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+const Index : NextFC = (props: any) => {
   const [loading, setLoading] = useState(true);
+  const userData = useUserData();
 
   useEffect(() => {
-    if (props.session) {
-      setLoggedIn(
-        props.session.hasOwnProperty("passport") &&
-          props.session.passport.length > 0
-      );
-    }
     setLoading(false);
-  }, [loggedIn]);
+  }, [userData]);
 
   if (loading) {
     return (
@@ -22,11 +18,11 @@ const Index = (props: any) => {
         <Spinner />
       </Layout>
     );
-  } else if (loggedIn) {
+  } else if (userData) {
     return (
       <Layout fadeIn>
         <Heading sub>
-          Welcome. {props.session.passport.user.displayName}{" "}
+          Welcome. {userData.displayName}
         </Heading>
       </Layout>
     );
@@ -39,4 +35,8 @@ const Index = (props: any) => {
   }
 };
 
-export default React.memo(Index);
+Index.getInitialProps = async (ctx) => {
+  console.log("Hey its the index page Lol");
+}
+
+export default Index;

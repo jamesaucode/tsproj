@@ -1,29 +1,16 @@
 import React from "react";
 import { NextFC } from "next";
 import { Layout, Heading } from "../../src/styles/shared";
-import { withAuthorization } from "../../src/components/AuthorizationHOC";
 import { SessionProps } from "../../typings/express";
-import { UserSchemaTypes } from "../../server/schemas/User";
+import { useUserData } from '../../src/hooks/useUserData';
 
-const Profile: NextFC<SessionProps | any> = props => {
-  const { user } = props.session.passport;
+const Profile: NextFC<SessionProps> = props => {
+  const userData = useUserData();
   return (
     <Layout fadeIn>
-      <Heading sub>Hello, {user.displayName}</Heading>
-      {/* <Heading sub>Email: {user.emails[0].value || user.email}</Heading> */}
-      <Heading sub>{user.email}</Heading>
+      <Heading sub>Hello, {userData.displayName}</Heading>
     </Layout>
   );
 };
 
-Profile.defaultProps = {
-  session: {
-    passport: {
-      user: {
-        emails: [{}],
-      },
-    },
-  },
-};
-
-export default React.memo(withAuthorization(Profile));
+export default Profile;

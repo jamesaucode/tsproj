@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Layout, Heading } from "../../src/styles/shared";
-import { withAuthorization } from "../../src/components/AuthorizationHOC";
 import { NextFC } from "next";
 import styled from "styled-components";
+import { useUserData } from "../../src/hooks/useUserData";
+import fetch from "isomorphic-unfetch";
+import { handleJSONResponse } from "../../services/fetch.service";
 
 const CardWrapper = styled.li`
   border-radius: 3px;
@@ -17,8 +19,8 @@ const Card = styled.div`
   display: flex;
   font-size: calc(0.35vw + 16px);
   justify-content: space-between;
-  @media (max-width: 500px){
-    flex-direction: column; 
+  @media (max-width: 500px) {
+    flex-direction: column;
   }
 `;
 const CardText = styled.span`
@@ -36,34 +38,38 @@ const CardTag = styled.span`
   font-size: 0.65em;
   padding: 0.5rem 0;
 `;
-const CardList = styled.ul`
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
-`
+const CardList = styled.ul``;
 
 const Cards: NextFC = (props: any) => {
-  const [cards, setCards] = useState(props.cards);
+  console.log(props);
+  // const userData = useUserData();
+  const [cards, setCards] = useState();
+  useEffect(() => {
+    // console.log(userData);
+    if (props.cards) {
+      setCards(props.cards);
+    }
+  }, [props.cards]);
   const deleteCardHandler = (cardId: string) => {
     fetch("/api/card", {
       method: "DELETE",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify({ id: cardId }),
+      body: JSON.stringify({ id: cardId })
     }).then(response => {
       if (response.ok) {
         setCards(cards.filter(card => card._id !== cardId));
       }
     });
   };
-  if (cards.length > 0) {
-    return (
-      <Layout>
-        <Heading>Your cards</Heading>
-        <CardList>
-          {cards.map(card => {
+  return (
+    <Layout>
+      <Heading>Your cards</Heading>
+      <CardList>
+        {cards ? (
+          cards.map(card => {
             return (
               <CardWrapper key={card._id}>
                 <Card>
@@ -81,21 +87,34 @@ const Cards: NextFC = (props: any) => {
                 </Card>
               </CardWrapper>
             );
-          })}
-        </CardList>
-      </Layout>
-    );
+          })
+        ) : (
+          <Heading>{"NO CARDS LMAOO"}</Heading>
+        )}
+      </CardList>
+    </Layout>
+  );
+};
+
+Cards.getInitialProps = async ({ req, query }) => {
+  const isServer = !!req;
+  console.log("getInitialProps called:", isServer ? "server" : "client");
+  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+  const apiUrl = isServer
+    ? `${protocol}://${req.headers.host}/api/cards`
+    : `${protocol}://${window.location.host}/api/cards`;
+  if (isServer) {
+    return { ...query };
   } else {
-    return (
-      <Layout>
-        <Heading>You don't have any cards yet.</Heading>
-      </Layout>
-    );
+    const response = await fetch(apiUrl, {
+      credentials: "include",
+      headers: {
+        "content-type": "application/json"
+      }
+    });
+    const json = handleJSONResponse(response);
+    return json.then(data => { return { cards: data } });
   }
 };
 
-Cards.defaultProps = {
-  cards: [],
-};
-
-export default React.memo(withAuthorization(Cards));
+export default Cards;

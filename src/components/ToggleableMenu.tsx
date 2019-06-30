@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactEventHandler } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import Modal from "../components/Modal";
@@ -59,7 +59,7 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
   const [showModal, setShowModal] = useState(false);
   const getModalProps = () => {
     return {
-      // Embedded: Login,
+      Embedded: Login,
       isOpen: showModal,
       closeModal: () => {
         setShowModal(!showModal);

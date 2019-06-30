@@ -7,8 +7,8 @@ import fetch from "isomorphic-unfetch";
 import { InputValidator } from "../../services/validation.service";
 
 const googleLoginButton = require("../../static/images/btn_google_signin_dark_normal_web@2x.png");
-
 const maxFormWidth = "400px";
+
 const LoginButton = styled.a`
   max-width: 200px;
   cursor: pointer;
@@ -94,19 +94,13 @@ const Login: NextFC = (props: any) => {
         Router.push(response.url);
         props.pushNotification("Welcome back!", true);
       } else {
-        props.pushNotification(
-          "Incorrect credentials, please try again.",
-          false
-        );
+        props.pushNotification( "Incorrect credentials, please try again.", false);
         setPasswordInput("");
       }
     });
   };
   const validateEmail = () => InputValidator.email(emailInput);
-  
-
   const validatePassword = () => InputValidator.password(passwordInput);
-
   const validateInput = () => {
     return validateEmail() && validatePassword();
   };

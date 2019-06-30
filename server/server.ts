@@ -15,6 +15,7 @@ db.once('open', () => {
     console.log('Connected to mongoDB!');
 })
 app.use(cookieSession({
+    name: 'session',
     maxAge: 6 * 60 * 60 * 1000,
     keys: ["very secret"]
 }))

@@ -128,9 +128,9 @@ const isAuthenticated = (req: express.Request | any, res: express.Response, next
 }
 
 router.get("/profile", ProfileHandler);
-router.get("/logout", LogoutHandler);
 router.get("/session", SessionHandler);
 router.get('/cards', getCardHandler);
+router.get("/logout", LogoutHandler);
 router.post("/register", RegisterHandler);
 router.post("/login",
   passport.authenticate('local'),

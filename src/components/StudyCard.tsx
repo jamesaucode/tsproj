@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { SessionProps } from "../../typings/express";
 import { handleResponse } from "../../services/fetch.service";
+import { useUserData } from "../hooks/useUserData";
 
 const CardWrapper = styled.div`
   display: flex;
@@ -50,6 +51,7 @@ const StudyCard: React.FunctionComponent<SessionProps | any> = ({
 }) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  const userData = useUserData();
   const formControls: {
     [key: string]: React.Dispatch<React.SetStateAction<string>>;
   } = {
@@ -76,7 +78,7 @@ const StudyCard: React.FunctionComponent<SessionProps | any> = ({
       body: JSON.stringify({
         question,
         answer,
-        id: session.passport.user.id,
+        id: userData.id,
       }),
     })
       .then(handleResponse)

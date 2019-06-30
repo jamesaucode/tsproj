@@ -65,7 +65,12 @@ router.get('/auth/redirect', (req, res, next) => {
     }
     // res.redirect('/user/create');
 });
-router.get('/*', (req, res) => {
+router.get('/user/cards', (req, res) => {
+    const cards = req.user.cards;
+    console.log('Render cards');
+    return nextApp_1.default.render(req, res, '/user/cards', { cards });
+});
+router.get('*', (req, res) => {
     const { pathname, query } = url_1.parse(req.url, true);
     // console.log(`pathname : ${pathname}`);
     // console.log(`query : ${query}`);

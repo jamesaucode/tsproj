@@ -1,5 +1,4 @@
 export const handleJSONResponse = (response : Response) => {
-    console.log(response);
     return response.json()
     .then(json => {
         if (response.ok) {

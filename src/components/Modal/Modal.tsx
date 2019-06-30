@@ -9,6 +9,7 @@ const ModalWrapper = styled.div`
   max-width: 888px;
   min-width: 350px;
   border-radius: 3px;
+  box-sizing: border-box;
   padding: 1rem;
   position: absolute;
   display: flex;
