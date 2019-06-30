@@ -35,10 +35,10 @@ const DivOverlay = styled.div`
   z-index: 10;
 `;
 interface ModalProps {
-  Embedded?: React.FC
-  closeModal: (value: void ) => void
+  Embedded?: React.FC;
+  closeModal: (value: void) => void;
 }
-const Modal : NextFC<ModalProps> = ({ Embedded, closeModal , children }) => {
+const Modal: NextFC<ModalProps> = ({ Embedded, closeModal, children }) => {
   // For testing
   useEffect(() => {
     console.log("Modal Mounted");
@@ -47,21 +47,31 @@ const Modal : NextFC<ModalProps> = ({ Embedded, closeModal , children }) => {
       console.log("Unmounting");
     };
   }, []);
-   return ReactDOM.createPortal(
-        <>
-          <DivOverlay onClick={() => { closeModal(); }} />
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
-          <ModalWrapper>
-            { Embedded ? <Embedded /> : children }
-          </ModalWrapper>
-          </div>
-        </>
-        , document.body
-   )
+  return ReactDOM.createPortal(
+    <>
+      <DivOverlay
+        onClick={() => {
+          closeModal();
+        }}
+      />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <ModalWrapper>{Embedded ? <Embedded /> : children}</ModalWrapper>
+      </div>
+    </>,
+    document.body
+  );
 };
 
 Modal.defaultProps = {
-  closeModal: ()  => {console.log('No function was passed in..')}
-}
+  closeModal: () => {
+    console.log("No function was passed in..");
+  }
+};
 
 export default Modal;
