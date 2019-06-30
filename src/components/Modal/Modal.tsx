@@ -5,12 +5,14 @@ import { fadeIn } from "../../styles/shared";
 import { NextFC } from "next";
 
 const ModalWrapper = styled.div`
-  max-height: 500px;
-  max-width: 888px;
-  min-width: 350px;
+  min-height: 300px;
+  max-height: 600px;
+  width: fit-content;
+  height: fit-content;
   border-radius: 3px;
   box-sizing: border-box;
-  padding: 1rem;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+  padding: 4rem;
   position: absolute;
   display: flex;
   justify-content: center;
@@ -27,16 +29,16 @@ const ModalWrapper = styled.div`
 const DivOverlay = styled.div`
   height: 100vh;
   width: 100vw;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   position: fixed;
   top: 0;
   z-index: 10;
 `;
 interface ModalProps {
-  Embedded?: React.FC
-  closeModal: (value: void ) => void
+  Embedded?: React.FC;
+  closeModal: (value: void) => void;
 }
-const Modal : NextFC<ModalProps> = ({ Embedded, closeModal , children }) => {
+const Modal: NextFC<ModalProps> = ({ Embedded, closeModal, children }) => {
   // For testing
   useEffect(() => {
     console.log("Modal Mounted");
@@ -45,18 +47,31 @@ const Modal : NextFC<ModalProps> = ({ Embedded, closeModal , children }) => {
       console.log("Unmounting");
     };
   }, []);
-   return ReactDOM.createPortal(
-        <>
-          <DivOverlay onClick={() => { closeModal(); }} />
-          <ModalWrapper>
-            { Embedded ? <Embedded /> : children }
-          </ModalWrapper>
-        </>, document.body
-   )
+  return ReactDOM.createPortal(
+    <>
+      <DivOverlay
+        onClick={() => {
+          closeModal();
+        }}
+      />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <ModalWrapper>{Embedded ? <Embedded /> : children}</ModalWrapper>
+      </div>
+    </>,
+    document.body
+  );
 };
 
 Modal.defaultProps = {
-  closeModal: ()  => {console.log('No function was passed in..')}
-}
+  closeModal: () => {
+    console.log("No function was passed in..");
+  }
+};
 
 export default Modal;

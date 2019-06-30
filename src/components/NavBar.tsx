@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Link from "next/link";
 import ToggleableMenu from "./ToggleableMenu";
 import { NextFC } from "next";
-import { isEmpty } from 'lodash';
 import { useLoginStatus } from "../hooks/useLoginStatus";
 
 const NavWrapper = styled.div`

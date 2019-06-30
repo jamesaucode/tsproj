@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { NextFC } from "next";
-import Link from "next/link";
 import Router from "next/router";
 import styled from "styled-components";
 import fetch from "isomorphic-unfetch";
+import Register from '../components/register';
 import { InputValidator } from "../../services/validation.service";
 
 const googleLoginButton = require("../../static/images/btn_google_signin_dark_normal_web@2x.png");
@@ -74,11 +74,13 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: fit-content;
 `
 
 const Login: NextFC = (props: any) => {
   const [emailInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
+  const [showSignIn, setShowSignIn] = useState(true);
   const handleSubmit = (event: any) => {
     fetch("/api/login", {
       method: "POST",
@@ -104,8 +106,11 @@ const Login: NextFC = (props: any) => {
   const validateInput = () => {
     return validateEmail() && validatePassword();
   };
+  const handleClick = () => {
+    setShowSignIn(!showSignIn);
+  }
 
-  return (
+  return showSignIn ? (
     <Wrapper>
       <LoginButton href="/auth/google">
         <LoginButtonLogo src={googleLoginButton} />
@@ -140,17 +145,17 @@ const Login: NextFC = (props: any) => {
         >
           Login
         </FormSubmit>
-        <Link href="/register">
           <div>
             <p>
-              New user ? <StyledLink>Signup </StyledLink>
+              New user ? <StyledLink onClick={handleClick}>Signup </StyledLink>
               here!
             </p>
           </div>
-        </Link>
       </FormWrapper>
     </Wrapper>
-  );
+  ) : (
+    <Register toggleForm={() => { setShowSignIn(true) }}/>
+  )
 };
 
 export default Login;

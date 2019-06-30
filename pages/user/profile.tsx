@@ -8,7 +8,7 @@ const Profile: NextFC<SessionProps> = props => {
   const userData = useUserData();
   return (
     <Layout fadeIn>
-      <Heading sub>Hello, {userData.displayName}</Heading>
+      {userData && <Heading sub>Hello, {userData.displayName}</Heading>}
     </Layout>
   );
 };

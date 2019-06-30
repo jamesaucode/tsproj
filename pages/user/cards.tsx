@@ -42,12 +42,15 @@ const CardList = styled.ul``;
 
 const Cards: NextFC = (props: any) => {
   console.log(props);
-  // const userData = useUserData();
+  const userData = useUserData();
   const [cards, setCards] = useState();
   useEffect(() => {
-    // console.log(userData);
     if (props.cards) {
-      setCards(props.cards);
+      if (props.cards) {
+        setCards(props.cards);
+      } else if (userData) {
+        setCards(userData.cards);
+      }
     }
   }, [props.cards]);
   const deleteCardHandler = (cardId: string) => {
@@ -95,6 +98,10 @@ const Cards: NextFC = (props: any) => {
     </Layout>
   );
 };
+
+Cards.defaultProps = {
+  cards: null
+}
 
 Cards.getInitialProps = async ({ req, query }) => {
   const isServer = !!req;

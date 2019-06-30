@@ -1,7 +1,7 @@
 {
-  "name": "ts_react",
+  "name": "study_app",
   "version": "1.0.0",
-  "description": "Boilerplate for Typescript React",
+  "description": "A simple study app for students in Typescript",
   "main": "index.js",
   "author": "James Au",
   "license": "MIT",
