@@ -98,7 +98,6 @@ const Cards: NextFC = (props: any) => {
 
 Cards.getInitialProps = async ({ req, query }) => {
   const isServer = !!req;
-  console.log("getInitialProps called:", isServer ? "server" : "client");
   const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
   const apiUrl = isServer
     ? `${protocol}://${req.headers.host}/api/cards`

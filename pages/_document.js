@@ -11,9 +11,9 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head />
         <title>Study App</title>
-        <link rel="stylesheet" href="../static/reset.css" media="none" onLoad="if(media!='all')media='all'"/>
-        <link rel="stylesheet" href="../static/fa.css" media="none" onLoad="if(media!='all')media='all'"/>
-        <link rel="stylesheet" href="../static/nprogress.css" media="none" onLoad="if(media!='all')media='all'"/>
+        <link rel="stylesheet" href="../static/reset.css" />
+        <link rel="stylesheet" href="../static/fa.css" />
+        <link rel="stylesheet" href="../static/nprogress.css" />
         <body>
           <Main />
           <NextScript />

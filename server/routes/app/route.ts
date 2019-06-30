@@ -73,7 +73,11 @@ router.get('/auth/redirect',
 router.get('/user/cards', (req, res) => {
     const cards = req.user.cards;
     console.log('Render cards')
-    return nextApp.render(req, res, '/user/cards', { cards })
+    return nextApp.render(req, res, '/user/cards', { cards });
+})
+router.get('/', (req, res) => {
+    const user = req.user;
+    return nextApp.render(req, res, '/', { user });
 })
 router.get('*', (req, res) => {
     const { pathname, query } = parse(req.url, true);

@@ -3,11 +3,12 @@ import Spinner from "../src/components/Spinner";
 import { Layout, Heading } from "../src/styles/shared";
 import { useUserData } from "../src/hooks/useUserData";
 import { NextFC } from "next";
+import { handleJSONResponse } from "../services/fetch.service";
 
-const Index : NextFC = (props: any) => {
+const Index: NextFC = (props: any) => {
   const [loading, setLoading] = useState(true);
   const userData = useUserData();
-
+  console.log(props);
   useEffect(() => {
     setLoading(false);
   }, [userData]);
@@ -34,9 +35,5 @@ const Index : NextFC = (props: any) => {
     );
   }
 };
-
-Index.getInitialProps = async (ctx) => {
-  console.log("Hey its the index page Lol");
-}
 
 export default Index;

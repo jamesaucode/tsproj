@@ -70,6 +70,10 @@ router.get('/user/cards', (req, res) => {
     console.log('Render cards');
     return nextApp_1.default.render(req, res, '/user/cards', { cards });
 });
+router.get('/', (req, res) => {
+    const user = req.user;
+    return nextApp_1.default.render(req, res, '/', { user });
+});
 router.get('*', (req, res) => {
     const { pathname, query } = url_1.parse(req.url, true);
     // console.log(`pathname : ${pathname}`);

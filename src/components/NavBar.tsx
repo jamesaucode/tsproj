@@ -74,4 +74,4 @@ const NavBar: NextFC<NavBarProps> = () => {
       </NavWrapper>
     );
 };
-export default React.memo(NavBar);
+export default NavBar;
