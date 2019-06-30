@@ -61,7 +61,7 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
     return {
       // Embedded: Login,
       isOpen: showModal,
-      toggleOpen: () => {
+      closeModal: () => {
         setShowModal(!showModal);
       }
     };

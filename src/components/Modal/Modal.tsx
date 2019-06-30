@@ -33,9 +33,9 @@ const DivOverlay = styled.div`
 `;
 interface ModalProps {
   Embedded?: React.FC
-  toggleOpen: (value: void ) => void
+  closeModal: (value: void ) => void
 }
-const Modal : NextFC<ModalProps> = ({ Embedded, toggleOpen, children }) => {
+const Modal : NextFC<ModalProps> = ({ Embedded, closeModal , children }) => {
   // For testing
   useEffect(() => {
     console.log("Modal Mounted");
@@ -46,7 +46,7 @@ const Modal : NextFC<ModalProps> = ({ Embedded, toggleOpen, children }) => {
   }, []);
    return ReactDOM.createPortal(
         <>
-          <DivOverlay onClick={() => { toggleOpen(); }} />
+          <DivOverlay onClick={() => { closeModal(); }} />
           <ModalWrapper>
             { Embedded ? <Embedded /> : children }
           </ModalWrapper>
@@ -55,7 +55,7 @@ const Modal : NextFC<ModalProps> = ({ Embedded, toggleOpen, children }) => {
 };
 
 Modal.defaultProps = {
-  toggleOpen: ()  => {console.log('No function was passed in..')}
+  closeModal: ()  => {console.log('No function was passed in..')}
 }
 
 export default Modal;
