@@ -4,6 +4,7 @@ import Link from "next/link";
 import ToggleableMenu from "./ToggleableMenu";
 import { NextFC } from "next";
 import { isEmpty } from 'lodash';
+import { useLoginStatus } from "../hooks/useLoginStatus";
 
 const NavWrapper = styled.div`
   width: 100%;
@@ -36,21 +37,15 @@ interface NavBarProps {
   session: any;
 }
 
-const NavBar: NextFC<NavBarProps> = props => {
-  const [loggedIn, setLoggedIn] = useState(false);
+const NavBar: NextFC<NavBarProps> = () => {
   const [loading, setLoading] = useState(true);
+  const isLoggedIn = useLoginStatus();
   useEffect(() => {
     setLoading(false);
-    if (props.session) {
-      setLoggedIn(props.session.hasOwnProperty("passport") && !isEmpty(props.session.passport.user));
-    } else {
-      setLoggedIn(false);
-    }
-  }, [props.session]);
+  }, [isLoggedIn]);
   if (loading) {
     return (
       <NavWrapper>
-        <Nav />
       </NavWrapper>
     );
   } else
@@ -64,7 +59,7 @@ const NavBar: NextFC<NavBarProps> = props => {
             <NavLink>About</NavLink>
           </Link>
           {/* Protected Nav Items */}
-          {loggedIn && (
+          {isLoggedIn && (
             <React.Fragment>
               <Link href="/user/create">
                 <NavLink>Make Card</NavLink>
@@ -75,8 +70,8 @@ const NavBar: NextFC<NavBarProps> = props => {
             </React.Fragment>
           )}
         </Nav>
-        <ToggleableMenu loggedIn={loggedIn} iconName="fas fa-user-circle" />
+        <ToggleableMenu loggedIn={isLoggedIn} iconName="fas fa-user-circle" />
       </NavWrapper>
     );
 };
-export default React.memo(NavBar);
+export default NavBar;

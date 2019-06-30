@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Layout } from "../src/styles/shared";
+import { handleResponse } from '../services/fetch.service';
 import Link from "next/link";
 import fetch from "isomorphic-unfetch";
 import styled from "styled-components";
@@ -47,7 +48,7 @@ const FormInput = styled.input`
     border: 1px solid #8610f9;
   }
 `;
-const FormWrapper = styled.form`
+const FormWrapper = styled.div`
   width: ${maxFormWidth};
   text-align: center;
 `;
@@ -65,7 +66,7 @@ const FormSubmit = styled.button`
   }
 `;
 
-const Register = () => {
+const Register = (props: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -103,14 +104,20 @@ const Register = () => {
         email,
         password
       })
-    });
+    })
+    .then(handleResponse)
+    .then(json => {
+      props.pushNotification(json.message, true);
+    })
+    .catch(error => {
+      props.pushNotification(error.message, false);
+    })
     console.log("Submitted");
-    event.preventDefault();
   };
 
   return (
     <Layout fadeIn>
-      <FormWrapper onSubmit={handleSubmit}>
+      <FormWrapper>
         <FormInput
           onChange={changeHandler}
           value={email}

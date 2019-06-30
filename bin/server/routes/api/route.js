@@ -36,21 +36,21 @@ const RegisterHandler = (req, res, next) => {
                 const displayName = [req.body.firstName, req.body.lastName].join(' ');
                 console.log(displayName);
                 const UserInstance = new User_1.UserModel({ ...req.body, password: hash, displayName });
-                UserInstance.save((err) => {
-                    if (err)
-                        return console.error(err);
-                    console.log("User saved");
+                User_1.UserModel.findOne({ $or: [{ email: req.body.email }] }, (err, found) => {
+                    if (found) {
+                        res.status(400).json({ message: "Cannot register this user. User already exist." });
+                    }
+                    else {
+                        UserInstance.save((err) => {
+                            if (err)
+                                return res.status(400).json({ message: "Cannot register this user." });
+                            console.log("User saved");
+                            res.status(200).json({ message: "User registered!" });
+                        });
+                    }
                 });
             });
         });
-    }
-};
-const LoginHandler = (req, res, next) => {
-    if (req.body) {
-        if (!req.body.email || !req.body.password) {
-            res.sendStatus(400);
-            return;
-        }
     }
 };
 const SaveCardHandler = (req, res, next) => {
@@ -58,8 +58,7 @@ const SaveCardHandler = (req, res, next) => {
         console.log(req.body);
         if (!req.body.question || !req.body.answer) {
             console.log('Empty question or answer, cannot be saved!');
-            // res.sendStatus(400);
-            res.json({ message: "Cannot save this card", good: false });
+            res.status(400).json({ message: "Cannot save this card", good: false });
             return;
         }
         const CardInstance = new Cards_1.CardsModel(req.body);
@@ -103,9 +102,9 @@ const isAuthenticated = (req, res, next) => {
     }
 };
 router.get("/profile", ProfileHandler);
-router.get("/logout", LogoutHandler);
 router.get("/session", SessionHandler);
 router.get('/cards', getCardHandler);
+router.get("/logout", LogoutHandler);
 router.post("/register", RegisterHandler);
 router.post("/login", passport.authenticate('local'), isAuthenticated, (req, res) => {
     res.redirect(302, '/user/create');

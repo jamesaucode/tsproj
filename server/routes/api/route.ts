@@ -1,15 +1,15 @@
 import * as express from "express";
 import * as passport from 'passport';
+import NextApp from '../../nextApp';
 import { requestWithSession } from "typings/express";
 import { NextFunction } from "connect";
 import { UserSchemaTypes, UserModel } from "../../schemas/User";
 import { CardsScehmaTypes, CardsModel } from '../../schemas/Cards';
-import { resolveNaptr } from "dns";
+import { IncomingMessage } from "http";
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const router = express.Router();
-
 
 const ProfileHandler = (
   req: requestWithSession | any,
@@ -54,27 +54,22 @@ const RegisterHandler = (
         const displayName = [req.body.firstName, req.body.lastName].join(' ');
         console.log(displayName);
         const UserInstance = new UserModel({ ...req.body, password: hash, displayName });
+        UserModel.findOne({ $or: [ {email: req.body.email} ] }, (err : Error, found : boolean) => {
+          if (found) {
+            res.status(400).json({ message: "Cannot register this user. User already exist."});
+          } else {
         UserInstance.save((err: Error) => {
-          if (err) return console.error(err);
+          if (err) return res.status(400).json({ message: "Cannot register this user."});
           console.log("User saved");
+          res.status(200).json({ message: "User registered!"})
         });
+          }
+        })
       });
     });
   }
 };
 
-const LoginHandler = (
-  req: Request | any,
-  res: express.Response,
-  next: NextFunction
-) => {
-  if (req.body) {
-    if (!req.body.email || !req.body.password) {
-      res.sendStatus(400);
-      return;
-    }
-  }
-};
 const SaveCardHandler = (
   req: Request | any,
   res: express.Response,
@@ -84,8 +79,7 @@ const SaveCardHandler = (
     console.log(req.body);
     if (!req.body.question || !req.body.answer) {
       console.log('Empty question or answer, cannot be saved!');
-      // res.sendStatus(400);
-      res.json({ message: "Cannot save this card", good: false });
+      res.status(400).json({ message: "Cannot save this card", good: false });
       return;
     }
     const CardInstance = new CardsModel(req.body);
@@ -134,15 +128,15 @@ const isAuthenticated = (req: express.Request | any, res: express.Response, next
 }
 
 router.get("/profile", ProfileHandler);
-router.get("/logout", LogoutHandler);
 router.get("/session", SessionHandler);
 router.get('/cards', getCardHandler);
+router.get("/logout", LogoutHandler);
 router.post("/register", RegisterHandler);
 router.post("/login",
   passport.authenticate('local'),
   isAuthenticated,
-  (req: express.Request, res: express.Response) => {
-    res.redirect(302, '/user/create');
+  (req: IncomingMessage | any, res: express.Response) => {
+    res.redirect(302, '/user/create')
   }
 );
 router.post("/card", SaveCardHandler);

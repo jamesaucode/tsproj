@@ -1,6 +1,8 @@
-import React, { useState, useEffect, ReactEventHandler } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Link from "next/link";
+import Modal from "../components/Modal";
+import Login from "../components/Login";
 import { NavLink } from "../components/NavBar";
 
 interface PropTypes {
@@ -54,18 +56,28 @@ const ProfileIcon = styled.i``;
 
 const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
   const [expanded, setExpanded] = useState(false);
-  useEffect(() => {
-    const collapse = () => { 
-        setExpanded(false);
+  const [showModal, setShowModal] = useState(false);
+  const getModalProps = () => {
+    return {
+      Embedded: Login,
+      isOpen: showModal,
+      closeModal: () => {
+        setShowModal(!showModal);
+      }
     };
-    const main = document.getElementById('main');
+  };
+  useEffect(() => {
+    const collapse = () => {
+      setExpanded(false);
+    };
+    const main = document.getElementById("main");
     if (main) {
       main.addEventListener("click", collapse);
     }
     return () => {
       main ? main.removeEventListener("click", collapse) : null;
     };
-  }, [])
+  }, []);
   const handleToggleClick = (event: React.MouseEvent) => {
     setExpanded(!expanded);
   };
@@ -90,9 +102,14 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
   } else {
     return (
       <DropDownWrapper>
-        <Link href="/login">
-          <NavLink onClick={handleToggleClick}>Login</NavLink>
-        </Link>
+        <NavLink
+          onClick={() => {
+            setShowModal(true);
+          }}
+        >
+          Login
+        </NavLink>
+        {showModal && <Modal {...getModalProps()} />}
       </DropDownWrapper>
     );
   }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import NotificationMessage from "./NotificationMessage";
 import { MessageType } from "../../../typings/message";
 import styled from "styled-components";
@@ -57,6 +57,7 @@ const Notification = (props: any) => {
           {notifications.map((notification: MessageType) => {
             return (
               <NotificationMessage
+                key={notification.id}
                 message={notification.message}
                 success={notification.success}
                 id={notification.id}

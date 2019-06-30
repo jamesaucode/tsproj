@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { NextFC } from "next";
 import Link from "next/link";
-import { Layout } from "../src/styles/shared";
+import Router from "next/router";
 import styled from "styled-components";
-import fetch  from 'isomorphic-unfetch';
+import fetch from "isomorphic-unfetch";
+import { InputValidator } from "../../services/validation.service";
 
-const googleLoginButton = require("../static/images/btn_google_signin_dark_normal_web@2x.png");
-
+const googleLoginButton = require("../../static/images/btn_google_signin_dark_normal_web@2x.png");
 const maxFormWidth = "400px";
+
 const LoginButton = styled.a`
   max-width: 200px;
   cursor: pointer;
@@ -39,7 +40,10 @@ const DividerText = styled.span`
   padding: 0 1rem;
   color: #333333;
 `;
-const FormInput = styled.input`
+interface FormInputProps {
+  validated: boolean
+}
+const FormInput = styled.input<FormInputProps>`
   border: 1px solid #aaaaaa;
   border-radius: 2px;
   padding: 0.5rem;
@@ -47,7 +51,7 @@ const FormInput = styled.input`
   width: 100%;
   box-sizing: border-box;
   &:focus {
-    border: 1px solid #8610f9;
+    border:${({ validated }) => validated ? "1px solid #8610f9" : "1px solid red"};
   }
 `;
 const FormWrapper = styled.div`
@@ -63,32 +67,46 @@ const FormSubmit = styled.button`
   border-radius: 3px;
   padding: 0.65rem;
   background: #8610f9;
+  opacity: ${({ disabled }) => (disabled ? 0.3 : 1)};
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 
 const Login: NextFC = (props: any) => {
-  const [usernameInput, setUsernameInput] = useState("");
+  const [emailInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
-  const handleSubmit = (event : any) => {
-    console.log('Submitting Login Info')
-    fetch("/api/login" , {
+  const handleSubmit = (event: any) => {
+    fetch("/api/login", {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: usernameInput,
-        password: passwordInput
-      })
-    })
-    .then(response => {
+        email: emailInput,
+        password: passwordInput,
+      }),
+    }).then(response => {
       if (response.ok && response.redirected) {
-        console.log(response.url);
-        window.location.href = response.url; 
+        Router.push(response.url);
+        props.pushNotification("Welcome back!", true);
+      } else {
+        props.pushNotification( "Incorrect credentials, please try again.", false);
+        setPasswordInput("");
       }
-    })
-  }
+    });
+  };
+  const validateEmail = () => InputValidator.email(emailInput);
+  const validatePassword = () => InputValidator.password(passwordInput);
+  const validateInput = () => {
+    return validateEmail() && validatePassword();
+  };
+
   return (
-    <Layout fadeIn>
+    <Wrapper>
       <LoginButton href="/auth/google">
         <LoginButtonLogo src={googleLoginButton} />
       </LoginButton>
@@ -100,7 +118,8 @@ const Login: NextFC = (props: any) => {
           onChange={e => {
             setUsernameInput(e.target.value);
           }}
-          value={usernameInput}
+          validated={validateEmail()}
+          value={emailInput}
           placeholder="Username / Email"
           name="username"
           type="email"
@@ -110,11 +129,17 @@ const Login: NextFC = (props: any) => {
             setPasswordInput(e.target.value);
           }}
           value={passwordInput}
+          validated={validatePassword()}
           placeholder="Password"
           name="password"
           type="password"
         />
-        <FormSubmit onClick={handleSubmit}>Login</FormSubmit>
+        <FormSubmit
+          disabled={!validateInput()}
+          onClick={handleSubmit}
+        >
+          Login
+        </FormSubmit>
         <Link href="/register">
           <div>
             <p>
@@ -124,7 +149,7 @@ const Login: NextFC = (props: any) => {
           </div>
         </Link>
       </FormWrapper>
-    </Layout>
+    </Wrapper>
   );
 };
 

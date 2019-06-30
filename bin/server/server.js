@@ -16,12 +16,13 @@ db.on('error', console.error.bind('console', 'connection error!'));
 db.once('open', () => {
     console.log('Connected to mongoDB!');
 });
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 app.use(cookieSession({
+    name: 'session',
     maxAge: 6 * 60 * 60 * 1000,
     keys: ["very secret"]
 }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api', routes.api);

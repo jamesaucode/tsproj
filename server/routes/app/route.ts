@@ -5,6 +5,7 @@ import { parse } from 'url';
 import nextApp from '../../nextApp';
 import { CardsModel, CardsScehmaTypes } from '../../schemas/Cards';
 import { UserModel, UserSchemaTypes } from '../../schemas/User';
+import { app } from '../routes';
 
 require('dotenv').config();
 console.log("RUNNING");
@@ -64,10 +65,21 @@ router.get('/auth/redirect',
     passport.authenticate("google"),
     (req: express.Request, res: express.Response) => {
         console.log("Logged in");
-        res.redirect('/user/create');
+        if (req.user) {
+            nextApp.render(req, res, '/user/create');
+        }
+        // res.redirect('/user/create');
     })
-
-router.get('/*', (req, res) => {
+router.get('/user/cards', (req, res) => {
+    const cards = req.user.cards;
+    console.log('Render cards')
+    return nextApp.render(req, res, '/user/cards', { cards });
+})
+router.get('/', (req, res) => {
+    const user = req.user;
+    return nextApp.render(req, res, '/', { user });
+})
+router.get('*', (req, res) => {
     const { pathname, query } = parse(req.url, true);
     // console.log(`pathname : ${pathname}`);
     // console.log(`query : ${query}`);
@@ -98,7 +110,8 @@ passport.serializeUser<googleOAuth.Profile | any, any>((user, done) => {
     })
 })
 passport.deserializeUser<googleOAuth.Profile, any>((user, done) => {
-    CardsModel.findById(user.id, (err: Error, cards: CardsScehmaTypes) => {
+    console.log('Deserializing');
+    CardsModel.find({ id : user.id }, (err: Error, cards: CardsScehmaTypes) => {
         user.cards = cards;
         done(null, user)
     })

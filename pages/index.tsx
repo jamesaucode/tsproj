@@ -1,37 +1,39 @@
 import React, { useEffect, useState } from "react";
-import Spinner from '../src/components/Spinner';
+import Spinner from "../src/components/Spinner";
 import { Layout, Heading } from "../src/styles/shared";
+import { useUserData } from "../src/hooks/useUserData";
+import { NextFC } from "next";
+import { handleJSONResponse } from "../services/fetch.service";
 
-const Index = (props: any) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+const Index: NextFC = (props: any) => {
   const [loading, setLoading] = useState(true);
+  const userData = useUserData();
   console.log(props);
   useEffect(() => {
-    if (props.session) {
-      setLoggedIn(props.session.hasOwnProperty("passport") && props.session.passport.length > 0);
-    }
     setLoading(false);
-  }, [loggedIn]);
+  }, [userData]);
+
   if (loading) {
     return (
       <Layout>
         <Spinner />
       </Layout>
-    )
-  } else if (loggedIn) {
+    );
+  } else if (userData) {
     return (
       <Layout fadeIn>
-        <Heading sub>Welcome. {props.session.passport.user.displayName} </Heading>
+        <Heading sub>
+          Welcome. {userData.displayName}
+        </Heading>
       </Layout>
     );
   } else {
     return (
       <Layout fadeIn>
         <Heading>You can sign in with you Google Account !</Heading>
-        <button onClick={() => props.pushNotification("This is a success message", true)}>Test</button>
       </Layout>
-    )
+    );
   }
 };
 
-export default React.memo(Index);
+export default Index;
