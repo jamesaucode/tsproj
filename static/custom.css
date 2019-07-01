@@ -11,6 +11,7 @@ html {
 }
 .small-icon > svg {
 	height: 16px;
+	justify-self: end;
 }
 .active > svg {
 	fill: blue;

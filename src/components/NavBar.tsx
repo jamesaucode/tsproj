@@ -9,7 +9,8 @@ import BurgerMenu from "./BurgerMenu/BurgerMenu";
 
 const NavWrapper = styled.div`
   width: 100%;
-  padding: 1rem;
+  height: 100%;
+  min-height: 52px;
   box-sizing: border-box;
   border-bottom: 1px solid #eeeeee;
   display: flex;
