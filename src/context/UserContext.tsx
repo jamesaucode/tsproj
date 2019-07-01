@@ -18,7 +18,7 @@ export const UserProvider = ({children}: any) => {
             console.log(json);
             setData(json)
         })
-    }, []);
+    }, [data]);
     return (
         <UserContext.Provider value={data}>
             {children}

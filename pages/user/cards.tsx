@@ -53,7 +53,7 @@ const Cards: NextFC = (props: any) => {
         setCards(userData.cards);
       }
     }
-  }, [props.cards]);
+  }, [userData, props.cards]);
   const deleteCardHandler = (cardId: string) => {
     fetch("/api/card", {
       method: "DELETE",
