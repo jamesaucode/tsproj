@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 
 export const FormBottom = styled.p`
+  font-size: .8em;
   padding: 1rem 0;
 `;
 
@@ -51,7 +52,8 @@ export const Message = styled.div<MessageProps>`
   display: flex;
   justify-content: space-between;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 1em;
+  /* font-size: 0.8em; */
+  font-size: 14px;
   font-weight: 400;
   width: 100%;
   max-width: 888px;
@@ -59,7 +61,7 @@ export const Message = styled.div<MessageProps>`
   color: ${props =>
     props.success ? "rgba(255, 255, 255,0.9)" : "rgba(255, 255, 255, 0.9)"};
   background: ${props => (props.success ? "#51CD80" : "#ff243d")};
-  padding: 1rem 2rem;
+  padding: 10px 28px;
   border-radius: 5px;
   &:hover {
     cursor: pointer;

@@ -28,14 +28,15 @@ const LoginButtonLogo = styled.img`
   height: 100%;
 `;
 const Divider = styled.div`
-  width: ${maxFormWidth};
-  height: 7px;
+  width: 100%;
+  max-width: ${maxFormWidth};
+  height: 0.6em;
   border-bottom: 1px solid #dddddd;
   text-align: center;
   margin-bottom: 2rem;
 `;
 const DividerText = styled.span`
-  font-size: 1em;
+  font-size: 0.7em;
   font-weight: 600;
   background: white;
   padding: 0 1rem;
@@ -50,7 +51,7 @@ const FormInput = styled.input<FormInputProps>`
   padding: 0.75rem;
   margin: 0.5rem 0;
   width: 100%;
-  font-size: 0.8em;
+  font-size: 0.7em;
   box-sizing: border-box;
   &:focus {
     border: ${({ validated }) =>
@@ -58,12 +59,12 @@ const FormInput = styled.input<FormInputProps>`
   }
 `;
 const FormWrapper = styled.div`
-  width: ${maxFormWidth};
+  max-width: ${maxFormWidth};
   text-align: center;
 `;
 const FormSubmit = styled.button`
   color: white;
-  font-size: 1em;
+  font-size: 0.7em;
   font-weight: 600;
   width: 100%;
   border: none;
@@ -78,6 +79,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   height: fit-content;
+  max-width: 400px;
+  font-size: calc(0.35vw + 16px);
 `;
 
 const Login: NextFC = () => {

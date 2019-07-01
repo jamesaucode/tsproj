@@ -20,12 +20,14 @@ const FormInput = styled.input`
   margin: 0.5rem 0;
   width: 100%;
   box-sizing: border-box;
+  font-size: .7em;
   &:focus {
     border: 1px solid #8610f9;
   }
 `;
 const FormWrapper = styled.div`
-  width: ${maxFormWidth};
+  max-width: ${maxFormWidth};
+  font-size: calc(0.35vw + 16px);
   height: fit-content;
   text-align: center;
 `;

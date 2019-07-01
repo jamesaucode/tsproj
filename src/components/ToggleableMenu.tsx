@@ -15,6 +15,7 @@ const DropDownWrapper = styled.div`
   position: relative;
   display: inline-block;
   align-items: center;
+  padding: 0 1rem;
   margin: 0 auto;
 `;
 

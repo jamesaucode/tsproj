@@ -9,7 +9,6 @@ interface WrapperProps {
   mounted?: boolean;
 }
 const Wrapper = styled.div<WrapperProps>`
-  top: 20px;
   display: flex;
   justify-content: center;
   border-radius: 5px;
@@ -21,6 +20,9 @@ const Wrapper = styled.div<WrapperProps>`
 const Important = styled.span`
   font-weight: 700;
 `;
+const SVGWrapper = styled.div`
+  padding: 0 0.5rem;
+`
 const renderImportant = (text: string) => <Important>{text}</Important>;
 const NotificationMessage: NextFC<MessageType> = ({
   success,
@@ -36,9 +38,9 @@ const NotificationMessage: NextFC<MessageType> = ({
           {success ? renderImportant("Success! ") : renderImportant("Oops! ")}
           {message}
         </div>
-        <div onClick={() => removeNotification(id)}>
+        <SVGWrapper onClick={() => removeNotification(id)}>
           <SVG className="small-icon" src="/static/images/close.svg" />
-        </div>
+        </SVGWrapper>
       </Message>
     </Wrapper>
   );

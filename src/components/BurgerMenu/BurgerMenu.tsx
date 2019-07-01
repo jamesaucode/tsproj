@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import SVG from "react-inlinesvg";
 import styled from "styled-components";
 import Link from "next/link";
-import { fadeIn } from '../../styles/shared';
+import { fadeIn } from "../../styles/shared";
 
 const Wrapper = styled.div`
   cursor: pointer;
   padding: 1rem;
+  margin-left: auto;
 `;
 interface MenuProps {
   show: boolean;
@@ -32,10 +33,11 @@ const Menu = styled.ul`
   font-size: calc(0.35vw + 16px);
 `;
 const MenuItem = styled.li`
-  display: block;
   color: #222;
+  display: block;
   font-size: 1em;
   padding: 1em;
+  text-align: right;
 `;
 interface PropTypes {
   loggedIn: boolean;
@@ -52,12 +54,6 @@ const BurgerMenu: React.FC<PropTypes> = ({ loggedIn }) => {
         <Menu>
           <Link href="/">
             <MenuItem>Home</MenuItem>
-          </Link>
-          <Link href="/about">
-            <MenuItem>About</MenuItem>
-          </Link>
-          <Link href="/login">
-            <MenuItem>Login / Singup</MenuItem>
           </Link>
           {loggedIn && (
             <>

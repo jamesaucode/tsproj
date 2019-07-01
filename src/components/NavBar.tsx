@@ -17,12 +17,18 @@ const NavWrapper = styled.div`
   align-items: center;
 `;
 const Nav = styled.nav`
-  display: flex;
-  max-width: 1200px;
-  /* height: 40px; */
-  height: 100%;
-  margin: 0 auto;
   align-items: center;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  padding: 0 1rem;
+  max-width: 700px;
+  margin: 0 auto;
+
+  @media (max-width: 600px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 `;
 export const NavLink = styled.li`
   font-family: Arial, Helvetica, sans-serif;
@@ -49,15 +55,12 @@ const NavBar: NextFC = props => {
         <Nav />
       </NavWrapper>
     );
-  } else if (windowSize > 700) {
+  } else if (windowSize.size.windowWidth > 700) {
     return (
       <NavWrapper>
         <Nav>
           <Link href="/">
             <NavLink>Home</NavLink>
-          </Link>
-          <Link href="/about">
-            <NavLink>About</NavLink>
           </Link>
           {/* Protected Nav Items */}
           {isLoggedIn && (
@@ -87,6 +90,11 @@ const NavBar: NextFC = props => {
         <Nav>
           <BurgerMenu loggedIn={isLoggedIn} />
         </Nav>
+        <ToggleableMenu
+          loggedIn={isLoggedIn}
+          iconName="fas fa-user-circle"
+          {...props}
+        />
       </NavWrapper>
     );
   }

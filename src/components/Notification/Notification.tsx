@@ -2,16 +2,27 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import NotificationMessage from "./NotificationMessage";
 import { MessageType } from "../../../typings/message";
 import styled from "styled-components";
+import { useWindowSize } from "../../hooks/useWindowSize";
 const uuid = require("uuid");
 
-const AllNotificationsWrapper = styled.div`
-  height: 0; 
-  top: 20px;
-  position: sticky;
-  z-index:1000;
+interface AllNotificationWrapperProps {
+  windowHeight: number;
+  os: number;
+}
+const AllNotificationsWrapper = styled.div<AllNotificationWrapperProps>`
+  height: 0;
+  top: ${({ windowHeight, os }) =>
+    "calc(" + windowHeight + "px" + " - " + os + "px)"};
+  left: 50%; /* position the left edge of the element at the middle of the parent */
+  transform: translate(-50%, -50%);
+  font-size: calc(0.35vw + 16px);
+  width: fit-content;
+  position: absolute;
+  z-index: 1000;
 `;
 const Notification = (props: any) => {
   const [notifications, setNotifications] = useState<MessageType[]>([]);
+  const windowSize = useWindowSize();
   const delay = 5000;
   const id = useRef<number[]>([]);
   useEffect(() => {
@@ -30,7 +41,7 @@ const Notification = (props: any) => {
       message,
       success: status,
       id: uuid(),
-      delay,
+      delay
     };
     console.log("Setting up the timer");
     const timerId = setTimeout(() => {
@@ -46,13 +57,16 @@ const Notification = (props: any) => {
   const children = React.Children.map(props.children, child => {
     return React.cloneElement(child, {
       pushNotification,
-      removeNotification,
+      removeNotification
     });
   });
   if (notifications) {
     return (
       <React.Fragment>
-        <AllNotificationsWrapper>
+        <AllNotificationsWrapper
+          windowHeight={windowSize.size.windowHeight}
+          os={notifications.length * 54}
+        >
           {notifications.map((notification: MessageType) => {
             return (
               <NotificationMessage
