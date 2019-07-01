@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
 export const useWindowSize = () => {
-    const [windowSize, setWindowSize] = useState<number>(window.innerWidth);
+    const initialWindowSize = typeof window !== 'undefined' ? window.innerWidth : 1000;
+    const [windowSize, setWindowSize] = useState<number>(initialWindowSize);
+    console.log(windowSize)
     const handleResize = () => {
-        setWindowSize(window.innerWidth);
+        if (typeof window !== 'undefined') {
+            setWindowSize(window.innerWidth);
+        }
     }
+
     useEffect(() => {
         window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);
         }
     }, [windowSize])
+
     return windowSize;
 }
