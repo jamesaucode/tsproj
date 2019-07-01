@@ -62,10 +62,9 @@ router.get("/auth/redirect", (req, res, next) => {
     next();
 }, passport.authenticate("google"), (req, res) => {
     console.log("Logged in");
-    if (req.user) {
-        nextApp_1.default.render(req, res, "/user/create");
+    if (req.isAuthenticated()) {
+        return nextApp_1.default.render(req, res, "/user/create");
     }
-    // res.redirect('/user/create');
 });
 router.get("/user/cards", (req, res) => {
     if (req.isAuthenticated()) {
@@ -80,7 +79,9 @@ router.get("/user/cards", (req, res) => {
 router.get("/user/profile", (req, res) => {
     if (req.isAuthenticated()) {
         console.log("I am logged in lmao");
-        handler(req, res, url_1.parse(req.url, true));
+        const user = req.user;
+        return nextApp_1.default.render(req, res, "/user/profile", { user });
+        // return handler(req, res, parse(req.url, true));
     }
     else {
         return res.redirect("/");

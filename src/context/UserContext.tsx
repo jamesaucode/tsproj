@@ -1,11 +1,12 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { handleJSONResponse } from '../../services/fetch.service';
 
+const host = process.env.HOST;
 export const UserContext = createContext<any | null>(null);
 
 export const UserProvider = ({children}: any) => {
     const [data, setData] = useState();
-    const url = `http://localhost:3000/api/profile`
+    const url = `https://${host}/api/profile`
     useEffect(() => {
         fetch(url, {
             method: "GET",

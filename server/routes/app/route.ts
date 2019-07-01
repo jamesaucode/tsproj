@@ -86,10 +86,9 @@ router.get(
   passport.authenticate("google"),
   (req: express.Request, res: express.Response) => {
     console.log("Logged in");
-    if (req.user) {
-      nextApp.render(req, res, "/user/create");
-    }
-    // res.redirect('/user/create');
+    if (req.isAuthenticated()) {
+      return nextApp.render(req, res, "/user/create");
+    } 
   }
 );
 router.get("/user/cards", (req, res) => {
@@ -104,7 +103,9 @@ router.get("/user/cards", (req, res) => {
 router.get("/user/profile", (req, res) => {
   if (req.isAuthenticated()) {
     console.log("I am logged in lmao");
-    handler(req, res, parse(req.url, true));
+    const user = req.user;
+    return nextApp.render(req, res, "/user/profile", { user });
+    // return handler(req, res, parse(req.url, true));
   } else {
     return res.redirect("/");
   }
