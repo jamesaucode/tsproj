@@ -4,6 +4,8 @@ import { Layout, Heading } from "../../src/styles/shared";
 import { NextFC, NextContext } from "next";
 import { IncomingMessage } from "http";
 import { redirect, redirectWithDelay } from "../../utils/redirect";
+import { UserSchemaTypes } from '../../server/schemas/User';
+import Router from 'next/router';
 
 const Logout: NextFC = (props: any) => {
   console.log(props);
@@ -20,14 +22,15 @@ interface CustomRequest extends IncomingMessage {
   session?: CookieSessionInterfaces.CookieSessionObject | null;
 }
 
-Logout.getInitialProps = async (ctx: any) => {
+Logout.getInitialProps = async (ctx: NextContext<{}, { user : UserSchemaTypes, session: any }>) => {
   const { req, query } = ctx;
   const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
   const isServer = !!req;
   if (isServer) {
     if (req.session) {
       req.session = null;
-      return redirectWithDelay(ctx);
+      ctx.res.writeHead(302, { location: '/'});
+      // return redirectWithDelay(isServer);
     }
   }
   const apiUrl = isServer
@@ -39,11 +42,16 @@ Logout.getInitialProps = async (ctx: any) => {
       "Content-Type": "application/json"
     }
   });
-  if (!response.ok && req) {
-    ctx.req.session = null;
-    return redirectWithDelay(ctx);
+  if (isServer) {
+    ctx.res.writeHead(302, { location: '/'});
+  } else {
+    Router.push('/');
   }
-  return redirectWithDelay(ctx);
+  // if (!response.ok && req) {
+  //   req.session = null;
+  //   return redirectWithDelay(isServer);
+  // }
+  // return redirectWithDelay(isServer);
 };
 
 export default Logout;

@@ -81,6 +81,7 @@ const Login: NextFC = (props: any) => {
   const [emailInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [showSignIn, setShowSignIn] = useState(true);
+  console.log(props);
   const handleSubmit = (event: any) => {
     fetch("/api/login", {
       method: "POST",
@@ -93,9 +94,11 @@ const Login: NextFC = (props: any) => {
       }),
     }).then(response => {
       if (response.ok && response.redirected) {
-        Router.push(response.url);
+        // Router.push(response.url);
+        window.location.href = "/user/cards";
         props.pushNotification("Welcome back!", true);
       } else {
+        console.log("WRONG PASSWORD");
         props.pushNotification( "Incorrect credentials, please try again.", false);
         setPasswordInput("");
       }

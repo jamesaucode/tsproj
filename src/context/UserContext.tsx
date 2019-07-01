@@ -1,11 +1,12 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { handleJSONResponse } from '../../services/fetch.service';
-const host = "study-well.herokuapp.com";
+const host = "https://study-well.herokuapp.com";
+// const host = "http://localhost:3000";
 export const UserContext = createContext<any | null>(null);
 
 export const UserProvider = ({children}: any) => {
     const [data, setData] = useState();
-    const url = `https://${host}/api/profile`
+    const url = `${host}/api/profile`
     useEffect(() => {
         fetch(url, {
             method: "GET",

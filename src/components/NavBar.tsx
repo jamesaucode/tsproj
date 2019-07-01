@@ -36,7 +36,7 @@ interface NavBarProps {
   session: any;
 }
 
-const NavBar: NextFC<NavBarProps> = () => {
+const NavBar: NextFC<NavBarProps> = (props) => {
   const [loading, setLoading] = useState(true);
   const isLoggedIn = useLoginStatus();
   useEffect(() => {
@@ -69,7 +69,7 @@ const NavBar: NextFC<NavBarProps> = () => {
             </React.Fragment>
           )}
         </Nav>
-        <ToggleableMenu loggedIn={isLoggedIn} iconName="fas fa-user-circle" />
+        <ToggleableMenu loggedIn={isLoggedIn} iconName="fas fa-user-circle" {...props} />
       </NavWrapper>
     );
 };

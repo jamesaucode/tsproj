@@ -50,6 +50,7 @@ const StyledLink = styled.a`
   font-weight: 600;
   padding: 0 1rem;
   color: white;
+  text-decoration: none;
 `;
 
 const ProfileIcon = styled.i``;
@@ -63,7 +64,8 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
       isOpen: showModal,
       closeModal: () => {
         setShowModal(!showModal);
-      }
+      },
+      parentProps: {...props}
     };
   };
   useEffect(() => {
@@ -92,9 +94,9 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
             </Link>
           </LinkWrapper>
           <LinkWrapper>
-            <Link href="/user/logout">
-              <StyledLink onClick={handleToggleClick}>Logout</StyledLink>
-            </Link>
+            <StyledLink href="/user/logout" onClick={handleToggleClick}>
+              Logout
+            </StyledLink>
           </LinkWrapper>
         </DropdownMenu>
       </DropDownWrapper>

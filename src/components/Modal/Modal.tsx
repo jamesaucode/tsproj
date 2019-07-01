@@ -37,8 +37,9 @@ const DivOverlay = styled.div`
 interface ModalProps {
   Embedded?: React.FC;
   closeModal: (value: void) => void;
+  parentProps?: any;
 }
-const Modal: NextFC<ModalProps> = ({ Embedded, closeModal, children }) => {
+const Modal: NextFC<ModalProps> = ({ Embedded, closeModal, parentProps, children }) => {
   // For testing
   useEffect(() => {
     console.log("Modal Mounted");
@@ -61,7 +62,7 @@ const Modal: NextFC<ModalProps> = ({ Embedded, closeModal, children }) => {
           alignItems: "center"
         }}
       >
-        <ModalWrapper>{Embedded ? <Embedded /> : children}</ModalWrapper>
+        <ModalWrapper>{Embedded ? <Embedded {...parentProps} /> : children}</ModalWrapper>
       </div>
     </>,
     document.body

@@ -5,6 +5,7 @@ import { parse } from "url";
 import nextApp from "../../nextApp";
 import { CardsModel, CardsScehmaTypes } from "../../schemas/Cards";
 import { UserModel, UserSchemaTypes } from "../../schemas/User";
+import { requestWithSession } from '../../../typings/express';
 import { app } from "../routes";
 
 require("dotenv").config();
@@ -87,8 +88,10 @@ router.get(
   (req: express.Request, res: express.Response) => {
     console.log("Logged in");
     if (req.isAuthenticated()) {
-      return nextApp.render(req, res, "/user/create");
-    } 
+      return res.redirect('/user/cards');
+    } else {
+      return res.redirect('/');
+    }
   }
 );
 router.get("/user/cards", (req, res) => {
@@ -105,11 +108,18 @@ router.get("/user/profile", (req, res) => {
     console.log("I am logged in lmao");
     const user = req.user;
     return nextApp.render(req, res, "/user/profile", { user });
-    // return handler(req, res, parse(req.url, true));
   } else {
     return res.redirect("/");
   }
 });
+router.get("/user/logout", (req : any , res) => {
+  if (req.isAuthenticated()) {
+    req.session = null;
+    return res.redirect("/");
+  } else {
+    return res.redirect('back');
+  }
+})
 
 router.get("/user/*", (req, res, next) => {
   if (req.isAuthenticated()) {

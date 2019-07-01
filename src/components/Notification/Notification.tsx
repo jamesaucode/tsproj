@@ -2,14 +2,13 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import NotificationMessage from "./NotificationMessage";
 import { MessageType } from "../../../typings/message";
 import styled from "styled-components";
-
 const uuid = require("uuid");
 
 const AllNotificationsWrapper = styled.div`
-  height: 0; // Hacky ?
+  height: 0; 
   top: 20px;
   position: sticky;
-  z-index:10;
+  z-index:1000;
 `;
 const Notification = (props: any) => {
   const [notifications, setNotifications] = useState<MessageType[]>([]);
