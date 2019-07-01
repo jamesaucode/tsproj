@@ -28,6 +28,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
+// in production
+if (process.env.NODE_ENV === 'production') {
+    app.use((req, res, next) => {
+        if (!req.secure) {
+            console.log(['https://', req.get('Host'), req.url].join(''));
+            return res.redirect(['https://', req.get('Host'), req.url].join(''));
+        }
+        next();
+    });
+}
 app.use('/api', routes.api);
 app.use('/', routes.app);
 (async () => {

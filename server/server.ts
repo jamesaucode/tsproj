@@ -4,14 +4,14 @@ import * as express from 'express';
 import * as passport from 'passport';
 require('dotenv').config();
 const bodyParser = require('body-parser');
-const cookieSession = require('cookie-session') ;
+const cookieSession = require('cookie-session');
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 const mongoose = require('mongoose');
 const app = express();
 const mongoUser = process.env.MONGO_USER
 const mongoPassword = process.env.MONGO_PASSWORD
 // mongoose.connect('mongodb://localhost:27017/myDB', { useNewUrlParser: true });
-mongoose.connect(`mongodb+srv://${mongoUser}:${mongoPassword}@cluster0-odv04.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser: true, dbName: "study"});
+mongoose.connect(`mongodb+srv://${mongoUser}:${mongoPassword}@cluster0-odv04.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser: true, dbName: "study" });
 const db = mongoose.connection;
 db.on('error', console.error.bind('console', 'connection error!'))
 db.once('open', () => {
@@ -22,10 +22,20 @@ app.use(cookieSession({
     maxAge: 6 * 60 * 60 * 1000,
     keys: ["very secret"]
 }))
-app.use(bodyParser.urlencoded({ extended : false }))
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(passport.initialize());
 app.use(passport.session());
+// in production
+if (process.env.NODE_ENV === 'production') {
+    app.use((req, res, next) => {
+        if (!req.secure) {
+            console.log(['https://', req.get('Host'), req.url].join(''));
+            return res.redirect(['https://', req.get('Host'), req.url].join(''));
+        }
+        next();
+    })
+}
 app.use('/api', routes.api);
 app.use('/', routes.app);
 
