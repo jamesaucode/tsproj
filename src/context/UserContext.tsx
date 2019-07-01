@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { handleJSONResponse } from '../../services/fetch.service';
+require('dotenv').config();
 
 const host = process.env.HOST;
 export const UserContext = createContext<any | null>(null);
