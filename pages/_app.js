@@ -11,11 +11,9 @@ Router.events.on("routeChangeStart", url => {
   NProgress.start();
 });
 Router.events.on("routeChangeComplete", () => {
-  console.log("Route change completed");
   NProgress.done();
 });
 Router.events.on("routeChangeError", () => {
-  console.log("Route change Error");
   NProgress.done();
 });
 
@@ -37,7 +35,7 @@ export default class MyApp extends App {
       <Container>
         <UserProvider>
           <Notification>
-            <NavBar {...pageProps} />
+            {/* <NavBar {...pageProps} /> */}
             <Component {...pageProps} />
           </Notification>
         </UserProvider>

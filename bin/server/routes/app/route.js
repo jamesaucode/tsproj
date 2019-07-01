@@ -63,10 +63,10 @@ router.get("/auth/redirect", (req, res, next) => {
 }, passport.authenticate("google"), (req, res) => {
     console.log("Logged in");
     if (req.isAuthenticated()) {
-        return res.redirect('/user/cards');
+        return res.redirect("/user/cards");
     }
     else {
-        return res.redirect('/');
+        return res.redirect("/");
     }
 });
 router.get("/user/cards", (req, res) => {
@@ -95,7 +95,7 @@ router.get("/user/logout", (req, res) => {
         return res.redirect("/");
     }
     else {
-        return res.redirect('back');
+        return res.redirect("back");
     }
 });
 router.get("/user/*", (req, res, next) => {
@@ -107,14 +107,20 @@ router.get("/user/*", (req, res, next) => {
         return res.redirect("/");
     }
 });
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
+    if (req.isAuthenticated()) {
+        res.redirect("/home");
+    }
+    else {
+        next();
+    }
+});
+router.get("/home", (req, res) => {
     const user = req.user;
-    return nextApp_1.default.render(req, res, "/", { user });
+    return nextApp_1.default.render(req, res, "/home", { user });
 });
 router.get("*", (req, res) => {
     const { pathname, query } = url_1.parse(req.url, true);
-    // console.log(`pathname : ${pathname}`);
-    // console.log(`query : ${query}`);
     handler(req, res, url_1.parse(req.url, true));
 });
 passport.serializeUser((user, done) => {

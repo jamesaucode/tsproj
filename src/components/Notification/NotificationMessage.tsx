@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import styled from "styled-components";
 import { fadeIn, Message } from "../../styles/shared";
 import { NextFC } from "next";
@@ -17,7 +17,6 @@ const Wrapper = styled.div<WrapperProps>`
   padding: 0.5rem;
   box-sizing: border-box;
   transition: 0.5s ease-in-out opacity;
-  /* animation: ${fadeIn} 0.5s ease-in-out 1; */
 `;
 const Important = styled.span`
   font-weight: 700;

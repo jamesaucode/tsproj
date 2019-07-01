@@ -1,5 +1,9 @@
 import styled, { keyframes } from "styled-components";
 
+export const FormBottom = styled.p`
+  padding: 1rem 0;
+`;
+
 export const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -10,10 +14,10 @@ export const fadeIn = keyframes`
 `;
 interface LayoutProps {
   fadeIn?: boolean;
+  fitContent?: boolean;
 }
 export const Layout = styled.main<LayoutProps>`
-  /* height: 200vh; */
-  height: 100%;
+  /* height: ${({ fitContent }) => (fitContent ? "fit-content" : "100%")}; */
   box-sizing: border-box;
   max-width: 1200px;
   margin: 2rem auto;
@@ -42,8 +46,8 @@ interface MessageProps {
   readonly success?: boolean;
 }
 export const Message = styled.div<MessageProps>`
-display: flex;
-justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em;
   font-weight: 400;
@@ -58,5 +62,18 @@ justify-content: space-between;
   &:hover {
     cursor: pointer;
     opacity: 0.9;
+  }
+`;
+
+export const Button = styled.button`
+  background: #4285f4;
+  border: none;
+  border-radius: 3px;
+  padding: 0.5em 1.5em;
+  font-size: 0.7em;
+  font-weight: 400;
+  color: #fff;
+  &:hover {
+    cursor: pointer;
   }
 `;

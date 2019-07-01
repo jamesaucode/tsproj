@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useUserData } from "../../src/hooks/useUserData";
 import fetch from "isomorphic-unfetch";
 import { handleJSONResponse } from "../../services/fetch.service";
+import NavBar from "../../src/components/NavBar";
 
 const CardWrapper = styled.li`
   border-radius: 3px;
@@ -68,40 +69,43 @@ const Cards: NextFC = (props: any) => {
     });
   };
   return (
-    <Layout>
-      <Heading>Your cards</Heading>
-      <CardList>
-        {cards ? (
-          cards.map(card => {
-            return (
-              <CardWrapper key={card._id}>
-                <Card>
-                  <CardTextBox>
-                    <CardTag>Question:</CardTag>
-                    <CardText>{card.question}</CardText>
-                  </CardTextBox>
-                  <CardTextBox>
-                    <CardTag>Answer:</CardTag>
-                    <CardText>{card.answer}</CardText>
-                  </CardTextBox>
-                  <button onClick={() => deleteCardHandler(card._id)}>
-                    Delete
-                  </button>
-                </Card>
-              </CardWrapper>
-            );
-          })
-        ) : (
-          <Heading>{"NO CARDS LMAOO"}</Heading>
-        )}
-      </CardList>
-    </Layout>
+    <>
+      <NavBar />
+      <Layout>
+        <Heading>Your cards</Heading>
+        <CardList>
+          {cards ? (
+            cards.map(card => {
+              return (
+                <CardWrapper key={card._id}>
+                  <Card>
+                    <CardTextBox>
+                      <CardTag>Question:</CardTag>
+                      <CardText>{card.question}</CardText>
+                    </CardTextBox>
+                    <CardTextBox>
+                      <CardTag>Answer:</CardTag>
+                      <CardText>{card.answer}</CardText>
+                    </CardTextBox>
+                    <button onClick={() => deleteCardHandler(card._id)}>
+                      Delete
+                    </button>
+                  </Card>
+                </CardWrapper>
+              );
+            })
+          ) : (
+            <Heading>{"NO CARDS LMAOO"}</Heading>
+          )}
+        </CardList>
+      </Layout>
+    </>
   );
 };
 
 Cards.defaultProps = {
   cards: null
-}
+};
 
 Cards.getInitialProps = async ({ req, query }) => {
   const isServer = !!req;
@@ -119,7 +123,9 @@ Cards.getInitialProps = async ({ req, query }) => {
       }
     });
     const json = handleJSONResponse(response);
-    return json.then(data => { return { cards: data } });
+    return json.then(data => {
+      return { cards: data };
+    });
   }
 };
 

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Layout } from "../src/styles/shared";
-import { handleResponse } from '../services/fetch.service';
+import { handleResponse } from "../services/fetch.service";
+import { FormBottom } from "../src/styles/shared";
 import Link from "next/link";
 import fetch from "isomorphic-unfetch";
 import styled from "styled-components";
+import Register from "../src/components/register";
 
 const maxFormWidth = "400px";
 const LoginButton = styled.a`
@@ -50,6 +52,7 @@ const FormInput = styled.input`
 `;
 const FormWrapper = styled.div`
   width: ${maxFormWidth};
+  height: fit-content;
   text-align: center;
 `;
 const FormSubmit = styled.button`
@@ -65,8 +68,11 @@ const FormSubmit = styled.button`
     cursor: pointer;
   }
 `;
+const Wrapper = styled.div`
+  height: fit-content;
+`;
 
-const Register = (props: any) => {
+const RegisterPage = (props: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -105,63 +111,21 @@ const Register = (props: any) => {
         password
       })
     })
-    .then(handleResponse)
-    .then(json => {
-      props.pushNotification(json.message, true);
-    })
-    .catch(error => {
-      props.pushNotification(error.message, false);
-    })
+      .then(handleResponse)
+      .then(json => {
+        props.pushNotification(json.message, true);
+      })
+      .catch(error => {
+        props.pushNotification(error.message, false);
+      });
     console.log("Submitted");
   };
 
   return (
-    <Layout fadeIn>
-      <FormWrapper>
-        <FormInput
-          onChange={changeHandler}
-          value={email}
-          type="email"
-          name="email"
-          placeholder="Email"
-          required
-        />
-        <FormInput
-          onChange={changeHandler}
-          value={password}
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
-        <FormInput
-          onChange={changeHandler}
-          value={firstName}
-          type="text"
-          name="firstName"
-          placeholder="First Name"
-          required
-        />
-        <FormInput
-          onChange={changeHandler}
-          value={lastName}
-          type="text"
-          name="lastName"
-          placeholder="Last Name"
-          required
-        />
-        <FormSubmit onClick={handleSubmit}>Sign Up!</FormSubmit>
-        <Link href="/login">
-          <div>
-            <p>
-              New user ? <StyledLink>Login </StyledLink>
-              here!
-            </p>
-          </div>
-        </Link>
-      </FormWrapper>
+    <Layout>
+      <Register />
     </Layout>
   );
 };
 
-export default Register;
+export default RegisterPage;

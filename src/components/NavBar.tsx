@@ -31,12 +31,8 @@ export const NavLink = styled.li`
   color: #333333;
   cursor: pointer;
 `;
-interface NavBarProps {
-  loggedIn: boolean;
-  session: any;
-}
 
-const NavBar: NextFC<NavBarProps> = (props) => {
+const NavBar: NextFC = (props) => {
   const [loading, setLoading] = useState(true);
   const isLoggedIn = useLoginStatus();
   useEffect(() => {
@@ -45,6 +41,7 @@ const NavBar: NextFC<NavBarProps> = (props) => {
   if (loading) {
     return (
       <NavWrapper>
+        <Nav />
       </NavWrapper>
     );
   } else

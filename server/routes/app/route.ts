@@ -5,7 +5,7 @@ import { parse } from "url";
 import nextApp from "../../nextApp";
 import { CardsModel, CardsScehmaTypes } from "../../schemas/Cards";
 import { UserModel, UserSchemaTypes } from "../../schemas/User";
-import { requestWithSession } from '../../../typings/express';
+import { requestWithSession } from "../../../typings/express";
 import { app } from "../routes";
 
 require("dotenv").config();
@@ -88,9 +88,9 @@ router.get(
   (req: express.Request, res: express.Response) => {
     console.log("Logged in");
     if (req.isAuthenticated()) {
-      return res.redirect('/user/cards');
+      return res.redirect("/user/cards");
     } else {
-      return res.redirect('/');
+      return res.redirect("/");
     }
   }
 );
@@ -112,14 +112,14 @@ router.get("/user/profile", (req, res) => {
     return res.redirect("/");
   }
 });
-router.get("/user/logout", (req : any , res) => {
+router.get("/user/logout", (req: any, res) => {
   if (req.isAuthenticated()) {
     req.session = null;
     return res.redirect("/");
   } else {
-    return res.redirect('back');
+    return res.redirect("back");
   }
-})
+});
 
 router.get("/user/*", (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -130,14 +130,20 @@ router.get("/user/*", (req, res, next) => {
   }
 });
 
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
+  if (req.isAuthenticated()) {
+    res.redirect("/home");
+  } else {
+    next();
+  }
+});
+
+router.get("/home", (req, res) => {
   const user = req.user;
-  return nextApp.render(req, res, "/", { user });
+  return nextApp.render(req, res, "/home", { user });
 });
 router.get("*", (req, res) => {
   const { pathname, query } = parse(req.url, true);
-  // console.log(`pathname : ${pathname}`);
-  // console.log(`query : ${query}`);
   handler(req, res, parse(req.url, true));
 });
 passport.serializeUser<googleOAuth.Profile | any, any>((user, done) => {

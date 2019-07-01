@@ -1,17 +1,17 @@
 import React from "react";
-import { Layout, Heading } from '../src/styles/shared';
+import { Layout, Heading } from "../src/styles/shared";
 import { NextFC } from "next";
+import NavBar from "../src/components/NavBar";
 
-const About : NextFC = () => {
+const About: NextFC = () => {
   return (
-    <Layout>
-      <Heading>This is a study app.</Heading>
-    </Layout>
+    <>
+      <NavBar />
+      <Layout>
+        <Heading>This is a study app.</Heading>
+      </Layout>
+    </>
   );
 };
-
-About.getInitialProps = async (ctx) => {
-  console.log("LMAO")
-}
 
 export default About;

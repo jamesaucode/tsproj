@@ -12,7 +12,7 @@ class MyDocument extends Document {
         <Head />
         <title>Study App</title>
         <link rel="stylesheet" href="../static/reset.css" />
-        <link rel="stylesheet" href="../static/fa.css" />
+        <link rel="stylesheet" href="../static/custom.css" />
         <link rel="stylesheet" href="../static/nprogress.css" />
         <body>
           <Main />

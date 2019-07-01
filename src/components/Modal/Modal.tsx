@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { fadeIn } from "../../styles/shared";
 import { NextFC } from "next";
+import SVG from "react-inlinesvg";
 
 const ModalWrapper = styled.div`
   min-height: 300px;
@@ -15,6 +16,7 @@ const ModalWrapper = styled.div`
   padding: 4rem;
   position: absolute;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: #fff;
@@ -34,12 +36,30 @@ const DivOverlay = styled.div`
   top: 0;
   z-index: 10;
 `;
+const Wrapper = styled.div`
+  display: "flex";
+  justify-content: "center";
+  align-items: "center";
+`;
+const CrossWrapper = styled.div`
+  & > span > svg {
+    padding: 1rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+`;
 interface ModalProps {
   Embedded?: React.FC;
   closeModal: (value: void) => void;
   parentProps?: any;
 }
-const Modal: NextFC<ModalProps> = ({ Embedded, closeModal, parentProps, children }) => {
+const Modal: NextFC<ModalProps> = ({
+  Embedded,
+  closeModal,
+  parentProps,
+  children
+}) => {
   // For testing
   useEffect(() => {
     console.log("Modal Mounted");
@@ -48,22 +68,23 @@ const Modal: NextFC<ModalProps> = ({ Embedded, closeModal, parentProps, children
       console.log("Unmounting");
     };
   }, []);
+  const handleClick = () => {
+    closeModal();
+  };
   return ReactDOM.createPortal(
     <>
-      <DivOverlay
-        onClick={() => {
-          closeModal();
-        }}
-      />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <ModalWrapper>{Embedded ? <Embedded {...parentProps} /> : children}</ModalWrapper>
-      </div>
+      <DivOverlay onClick={handleClick} />
+      <Wrapper>
+        <ModalWrapper>
+          <CrossWrapper onClick={handleClick}>
+            <SVG
+              className="small-icon top-right"
+              src="/static/images/close_black.svg"
+            />
+          </CrossWrapper>
+          {Embedded ? <Embedded {...parentProps} /> : children}
+        </ModalWrapper>
+      </Wrapper>
     </>,
     document.body
   );

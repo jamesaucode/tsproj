@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Layout, Heading } from "../../src/styles/shared";
-import StudyCard from '../../src/components/StudyCard';
-import { withAuthorization } from '../../src/components/AuthorizationHOC';
-import { SessionProps } from "../../typings/express";
-import { useLoginStatus } from '../../src/hooks/useLoginStatus';
+import StudyCard from "../../src/components/StudyCard";
+import NavBar from "../../src/components/NavBar";
+import { useLoginStatus } from "../../src/hooks/useLoginStatus";
 
-// const Main: React.FunctionComponent<SessionProps> = (props) => {
-const Create : React.FunctionComponent<any> = (props) => {
-    const isLoggedIn = useLoginStatus();
-    return isLoggedIn ? (
+const Create: React.FunctionComponent<any> = props => {
+  const isLoggedIn = useLoginStatus();
+  return isLoggedIn ? (
+    <>
+      <NavBar />
       <Layout id="main" fadeIn>
         <Heading>Make a card!</Heading>
-        <StudyCard session={props.session} pushNotification={props.pushNotification} popNotification={props.popNotification} />
+        <StudyCard
+          session={props.session}
+          pushNotification={props.pushNotification}
+          popNotification={props.popNotification}
+        />
       </Layout>
-    ) : null;
+    </>
+  ) : null;
 };
 
 export default Create;

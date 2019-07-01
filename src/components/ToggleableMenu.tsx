@@ -3,16 +3,14 @@ import styled from "styled-components";
 import Link from "next/link";
 import Modal from "../components/Modal";
 import Login from "../components/Login";
-import { NavLink } from "../components/NavBar";
 
 interface PropTypes {
   iconName: string;
   loggedIn: boolean;
 }
 interface MenuProps {
-  readonly expanded?: boolean;
+  expanded?: boolean;
 }
-
 const DropDownWrapper = styled.div`
   position: relative;
   display: inline-block;
@@ -52,12 +50,21 @@ const StyledLink = styled.a`
   color: white;
   text-decoration: none;
 `;
+const ImportantLink = styled(StyledLink)`
+  border: 1px solid #4285f4;
+  border-radius: 3px;
+  color: #4285f4;
+  padding: 0.5rem 1.5rem;
+  font-size: 1em;
+  cursor: pointer;
+`;
 
 const ProfileIcon = styled.i``;
 
 const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
   const [expanded, setExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const { loggedIn, iconName } = props;
   const getModalProps = () => {
     return {
       Embedded: Login,
@@ -65,7 +72,7 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
       closeModal: () => {
         setShowModal(!showModal);
       },
-      parentProps: {...props}
+      parentProps: { ...props }
     };
   };
   useEffect(() => {
@@ -83,10 +90,10 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
   const handleToggleClick = (event: React.MouseEvent) => {
     setExpanded(!expanded);
   };
-  if (props.loggedIn) {
+  if (loggedIn) {
     return (
       <DropDownWrapper>
-        <ProfileIcon className={props.iconName} onClick={handleToggleClick} />
+        <ProfileIcon className={iconName} onClick={handleToggleClick} />
         <DropdownMenu expanded={expanded}>
           <LinkWrapper>
             <Link href="/user/profile">
@@ -104,13 +111,13 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
   } else {
     return (
       <DropDownWrapper>
-        <NavLink
+        <ImportantLink
           onClick={() => {
             setShowModal(true);
           }}
         >
           Login
-        </NavLink>
+        </ImportantLink>
         {showModal && <Modal {...getModalProps()} />}
       </DropDownWrapper>
     );

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { NextFC } from "next";
-import Router from "next/router";
 import styled from "styled-components";
 import fetch from "isomorphic-unfetch";
-import Register from '../components/register';
+import Register from "../components/register";
 import { InputValidator } from "../../services/validation.service";
+import { FormBottom } from "../styles/shared";
+import Warning from "./Warning";
 
 const googleLoginButton = require("../../static/images/btn_google_signin_dark_normal_web@2x.png");
 const maxFormWidth = "400px";
@@ -41,17 +42,19 @@ const DividerText = styled.span`
   color: #333333;
 `;
 interface FormInputProps {
-  validated: boolean
+  validated: boolean;
 }
 const FormInput = styled.input<FormInputProps>`
   border: 1px solid #aaaaaa;
   border-radius: 2px;
-  padding: 0.5rem;
+  padding: 0.75rem;
   margin: 0.5rem 0;
   width: 100%;
+  font-size: 0.8em;
   box-sizing: border-box;
   &:focus {
-    border:${({ validated }) => validated ? "1px solid #8610f9" : "1px solid red"};
+    border: ${({ validated }) =>
+      validated ? "1px solid #8610f9" : "1px solid red"};
   }
 `;
 const FormWrapper = styled.div`
@@ -75,35 +78,38 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   height: fit-content;
-`
+`;
 
-const Login: NextFC = (props: any) => {
+const Login: NextFC = () => {
   const [emailInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [showSignIn, setShowSignIn] = useState(true);
-  console.log(props);
-  const handleSubmit = (event: any) => {
+  const [showWarning, setShowWarning] = useState(false);
+  const handleSubmit = () => {
     fetch("/api/login", {
       method: "POST",
+      credentials: "include",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         email: emailInput,
-        password: passwordInput,
-      }),
+        password: passwordInput
+      })
     }).then(response => {
       if (response.ok && response.redirected) {
-        // Router.push(response.url);
         window.location.href = "/user/cards";
-        props.pushNotification("Welcome back!", true);
       } else {
-        console.log("WRONG PASSWORD");
-        props.pushNotification( "Incorrect credentials, please try again.", false);
+        setShowWarning(true);
         setPasswordInput("");
       }
     });
   };
+  const handleKeyDown = (event : React.KeyboardEvent) => {
+    if (event.keyCode === 13) {
+      handleSubmit();
+    }
+  }
   const validateEmail = () => InputValidator.email(emailInput);
   const validatePassword = () => InputValidator.password(passwordInput);
   const validateInput = () => {
@@ -111,7 +117,7 @@ const Login: NextFC = (props: any) => {
   };
   const handleClick = () => {
     setShowSignIn(!showSignIn);
-  }
+  };
 
   return showSignIn ? (
     <Wrapper>
@@ -122,10 +128,12 @@ const Login: NextFC = (props: any) => {
         <DividerText>or</DividerText>
       </Divider>
       <FormWrapper>
+        {showWarning && <Warning text={"Incorrect Credentials"} />}
         <FormInput
           onChange={e => {
             setUsernameInput(e.target.value);
           }}
+          onKeyDown={handleKeyDown}
           validated={validateEmail()}
           value={emailInput}
           placeholder="Username / Email"
@@ -136,29 +144,29 @@ const Login: NextFC = (props: any) => {
           onChange={e => {
             setPasswordInput(e.target.value);
           }}
+          onKeyDown={handleKeyDown}
           value={passwordInput}
           validated={validatePassword()}
           placeholder="Password"
           name="password"
           type="password"
         />
-        <FormSubmit
-          disabled={!validateInput()}
-          onClick={handleSubmit}
-        >
+        <FormSubmit disabled={!validateInput()} onClick={handleSubmit}>
           Login
         </FormSubmit>
-          <div>
-            <p>
-              New user ? <StyledLink onClick={handleClick}>Signup </StyledLink>
-              here!
-            </p>
-          </div>
+        <FormBottom>
+          New user ? <StyledLink onClick={handleClick}>Signup </StyledLink>
+          here!
+        </FormBottom>
       </FormWrapper>
     </Wrapper>
   ) : (
-    <Register toggleForm={() => { setShowSignIn(true) }}/>
-  )
+    <Register
+      toggleForm={() => {
+        setShowSignIn(true);
+      }}
+    />
+  );
 };
 
 export default Login;

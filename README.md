@@ -8,3 +8,5 @@
 ---
 
 ### This is a basic project to familiarize myself with Nextjs, writing Nodejs, user authentications and session management.
+
+### Built with HTML, CSS, React, NextJS, NodeJS, MongoDB.

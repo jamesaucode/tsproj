@@ -1,16 +1,10 @@
 import React, { useState } from "react";
-import { Layout } from "../styles/shared";
-import { handleResponse } from '../../services/fetch.service';
-import Link from "next/link";
+import { handleResponse } from "../../services/fetch.service";
+import { FormBottom } from "../styles/shared";
 import fetch from "isomorphic-unfetch";
 import styled from "styled-components";
 
 const maxFormWidth = "400px";
-const LoginButton = styled.a`
-  max-width: 200px;
-  cursor: pointer;
-  margin: 1rem;
-`;
 
 const StyledLink = styled.a`
   color: blue;
@@ -19,24 +13,6 @@ const StyledLink = styled.a`
   font-weight: bold;
 `;
 
-const LoginButtonLogo = styled.img`
-  width: 100%;
-  height: 100%;
-`;
-const Divider = styled.div`
-  width: ${maxFormWidth};
-  height: 7px;
-  border-bottom: 1px solid #dddddd;
-  text-align: center;
-  margin-bottom: 2rem;
-`;
-const DividerText = styled.span`
-  font-size: 1em;
-  font-weight: 600;
-  background: white;
-  padding: 0 1rem;
-  color: #333333;
-`;
 const FormInput = styled.input`
   border: 1px solid #aaaaaa;
   border-radius: 2px;
@@ -50,6 +26,7 @@ const FormInput = styled.input`
 `;
 const FormWrapper = styled.div`
   width: ${maxFormWidth};
+  height: fit-content;
   text-align: center;
 `;
 const FormSubmit = styled.button`
@@ -71,7 +48,7 @@ const Register = (props: any) => {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const changeHandler = (event : any) => {
+  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name;
     const value = event.target.value;
     switch (name) {
@@ -91,7 +68,7 @@ const Register = (props: any) => {
         break;
     }
   };
-  const handleSubmit = (event : any) => {
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     fetch("/api/register", {
       method: "POST",
       credentials: "include",
@@ -105,62 +82,56 @@ const Register = (props: any) => {
         password
       })
     })
-    .then(handleResponse)
-    .then(json => {
-      props.pushNotification(json.message, true);
-    })
-    .catch(error => {
-      props.pushNotification(error.message, false);
-    })
+      .then(handleResponse)
+      .then(json => {
+        props.pushNotification(json.message, true);
+      })
+      .catch(error => {
+        props.pushNotification(error.message, false);
+      });
     console.log("Submitted");
   };
 
   return (
-    <Layout fadeIn>
-      <FormWrapper>
-        <FormInput
-          onChange={changeHandler}
-          value={email}
-          type="email"
-          name="email"
-          placeholder="Email"
-          required
-        />
-        <FormInput
-          onChange={changeHandler}
-          value={password}
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
-        <FormInput
-          onChange={changeHandler}
-          value={firstName}
-          type="text"
-          name="firstName"
-          placeholder="First Name"
-          required
-        />
-        <FormInput
-          onChange={changeHandler}
-          value={lastName}
-          type="text"
-          name="lastName"
-          placeholder="Last Name"
-          required
-        />
-        <FormSubmit onClick={handleSubmit}>Sign Up!</FormSubmit>
-        {/* <Link href="/login"> */}
-          <div>
-            <p>
-              New user ? <StyledLink onClick={props.toggleForm}>Login </StyledLink>
-              here!
-            </p>
-          </div>
-        {/* </Link> */}
-      </FormWrapper>
-    </Layout>
+    <FormWrapper>
+      <FormInput
+        onChange={changeHandler}
+        value={email}
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+      />
+      <FormInput
+        onChange={changeHandler}
+        value={password}
+        type="password"
+        name="password"
+        placeholder="Password"
+        required
+      />
+      <FormInput
+        onChange={changeHandler}
+        value={firstName}
+        type="text"
+        name="firstName"
+        placeholder="First Name"
+        required
+      />
+      <FormInput
+        onChange={changeHandler}
+        value={lastName}
+        type="text"
+        name="lastName"
+        placeholder="Last Name"
+        required
+      />
+      <FormSubmit onClick={handleSubmit}>Sign Up!</FormSubmit>
+      <FormBottom>
+        New user ? <StyledLink onClick={props.toggleForm}>Login </StyledLink>
+        here!
+      </FormBottom>
+    </FormWrapper>
   );
 };
 

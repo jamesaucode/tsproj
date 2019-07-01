@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { handleJSONResponse } from '../../services/fetch.service';
-const host = "https://study-well.herokuapp.com";
-// const host = "http://localhost:3000";
+// const host = "https://study-well.herokuapp.com";
+const host = "http://localhost:3000";
 export const UserContext = createContext<any | null>(null);
 
 export const UserProvider = ({children}: any) => {
