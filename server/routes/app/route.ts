@@ -88,6 +88,9 @@ router.get(
   (req: express.Request, res: express.Response) => {
     console.log("Logged in");
     if (req.isAuthenticated()) {
+      if (process.env.NODE_ENV === 'production') {
+        return res.redirect(`https://${req.headers.host}/users/cards`);
+      }
       return res.redirect("/user/cards");
     } else {
       return res.redirect("/");
