@@ -11,12 +11,13 @@ interface AllNotificationWrapperProps {
 }
 const AllNotificationsWrapper = styled.div<AllNotificationWrapperProps>`
   height: 0;
-  top: ${({ windowHeight, os }) =>
-    "calc(" + windowHeight + "px" + " - " + os + "px)"};
-  left: 50%; /* position the left edge of the element at the middle of the parent */
-  transform: translate(-50%, -50%);
+  top: 0px;
+  /* top: ${({ windowHeight, os }) =>
+    "calc(" + windowHeight + "px" + " - " + os + "px)"}; */
+  /* left: 50%; /* position the left edge of the element at the middle of the parent */
+  /* transform: translate(-50%, -50%); */ 
   font-size: calc(0.35vw + 16px);
-  width: fit-content;
+  width: 100%;
   position: absolute;
   z-index: 1000;
 `;
