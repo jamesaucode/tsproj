@@ -89,7 +89,7 @@ router.get(
     console.log("Logged in");
     if (req.isAuthenticated()) {
       if (process.env.NODE_ENV === 'production') {
-        return res.redirect(`https://study-well.herokuapp.com/users/cards`);
+        return res.redirect(`https://study-well.herokuapp.com/user/cards`);
       }
       return res.redirect("/user/cards");
     } else {
