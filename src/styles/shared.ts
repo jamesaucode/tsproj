@@ -15,9 +15,11 @@ export const fadeIn = keyframes`
 interface LayoutProps {
   fadeIn?: boolean;
   fitContent?: boolean;
+  fullHeight ?: boolean;
+  height ?: object;
 }
 export const Layout = styled.main<LayoutProps>`
-  /* height: ${({ fitContent }) => (fitContent ? "fit-content" : "100%")}; */
+  height: ${({ fitContent }) => (fitContent ? "fit-content" : "100%")};
   box-sizing: border-box;
   max-width: 1200px;
   margin: 2rem auto;

@@ -12,6 +12,10 @@ const Wrapper = styled.section`
   display: flex;
   width: 100%;
   padding: 2em;
+
+  @media (max-width: 600px) {
+    flex-direction: column-reverse;
+  }
 `;
 const IndexHeading = styled(Heading)`
   color: #333;
@@ -54,10 +58,7 @@ const Index: NextFC = () => {
     setLoading(false);
   }, []);
   if (loading) {
-    return (
-      <Layout>
-      </Layout>
-    );
+    return <Layout />;
   } else {
     return (
       <>

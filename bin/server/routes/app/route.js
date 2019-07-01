@@ -63,6 +63,9 @@ router.get("/auth/redirect", (req, res, next) => {
 }, passport.authenticate("google"), (req, res) => {
     console.log("Logged in");
     if (req.isAuthenticated()) {
+        if (process.env.NODE_ENV === 'production') {
+            return res.redirect(`https://study-well.herokuapp.com/user/cards`);
+        }
         return res.redirect("/user/cards");
     }
     else {

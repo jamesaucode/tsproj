@@ -4,6 +4,8 @@ import Link from "next/link";
 import ToggleableMenu from "./ToggleableMenu";
 import { NextFC } from "next";
 import { useLoginStatus } from "../hooks/useLoginStatus";
+import { useWindowSize } from "../hooks/useWindowSize";
+import BurgerMenu from "./BurgerMenu/BurgerMenu";
 
 const NavWrapper = styled.div`
   width: 100%;
@@ -16,7 +18,8 @@ const NavWrapper = styled.div`
 const Nav = styled.nav`
   display: flex;
   max-width: 1200px;
-  height: 40px;
+  /* height: 40px; */
+  height: 100%;
   margin: 0 auto;
   align-items: center;
 `;
@@ -32,8 +35,9 @@ export const NavLink = styled.li`
   cursor: pointer;
 `;
 
-const NavBar: NextFC = (props) => {
-  const [loading, setLoading] = useState(true);
+const NavBar: NextFC = props => {
+  const windowSize = useWindowSize();
+  const [loading, setLoading] = useState<boolean>(true);
   const isLoggedIn = useLoginStatus();
   useEffect(() => {
     setLoading(false);
@@ -44,7 +48,7 @@ const NavBar: NextFC = (props) => {
         <Nav />
       </NavWrapper>
     );
-  } else
+  } else if (windowSize > 700) {
     return (
       <NavWrapper>
         <Nav>
@@ -57,6 +61,9 @@ const NavBar: NextFC = (props) => {
           {/* Protected Nav Items */}
           {isLoggedIn && (
             <React.Fragment>
+              <Link href="/user/review">
+                <NavLink>Review</NavLink>
+              </Link>
               <Link href="/user/create">
                 <NavLink>Make Card</NavLink>
               </Link>
@@ -66,8 +73,21 @@ const NavBar: NextFC = (props) => {
             </React.Fragment>
           )}
         </Nav>
-        <ToggleableMenu loggedIn={isLoggedIn} iconName="fas fa-user-circle" {...props} />
+        <ToggleableMenu
+          loggedIn={isLoggedIn}
+          iconName="fas fa-user-circle"
+          {...props}
+        />
       </NavWrapper>
     );
+  } else {
+    return (
+      <NavWrapper>
+        <Nav>
+          <BurgerMenu loggedIn={isLoggedIn} />
+        </Nav>
+      </NavWrapper>
+    );
+  }
 };
 export default NavBar;
