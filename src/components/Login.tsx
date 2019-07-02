@@ -81,6 +81,7 @@ const Wrapper = styled.div`
   height: fit-content;
   max-width: 400px;
   font-size: calc(0.35vw + 16px);
+  padding: 1em;
 `;
 
 const Login: NextFC = () => {
