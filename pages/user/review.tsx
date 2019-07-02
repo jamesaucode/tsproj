@@ -25,16 +25,10 @@ const CustomLayout = styled(Layout)`
 `;
 
 const Review = props => {
-  console.log(props);
   const userData = useUserData();
   // Index of card to be shown
   const [currentCard, setCurrentCard] = useState(0);
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    if (userData) {
-      setLoading(false);
-    }
-  }, [userData]);
   const nextCard = () => {
     console.log("Next Card");
     const maxIndex = userData.cards.length;
@@ -48,6 +42,25 @@ const Review = props => {
       setCurrentCard(currentCard - 1);
     }
   };
+  const handleKeyDown = (event: KeyboardEvent) => {
+    switch (event.keyCode) {
+      case 39:
+        nextCard();
+        break;
+      case 37:
+        previousCard();
+        break;
+      default:
+        break;
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    if (userData) {
+      setLoading(false);
+    }
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [userData, currentCard]);
   const ControlsDiv = styled.div`
     display: flex;
     align-items: center;

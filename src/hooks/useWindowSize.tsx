@@ -6,7 +6,7 @@ export const useWindowSize = () => {
     const [windowWidth, setWindowWidth] = useState<number>(initialWindowWidth);
     const [windowHeight, setWindowHeight] = useState<number>(initialWindowHeight);
     // console.log(windowWidth)
-    console.log(windowHeight);
+    // console.log(windowHeight);
     const handleResize = () => {
         if (typeof window !== 'undefined') {
             setWindowWidth(window.innerWidth);

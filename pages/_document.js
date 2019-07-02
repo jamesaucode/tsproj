@@ -11,6 +11,7 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head />
         <title>Study App</title>
+        <link rel="shortcut icon" type="image/png" href="../static/images/favicon.ico"/>
         <link rel="stylesheet" href="../static/reset.css" />
         <link rel="stylesheet" href="../static/custom.css" />
         <link rel="stylesheet" href="../static/nprogress.css" />
