@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NextFC } from "next";
 import styled from "styled-components";
 import fetch from "isomorphic-unfetch";
@@ -89,6 +89,15 @@ const Login: NextFC = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [showSignIn, setShowSignIn] = useState(true);
   const [showWarning, setShowWarning] = useState(false);
+  const emailInputRef = React.createRef<HTMLInputElement>();
+  useEffect(() => {
+    // Focuses on the emailinputref as the component mount
+    if (emailInputRef.current) {
+      emailInputRef.current.focus();
+    }
+    return () => {
+    };
+  }, [])
   const handleSubmit = () => {
     fetch("/api/login", {
       method: "POST",
@@ -137,6 +146,7 @@ const Login: NextFC = () => {
           onChange={e => {
             setUsernameInput(e.target.value);
           }}
+          ref={emailInputRef}
           onKeyDown={handleKeyDown}
           validated={validateEmail()}
           value={emailInput}

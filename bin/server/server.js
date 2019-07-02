@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 const mongoose = require('mongoose');
+const compression = require('compression');
 const app = express();
 const mongoUser = process.env.MONGO_USER;
 const mongoPassword = process.env.MONGO_PASSWORD;
@@ -19,6 +20,7 @@ db.on('error', console.error.bind('console', 'connection error!'));
 db.once('open', () => {
     console.log('Connected to mongoDB!');
 });
+app.use(compression());
 app.use(cookieSession({
     name: 'session',
     maxAge: 6 * 60 * 60 * 1000,

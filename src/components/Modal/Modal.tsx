@@ -54,17 +54,24 @@ interface ModalProps {
   closeModal: (value: void) => void;
   parentProps?: any;
 }
-const Modal: NextFC<ModalProps> = ({
+export const Modal: NextFC<ModalProps> = ({
   Embedded,
   closeModal,
   parentProps,
   children
 }) => {
   // For testing
+  const handleKeyDown = (event : KeyboardEvent) => {
+    if (event.keyCode === 27) {
+      closeModal();
+    }
+  }
   useEffect(() => {
     console.log("Modal Mounted");
+    window.addEventListener('keydown', handleKeyDown);
     // Cleanup function
     return () => {
+    window.removeEventListener('keydown', handleKeyDown);
       console.log("Unmounting");
     };
   }, []);
@@ -95,5 +102,3 @@ Modal.defaultProps = {
     console.log("No function was passed in..");
   }
 };
-
-export default Modal;

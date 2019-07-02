@@ -52,9 +52,11 @@ const StyledLink = styled.a`
   text-decoration: none;
 `;
 const ImportantLink = styled(StyledLink)`
-  border: 1px solid #4285f4;
+  /* border: 1px solid #4285f4; */
+  border: 1px solid #0f76fc;
   border-radius: 3px;
-  color: #4285f4;
+  /* color: #4285f4; */
+  color: #0f76fc;
   padding: 0.5rem 1.5rem;
   font-size: 1em;
   cursor: pointer;
