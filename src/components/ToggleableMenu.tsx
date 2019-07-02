@@ -31,7 +31,7 @@ const DropdownMenu = styled.div<MenuProps>`
   align-items: center;
   position: absolute;
   right: 0;
-  z-index: 1;
+  z-index: 100;
 `;
 
 const LinkWrapper = styled.div`
@@ -59,6 +59,15 @@ const ImportantLink = styled(StyledLink)`
   font-size: 1em;
   cursor: pointer;
 `;
+const OverlayDiv = styled.div`
+  height: 100vh;
+  width: 100vw;
+  background: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+` 
 
 const ProfileIcon = styled.i``;
 
@@ -95,6 +104,7 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
     return (
       <DropDownWrapper>
         <ProfileIcon className={iconName} onClick={handleToggleClick} />
+        {expanded && <OverlayDiv onClick={handleToggleClick}/>}
         <DropdownMenu expanded={expanded}>
           <LinkWrapper>
             <Link href="/user/profile">

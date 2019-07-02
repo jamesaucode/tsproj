@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { handleResponse } from "../../services/fetch.service";
 import { FormBottom } from "../styles/shared";
+import Warning from './Warning';
 import fetch from "isomorphic-unfetch";
 import styled from "styled-components";
 
@@ -50,6 +51,7 @@ const Register = (props: any) => {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [showWarning, setShowWarning] = useState(false);
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -86,16 +88,18 @@ const Register = (props: any) => {
     })
       .then(handleResponse)
       .then(json => {
-        props.pushNotification(json.message, true);
+        // props.pushNotification(json.message, true);
+        console.log(json);
       })
       .catch(error => {
-        props.pushNotification(error.message, false);
+        setShowWarning(true);
       });
     console.log("Submitted");
   };
 
   return (
     <FormWrapper>
+      {showWarning && <Warning text={"User already exist"}/>}
       <FormInput
         onChange={changeHandler}
         value={email}

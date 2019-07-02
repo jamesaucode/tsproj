@@ -2,6 +2,9 @@ html {
 	background-color: #fafafa;
 	box-sizing: border-box;
 }
+* {
+	box-sizing: border-box;
+}
 .fas {
     cursor: pointer;
 }
@@ -11,7 +14,8 @@ html {
 }
 .small-icon > svg {
 	height: 16px;
-	justify-self: end;
+	box-sizing: content-box;
+	/* justify-self: end; */
 }
 .active > svg {
 	fill: blue;

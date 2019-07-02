@@ -6,6 +6,8 @@ import { useUserData } from "../../src/hooks/useUserData";
 import fetch from "isomorphic-unfetch";
 import { handleJSONResponse } from "../../services/fetch.service";
 import NavBar from "../../src/components/NavBar";
+import Modal from "../../src/components/Modal";
+import Prompt from "../../src/components/Prompt";
 
 const CardWrapper = styled.li`
   border-radius: 3px;
@@ -14,6 +16,7 @@ const CardWrapper = styled.li`
   max-width: 888px;
   padding: 0.5em;
   border-bottom: 1px solid #ddd;
+  margin: 0 auto;
 `;
 const Card = styled.div`
   align-items: center;
@@ -32,19 +35,32 @@ const CardTextBox = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 0.75rem;
 `;
 const CardTag = styled.span`
   color: #888;
   font-size: 0.65em;
   padding: 0.5rem 0;
 `;
-const CardList = styled.ul``;
+const CardList = styled.ul`
+  font-size: calc(0.35vw + 16px);
+  padding: 1em;
+  width: 100%;
+`;
+const Button = styled.button`
+  border: none;
+  background-color: red;
+  color: #fff;
+  font-size: 0.7em;
+  padding: 0.5em;
+  text-transform: uppercase;
+`;
 
 const Cards: NextFC = (props: any) => {
   console.log(props);
   const userData = useUserData();
   const [cards, setCards] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [cardToDelete, setCardToDelete] = useState("");
   useEffect(() => {
     if (props.cards) {
       if (props.cards) {
@@ -54,6 +70,10 @@ const Cards: NextFC = (props: any) => {
       }
     }
   }, [userData, props.cards]);
+  const handleClick = (cardId: string) => {
+    setCardToDelete(cardId);
+    setShowModal(true);
+  };
   const deleteCardHandler = (cardId: string) => {
     fetch("/api/card", {
       method: "DELETE",
@@ -67,6 +87,7 @@ const Cards: NextFC = (props: any) => {
         setCards(cards.filter(card => card._id !== cardId));
       }
     });
+    setShowModal(false);
   };
   return (
     <>
@@ -87,15 +108,24 @@ const Cards: NextFC = (props: any) => {
                       <CardTag>Answer:</CardTag>
                       <CardText>{card.answer}</CardText>
                     </CardTextBox>
-                    <button onClick={() => deleteCardHandler(card._id)}>
-                      Delete
-                    </button>
+                    <Button onClick={() => handleClick(card._id)}>
+                      Remove
+                    </Button>
                   </Card>
                 </CardWrapper>
               );
             })
           ) : (
             <Heading>{"NO CARDS LMAOO"}</Heading>
+          )}
+          {showModal && (
+            <Modal
+              Embedded={() => (
+                <Prompt onClick={() => deleteCardHandler(cardToDelete)} />
+              )}
+              parentProps={props}
+              closeModal={() => setShowModal(false)}
+            />
           )}
         </CardList>
       </Layout>

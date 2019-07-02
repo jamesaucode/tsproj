@@ -65,7 +65,7 @@ const Review = props => {
     display: flex;
     align-items: center;
     height: 100%;
-    width: 16px;
+    width: calc(2em + 16px);
     padding: 0 1em;
     &:hover {
       cursor: pointer;
