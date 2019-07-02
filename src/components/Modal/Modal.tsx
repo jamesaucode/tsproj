@@ -54,7 +54,7 @@ interface ModalProps {
   closeModal: (value: void) => void;
   parentProps?: any;
 }
-const Modal: NextFC<ModalProps> = ({
+export const Modal: NextFC<ModalProps> = ({
   Embedded,
   closeModal,
   parentProps,
@@ -102,5 +102,3 @@ Modal.defaultProps = {
     console.log("No function was passed in..");
   }
 };
-
-export default Modal;
