@@ -61,10 +61,17 @@ const Modal: NextFC<ModalProps> = ({
   children
 }) => {
   // For testing
+  const handleKeyDown = (event : KeyboardEvent) => {
+    if (event.keyCode === 27) {
+      closeModal();
+    }
+  }
   useEffect(() => {
     console.log("Modal Mounted");
+    window.addEventListener('keydown', handleKeyDown);
     // Cleanup function
     return () => {
+    window.removeEventListener('keydown', handleKeyDown);
       console.log("Unmounting");
     };
   }, []);
