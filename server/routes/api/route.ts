@@ -1,18 +1,19 @@
 import * as express from "express";
 import * as passport from 'passport';
 import NextApp from '../../nextApp';
-import { requestWithSession } from "typings/express";
+import { IRequest } from "interfaces/express";
 import { NextFunction } from "connect";
-import { UserSchemaTypes, UserModel } from "../../schemas/User";
-import { CardsScehmaTypes, CardsModel } from '../../schemas/Cards';
+import { IUser, UserModel } from "../../schemas/User";
+import { ICards, CardsModel } from '../../schemas/Cards';
 import { IncomingMessage } from "http";
+import { GroupModel  } from "../../schemas/Group";
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const router = express.Router();
 
 const ProfileHandler = (
-  req: requestWithSession | any,
+  req: IRequest | any,
   res: express.Response,
   next: express.NextFunction
 ) => {
@@ -23,7 +24,7 @@ const ProfileHandler = (
   }
 };
 const SessionHandler = (
-  req: requestWithSession | any,
+  req: IRequest | any,
   res: express.Response,
   next: express.NextFunction
 ) => {
@@ -34,7 +35,7 @@ const SessionHandler = (
   }
 };
 const LogoutHandler = (
-  req: requestWithSession | any,
+  req: IRequest | any,
   res: express.Response,
   next: express.NextFunction
 ) => {
@@ -101,7 +102,7 @@ const getCardHandler = (
     console.log(req.user.id);
     CardsModel.find(
       { id: req.user.id },
-      (err: Error, cards: CardsScehmaTypes) => {
+      (err: Error, cards: ICards) => {
         if (err) throw err;
         console.log(cards);
         res.json(cards);
@@ -126,7 +127,29 @@ const isAuthenticated = (req: express.Request | any, res: express.Response, next
     return next();
   }
 }
+const GetGroupHandler = (req: express.Request | any, res: express.Response, next: NextFunction) => {
+  if (req.isAuthenticated()) {
+    GroupModel.find({}, (err, groups) => {
+      res.json(groups);
+    })
+  } else {
+    res.status(400).json({'message': 'cannot find any groups'});
+  }
+}
+const PostGroupHandler = (req: express.Request | any, res: express.Response, next: NextFunction) => {
+  if (req.isAuthenticated()) {
+    const GroupInstance = new GroupModel({ ...req.body });
+    GroupInstance.save((err: Error) => {
+      if (err) return res.send(err.message);
+      console.log("Group Saved!");
+    })
+  } else {
+    res.status(400).json({'message' : 'Cannot save this group'});
+  }
+}
 
+router.get('/groups', GetGroupHandler);
+router.post('/groups', PostGroupHandler);
 router.get("/profile", ProfileHandler);
 router.get("/session", SessionHandler);
 router.get('/cards', getCardHandler);

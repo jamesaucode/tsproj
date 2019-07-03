@@ -68,6 +68,9 @@ const NavBar: NextFC = props => {
               <Link href="/user/review">
                 <NavLink>Review</NavLink>
               </Link>
+              <Link href="/user/groups">
+                <NavLink>Groups</NavLink>
+              </Link>
               <Link href="/user/create">
                 <NavLink>Make Card</NavLink>
               </Link>

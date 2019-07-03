@@ -66,6 +66,9 @@ const BurgerMenu: React.FC<PropTypes> = ({ loggedIn }) => {
               <Link href="/user/cards">
                 <MenuItem>Cards</MenuItem>
               </Link>
+              <Link href="/user/groups">
+                <MenuItem>Groups</MenuItem>
+              </Link>
             </>
           )}
         </Menu>

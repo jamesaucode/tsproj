@@ -1,8 +1,8 @@
 import * as express from 'express';
 import googleOAuth from 'passport-google-oauth20';
-import { UserSchemaTypes } from '../server/schemas/User';
+import { IUser } from '../server/schemas/User';
 
-export interface requestWithSession extends express.Request {
+export interface IRequest extends express.Request {
     session?: {
         passport: {
             user?: googleOAuth.Profile
@@ -11,10 +11,10 @@ export interface requestWithSession extends express.Request {
     sessionCookies : express.CookieOptions 
 }
 
-export interface SessionProps {
+export interface ISession {
     session : {
         passport : {
-            user : UserSchemaTypes | googleOAuth.Profile
+            user : IUser | googleOAuth.Profile
         }
     }
 }

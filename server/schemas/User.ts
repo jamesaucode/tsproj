@@ -1,24 +1,27 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const Model = mongoose.model;
+import { Document, Model, model, Schema } from 'mongoose';
 
-export interface UserSchemaTypes {
+export interface IUser {
+    _id: string
     firstName: string
     lastName: string
     email: string
     displayName: string
     password: string
-    id: string
+    googleId?: string
     group: string[] 
 }
-export const UserSchema = new Schema({
+export const UserSchema : Schema = new Schema({
     firstName: String,
     lastName: String,
     email: String,
     password: String,
     displayName: String,
-    id: String,
+    googleId: String, //optional
     group: [[Schema.Types.ObjectId]]
 })
 
-export const UserModel = Model('User', UserSchema);
+UserSchema.methods.fullName = function() : string {
+    return this.firstName.trim() + " " + this.lastName.trim();
+}
+
+export const UserModel = model('User', UserSchema);

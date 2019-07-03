@@ -4,6 +4,7 @@ const express = require("express");
 const passport = require("passport");
 const User_1 = require("../../schemas/User");
 const Cards_1 = require("../../schemas/Cards");
+const Group_1 = require("../../schemas/Group");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const router = express.Router();
@@ -101,6 +102,31 @@ const isAuthenticated = (req, res, next) => {
         return next();
     }
 };
+const GetGroupHandler = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        Group_1.GroupModel.find({}, (err, groups) => {
+            res.json(groups);
+        });
+    }
+    else {
+        res.status(400).json({ 'message': 'cannot find any groups' });
+    }
+};
+const PostGroupHandler = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        const GroupInstance = new Group_1.GroupModel({ ...req.body });
+        GroupInstance.save((err) => {
+            if (err)
+                return res.send(err.message);
+            console.log("Group Saved!");
+        });
+    }
+    else {
+        res.status(400).json({ 'message': 'Cannot save this group' });
+    }
+};
+router.get('/groups', GetGroupHandler);
+router.post('/groups', PostGroupHandler);
 router.get("/profile", ProfileHandler);
 router.get("/session", SessionHandler);
 router.get('/cards', getCardHandler);

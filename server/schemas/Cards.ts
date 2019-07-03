@@ -1,17 +1,17 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const Model = mongoose.model;
+import { Document, Schema, Model, model } from 'mongoose';
 
-export interface CardsScehmaTypes {
+export interface ICards {
     question: string,
-    answer: string,
-    id: string
+    answer: string
 }
 
-export const CardsSchema = new Schema({
+export interface ICardsModel extends Document, ICards {
+
+}
+
+export const CardsSchema : Schema = new Schema({
     question: String,
-    answer: String,
-    id: String
+    answer: String
 })
 
-export const CardsModel = Model('Cards', CardsSchema);
+export const CardsModel : Model<ICardsModel> = model<ICardsModel>('Cards', CardsSchema);

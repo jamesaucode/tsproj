@@ -35,6 +35,7 @@ const CardTextBox = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  width: 90%;
 `;
 const CardTag = styled.span`
   color: #888;
@@ -52,6 +53,7 @@ const Button = styled.button`
   color: #fff;
   font-size: 0.7em;
   padding: 0.5em;
+  margin: 0.5rem;
   text-transform: uppercase;
 `;
 

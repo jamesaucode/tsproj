@@ -1,5 +1,5 @@
 import React, { PureComponent, ReactComponentElement, ReactNode } from "react";
-import { SessionProps } from '../../typings/express';
+import { ISession } from '../../interfaces/express';
 import Unauthorized from "../../src/components/Unauthorized";
 import { isEmpty } from 'lodash';
 
@@ -8,8 +8,8 @@ interface StateTypes {
   loading: boolean;
 }
 export const withAuthorization = (WrapperComponent: any) => {
-  return class AuthorizeCheck extends PureComponent<SessionProps, StateTypes> {
-    constructor(props: SessionProps) {
+  return class AuthorizeCheck extends PureComponent<ISession, StateTypes> {
+    constructor(props: ISession) {
       super(props);
       this.state = {
         loggedIn: false,

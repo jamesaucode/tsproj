@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { fadeIn, Message } from "../../styles/shared";
 import { NextFC } from "next";
-import { MessageType } from "../../../typings/message";
+import { IMessage } from '../../../interfaces/message';
 import SVG from 'react-inlinesvg';
 
 interface WrapperProps {
@@ -13,7 +13,7 @@ const Wrapper = styled.div<WrapperProps>`
   justify-content: center;
   border-radius: 5px;
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.75rem;
   box-sizing: border-box;
   transition: 0.5s ease-in-out opacity;
 `;
@@ -24,7 +24,7 @@ const SVGWrapper = styled.div`
   padding: 0 0.5rem;
 `
 const renderImportant = (text: string) => <Important>{text}</Important>;
-const NotificationMessage: NextFC<MessageType> = ({
+const NotificationMessage: NextFC<IMessage> = ({
   success,
   message,
   id,

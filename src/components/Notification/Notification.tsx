@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import NotificationMessage from "./NotificationMessage";
-import { MessageType } from "../../../typings/message";
+import { IMessage } from "../../../../interfaces/message";
 import styled from "styled-components";
 import { useWindowSize } from "../../hooks/useWindowSize";
 const uuid = require("uuid");
@@ -22,7 +22,7 @@ const AllNotificationsWrapper = styled.div<AllNotificationWrapperProps>`
   z-index: 1000;
 `;
 const Notification = (props: any) => {
-  const [notifications, setNotifications] = useState<MessageType[]>([]);
+  const [notifications, setNotifications] = useState<IMessage[]>([]);
   const windowSize = useWindowSize();
   const delay = 5000;
   const id = useRef<number[]>([]);
@@ -68,7 +68,7 @@ const Notification = (props: any) => {
           windowHeight={windowSize.size.windowHeight}
           os={notifications.length * 54}
         >
-          {notifications.map((notification: MessageType) => {
+          {notifications.map((notification: IMessage) => {
             return (
               <NotificationMessage
                 key={notification.id}

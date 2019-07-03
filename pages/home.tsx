@@ -24,7 +24,6 @@ const Index: NextFC = (props: any) => {
       <>
         <NavBar />
         <Layout fadeIn>
-          <Heading>This is the home page.</Heading>
           <Heading sub>
             {userData
               ? `Welcome. ${userData.displayName}`

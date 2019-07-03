@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { SessionProps } from "../../typings/express";
+import { ISession } from "../../interfaces/express";
 import { handleResponse } from "../../services/fetch.service";
 import { useUserData } from "../hooks/useUserData";
 
@@ -46,7 +46,7 @@ const Wrapper = styled.div`
   min-width: 350px;
   max-width: 800px;
 `;
-const StudyCard: React.FunctionComponent<SessionProps | any> = ({
+const StudyCard: React.FunctionComponent<ISession | any> = ({
   session,
   pushNotification
 }) => {
@@ -85,7 +85,7 @@ const StudyCard: React.FunctionComponent<SessionProps | any> = ({
       body: JSON.stringify({
         question,
         answer,
-        id: userData.id
+        id: userData._id
       })
     })
       .then(handleResponse)

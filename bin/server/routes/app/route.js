@@ -7,6 +7,7 @@ const url_1 = require("url");
 const nextApp_1 = require("../../nextApp");
 const Cards_1 = require("../../schemas/Cards");
 const User_1 = require("../../schemas/User");
+const Group_1 = require("../../schemas/Group");
 require("dotenv").config();
 console.log("RUNNING");
 const bcrypt = require("bcrypt");
@@ -63,8 +64,8 @@ router.get("/auth/redirect", (req, res, next) => {
 }, passport.authenticate("google"), (req, res) => {
     console.log("Logged in");
     if (req.isAuthenticated()) {
-        if (process.env.NODE_ENV === 'production') {
-            return res.redirect(`https://study-well.herokuapp.com/user/cards`);
+        if (process.env.NODE_ENV === "production") {
+            return res.redirect(`https://${req.headers.host}/user/cards`);
         }
         return res.redirect("/user/cards");
     }
@@ -77,6 +78,16 @@ router.get("/user/cards", (req, res) => {
         const cards = req.user.cards;
         console.log("Render cards");
         return nextApp_1.default.render(req, res, "/user/cards", { cards });
+    }
+    else {
+        return res.redirect("/");
+    }
+});
+router.get("/user/groups", (req, res) => {
+    if (req.isAuthenticated()) {
+        Group_1.GroupModel.find({}, (err, groups) => {
+            return nextApp_1.default.render(req, res, "/user/groups", { groups });
+        });
     }
     else {
         return res.redirect("/");
@@ -129,7 +140,7 @@ router.get("*", (req, res) => {
 passport.serializeUser((user, done) => {
     console.log("Serializing");
     console.log(user);
-    User_1.UserModel.findOne({ id: user.id }, (err, userFound) => {
+    User_1.UserModel.findOne({ _id: user._id }, (err, userFound) => {
         if (userFound) {
             console.log("User already exist");
             done(null, user);

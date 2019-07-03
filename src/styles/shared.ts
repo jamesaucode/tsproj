@@ -21,6 +21,7 @@ interface LayoutProps {
 }
 export const Layout = styled.main<LayoutProps>`
   height: ${({ fitContent }) => (fitContent ? "fit-content" : "100%")};
+  font-size: calc(0.35vw + 16px);
   box-sizing: border-box;
   max-width: 1200px;
   margin: 2rem auto;
@@ -39,7 +40,7 @@ interface HeadingProps {
 
 export const Heading = styled.h1<HeadingProps>`
   font-family: Arial, Helvetica, sans-serif;
-  font-size: ${props => (props.sub ? "1.75em" : "2.5em")};
+  font-size: ${props => (props.sub ? "1.5em" : "2em")};
   font-weight: 600;
   margin: 1rem 0;
   color: #222;
@@ -61,7 +62,7 @@ export const Message = styled.div<MessageProps>`
   color: ${props =>
     props.success ? "rgba(255, 255, 255,0.9)" : "rgba(255, 255, 255, 0.9)"};
   background: ${props => (props.success ? "#51CD80" : "#ff243d")};
-  padding: 10px 28px;
+  padding: 14px 28px;
   border-radius: 5px;
   &:hover {
     cursor: pointer;

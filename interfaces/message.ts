@@ -1,4 +1,4 @@
-export interface MessageType {
+export interface IMessage {
     message: string
     success: boolean
     id: string

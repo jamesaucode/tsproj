@@ -1,16 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const Model = mongoose.model;
-exports.UserSchema = new Schema({
+const mongoose_1 = require("mongoose");
+exports.UserSchema = new mongoose_1.Schema({
     firstName: String,
     lastName: String,
     email: String,
     password: String,
     displayName: String,
-    id: String,
-    group: [[Schema.Types.ObjectId]]
+    googleId: String,
+    group: [[mongoose_1.Schema.Types.ObjectId]]
 });
-exports.UserModel = Model('User', exports.UserSchema);
+exports.UserSchema.methods.fullName = function () {
+    return this.firstName.trim() + " " + this.lastName.trim();
+};
+exports.UserModel = mongoose_1.model('User', exports.UserSchema);
 //# sourceMappingURL=User.js.map

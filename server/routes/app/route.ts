@@ -3,10 +3,10 @@ import * as googleOAuth from "passport-google-oauth20";
 import * as passport from "passport";
 import { parse } from "url";
 import nextApp from "../../nextApp";
-import { CardsModel, CardsScehmaTypes } from "../../schemas/Cards";
-import { UserModel, UserSchemaTypes } from "../../schemas/User";
-import { requestWithSession } from "../../../typings/express";
-import { app } from "../routes";
+import { CardsModel, ICards } from "../../schemas/Cards";
+import { UserModel, IUser } from "../../schemas/User";
+import { GroupModel, IGroup, IGroupModel } from "../../schemas/Group";
+import { IRequest } from "../../../interfaces/express";
 
 require("dotenv").config();
 console.log("RUNNING");
@@ -22,7 +22,7 @@ const LocalAuthentication = new LocalStrategy(
     session: true
   },
   function(email: string, password: string, done: any) {
-    UserModel.findOne({ email }, (err: Error, user: UserSchemaTypes) => {
+    UserModel.findOne({ email }, (err: Error, user: IUser) => {
       if (err) {
         return done(err);
       }
@@ -88,8 +88,8 @@ router.get(
   (req: express.Request, res: express.Response) => {
     console.log("Logged in");
     if (req.isAuthenticated()) {
-      if (process.env.NODE_ENV === 'production') {
-        return res.redirect(`https://study-well.herokuapp.com/user/cards`);
+      if (process.env.NODE_ENV === "production") {
+        return res.redirect(`https://${req.headers.host}/user/cards`);
       }
       return res.redirect("/user/cards");
     } else {
@@ -102,6 +102,15 @@ router.get("/user/cards", (req, res) => {
     const cards = req.user.cards;
     console.log("Render cards");
     return nextApp.render(req, res, "/user/cards", { cards });
+  } else {
+    return res.redirect("/");
+  }
+});
+router.get("/user/groups", (req, res) => {
+  if (req.isAuthenticated()) {
+    GroupModel.find({}, (err: Error, groups : any ) => {
+      return nextApp.render(req, res, "/user/groups",  { groups });
+    });
   } else {
     return res.redirect("/");
   }
@@ -153,7 +162,7 @@ passport.serializeUser<googleOAuth.Profile | any, any>((user, done) => {
   console.log("Serializing");
   console.log(user);
   UserModel.findOne(
-    { id: user.id },
+    { _id: user._id },
     (err: Error, userFound: googleOAuth.Profile) => {
       if (userFound) {
         console.log("User already exist");
@@ -178,7 +187,7 @@ passport.serializeUser<googleOAuth.Profile | any, any>((user, done) => {
 });
 passport.deserializeUser<googleOAuth.Profile, any>((user, done) => {
   // console.log('Deserializing');
-  CardsModel.find({ id: user.id }, (err: Error, cards: CardsScehmaTypes) => {
+  CardsModel.find({ id: user.id }, (err: Error, cards: ICards) => {
     user.cards = cards;
     done(null, user);
   });
