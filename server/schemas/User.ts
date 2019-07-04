@@ -10,6 +10,9 @@ export interface IUser {
     googleId?: string
     group: string[] 
 }
+// export interface IUserModel extends Document, IUser {
+
+// }
 export const UserSchema : Schema = new Schema({
     firstName: String,
     lastName: String,
@@ -24,4 +27,5 @@ UserSchema.methods.fullName = function() : string {
     return this.firstName.trim() + " " + this.lastName.trim();
 }
 
-export const UserModel = model('User', UserSchema);
+
+export const UserModel : Model<any> = model('User', UserSchema);

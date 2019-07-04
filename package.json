@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "NODE_ENV=production node ./bin/server/server.js",
-    "dev": "nodemon ./bin/server/server.js",
+    "dev": "NODE_PATH=. nodemon ./bin/server/server.js",
     "compile": "tsc --project tsconfig.server.json -w",
     "build": "next build && tsc --project tsconfig.server.json",
     "start-prod": "NODE_ENV=production nodemon ./bin/server/server.js"

@@ -12,7 +12,8 @@ const NavWrapper = styled.div`
   height: 100%;
   min-height: 52px;
   box-sizing: border-box;
-  border-bottom: 1px solid #eeeeee;
+  /* border-bottom: 1px solid #eeeeee; */
+  box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
 `;

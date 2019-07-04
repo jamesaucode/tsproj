@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
+// export interface IUserModel extends Document, IUser {
+// }
 exports.UserSchema = new mongoose_1.Schema({
     firstName: String,
     lastName: String,

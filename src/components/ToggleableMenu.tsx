@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Link from "next/link";
 import Modal from "../components/Modal";
 import Login from "../components/Login";
+import SVG from 'react-inlinesvg';
+import { SVGWrapper } from '../styles/shared';
 
 interface PropTypes {
   iconName: string;
@@ -71,7 +73,6 @@ const OverlayDiv = styled.div`
   z-index: 10;
 ` 
 
-const ProfileIcon = styled.i``;
 
 const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
   const [expanded, setExpanded] = useState(false);
@@ -105,7 +106,9 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
   if (loggedIn) {
     return (
       <DropDownWrapper>
-        <ProfileIcon className={iconName} onClick={handleToggleClick} />
+        <SVGWrapper size={{height: 24, width: 24}} onClick={handleToggleClick}>
+          <SVG src="/static/images/user.svg" />
+        </SVGWrapper>
         {expanded && <OverlayDiv onClick={handleToggleClick}/>}
         <DropdownMenu expanded={expanded}>
           <LinkWrapper>

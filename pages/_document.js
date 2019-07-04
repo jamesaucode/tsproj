@@ -24,7 +24,6 @@ class MyDocument extends Document {
           <noscript>You need Javascript for this website to run correctly.</noscript>
           <Main />
           <NextScript />
-          <script async src="https://kit.fontawesome.com/3e94c075aa.js" />
         </body>
       </Html>
     );

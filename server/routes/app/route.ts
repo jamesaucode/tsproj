@@ -3,7 +3,7 @@ import * as googleOAuth from "passport-google-oauth20";
 import * as passport from "passport";
 import { parse } from "url";
 import nextApp from "../../nextApp";
-import { CardsModel, ICards } from "../../schemas/Cards";
+import { CardsModel, ICard } from "../../schemas/Card";
 import { UserModel, IUser } from "../../schemas/User";
 import { GroupModel, IGroup, IGroupModel } from "../../schemas/Group";
 import { IRequest } from "../../../interfaces/express";
@@ -60,10 +60,18 @@ const googleLogin: googleOAuth.StrategyOptions = {
 const gotProfile = (
   accessToken: string,
   refreshToken: string,
-  profile: googleOAuth.Profile,
+  profile: googleOAuth.Profile | any,
   done: any
 ) => {
-  done(null, profile);
+  UserModel.findOne({ email : profile.emails[0].value }, (err: Error, user: IUser) => {
+    if (err) {
+      return done(err);
+    }
+    if (!user) {
+      return done(null, profile);
+    }
+    return done(null, user);
+  });
 };
 
 const googleAuthentication = new googleOAuth.Strategy(googleLogin, gotProfile);
@@ -106,10 +114,30 @@ router.get("/user/cards", (req, res) => {
     return res.redirect("/");
   }
 });
+router.get("/user/group", (req, res) => {
+  if (req.isAuthenticated()) {
+    const name = req.query.name;
+    if (!name) {
+      res.redirect("/user/groups");
+    }
+    GroupModel.findOne({ name }, (err: Error, group: any) => {
+      if (group) {
+        return nextApp.render(req, res, "/user/group", {
+          group,
+          queryParams: { ...req.query }
+        });
+      } else {
+        res.redirect("/user/groups");
+      }
+    });
+  } else {
+    res.redirect("/");
+  }
+});
 router.get("/user/groups", (req, res) => {
   if (req.isAuthenticated()) {
-    GroupModel.find({}, (err: Error, groups : any ) => {
-      return nextApp.render(req, res, "/user/groups",  { groups });
+    GroupModel.find({}, (err: Error, groups: any) => {
+      return nextApp.render(req, res, "/user/groups", { groups });
     });
   } else {
     return res.redirect("/");
@@ -161,33 +189,34 @@ router.get("*", (req, res) => {
 passport.serializeUser<googleOAuth.Profile | any, any>((user, done) => {
   console.log("Serializing");
   console.log(user);
-  UserModel.findOne(
-    { _id: user._id },
-    (err: Error, userFound: googleOAuth.Profile) => {
-      if (userFound) {
-        console.log("User already exist");
-        done(null, user);
-      } else {
-        const UserInstance = new UserModel({
-          firstName: user.name.givenName,
-          lastName: user.name.familyName,
-          displayName: user.displayName,
-          email: user.emails ? user.emails[0].value : "",
-          id: user.id,
-          group: []
-        });
-        UserInstance.save((err: Error) => {
-          if (err) console.error(err);
-          console.log("User saved");
-          done(null, user);
-        });
-      }
+  UserModel.findById(user._id, (err: Error, userFound: googleOAuth.Profile) => {
+    if (err) {
+      console.error(err);
     }
-  );
+    if (userFound) {
+      console.log("User already exist");
+      done(null, user);
+    } else {
+      const UserInstance = new UserModel({
+        firstName: user.name.givenName,
+        lastName: user.name.familyName,
+        displayName: user.displayName,
+        email: user.emails ? user.emails[0].value : "",
+        id: user.id,
+        group: []
+      });
+      UserInstance.save((err: Error) => {
+        if (err) console.error(err);
+        console.log("User saved");
+        done(null, user);
+      });
+    }
+  });
 });
 passport.deserializeUser<googleOAuth.Profile, any>((user, done) => {
   // console.log('Deserializing');
-  CardsModel.find({ id: user.id }, (err: Error, cards: ICards) => {
+  CardsModel.find({ creator: user._id }, (err: Error, cards: ICard) => {
+    if (err) console.error(err.message);
     user.cards = cards;
     done(null, user);
   });

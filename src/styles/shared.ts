@@ -1,7 +1,25 @@
 import styled, { keyframes } from "styled-components";
 
+interface SVGWrapperProps {
+  size: {
+    height: number;
+    width: number;
+  };
+}
+
+export const SVGWrapper = styled.div<SVGWrapperProps>`
+  padding: 1em;
+  & > span > svg {
+    height: ${({ size: { height } }) => height}px;
+    width: ${({ size: { width } }) => width}px;
+  }
+    &:hover {
+      cursor: pointer;
+    }
+`;
+
 export const FormBottom = styled.p`
-  font-size: .8em;
+  font-size: 0.8em;
   padding: 1rem 0;
 `;
 
@@ -16,8 +34,8 @@ export const fadeIn = keyframes`
 interface LayoutProps {
   fadeIn?: boolean;
   fitContent?: boolean;
-  fullHeight ?: boolean;
-  height ?: object;
+  fullHeight?: boolean;
+  height?: object;
 }
 export const Layout = styled.main<LayoutProps>`
   height: ${({ fitContent }) => (fitContent ? "fit-content" : "100%")};

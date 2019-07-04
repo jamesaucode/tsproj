@@ -85,7 +85,7 @@ const StudyCard: React.FunctionComponent<ISession | any> = ({
       body: JSON.stringify({
         question,
         answer,
-        id: userData._id
+        creator: userData._id
       })
     })
       .then(handleResponse)

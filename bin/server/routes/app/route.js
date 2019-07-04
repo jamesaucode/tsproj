@@ -5,7 +5,7 @@ const googleOAuth = require("passport-google-oauth20");
 const passport = require("passport");
 const url_1 = require("url");
 const nextApp_1 = require("../../nextApp");
-const Cards_1 = require("../../schemas/Cards");
+const Card_1 = require("../../schemas/Card");
 const User_1 = require("../../schemas/User");
 const Group_1 = require("../../schemas/Group");
 require("dotenv").config();
@@ -50,7 +50,15 @@ const googleLogin = {
     callbackURL: "/auth/redirect"
 };
 const gotProfile = (accessToken, refreshToken, profile, done) => {
-    done(null, profile);
+    User_1.UserModel.findOne({ email: profile.emails[0].value }, (err, user) => {
+        if (err) {
+            return done(err);
+        }
+        if (!user) {
+            return done(null, profile);
+        }
+        return done(null, user);
+    });
 };
 const googleAuthentication = new googleOAuth.Strategy(googleLogin, gotProfile);
 passport.use(googleAuthentication);
@@ -81,6 +89,28 @@ router.get("/user/cards", (req, res) => {
     }
     else {
         return res.redirect("/");
+    }
+});
+router.get("/user/group", (req, res) => {
+    if (req.isAuthenticated()) {
+        const name = req.query.name;
+        if (!name) {
+            res.redirect("/user/groups");
+        }
+        Group_1.GroupModel.findOne({ name }, (err, group) => {
+            if (group) {
+                return nextApp_1.default.render(req, res, "/user/group", {
+                    group,
+                    queryParams: { ...req.query }
+                });
+            }
+            else {
+                res.redirect("/user/groups");
+            }
+        });
+    }
+    else {
+        res.redirect("/");
     }
 });
 router.get("/user/groups", (req, res) => {
@@ -140,7 +170,10 @@ router.get("*", (req, res) => {
 passport.serializeUser((user, done) => {
     console.log("Serializing");
     console.log(user);
-    User_1.UserModel.findOne({ _id: user._id }, (err, userFound) => {
+    User_1.UserModel.findById(user._id, (err, userFound) => {
+        if (err) {
+            console.error(err);
+        }
         if (userFound) {
             console.log("User already exist");
             done(null, user);
@@ -165,7 +198,9 @@ passport.serializeUser((user, done) => {
 });
 passport.deserializeUser((user, done) => {
     // console.log('Deserializing');
-    Cards_1.CardsModel.find({ id: user.id }, (err, cards) => {
+    Card_1.CardsModel.find({ creator: user._id }, (err, cards) => {
+        if (err)
+            console.error(err.message);
         user.cards = cards;
         done(null, user);
     });

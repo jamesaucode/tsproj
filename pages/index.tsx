@@ -38,7 +38,7 @@ const TextBox = styled.div`
   margin: 2rem 0;
 `;
 const Button = styled.button`
-  background-color: #4285f4;
+  background-color: #3140f1;
   border: none;
   border-radius: 3px;
   padding: 0.75em 1.5em;
@@ -48,7 +48,6 @@ const Button = styled.button`
   transition: 0.5s ease-out background-color;
   &:hover {
     cursor: pointer;
-    background-color: #3140f1;
   }
 `;
 
