@@ -1,4 +1,4 @@
-# My repository for Typescript Project
+# My repository for Study-Well 
 
 ## Commands
 - ```yarn run start // Starts the server```
@@ -10,3 +10,6 @@
 ### This is a basic project to familiarize myself with Nextjs, writing Nodejs, user authentications and session management.
 
 ### Built with HTML, CSS, React, NextJS, NodeJS, MongoDB.
+
+## Why ?
+- Besides wanting to familiarize myself with Nextjs and React, I wanted to build a web application for students to easily share their study resources and form study groups!
