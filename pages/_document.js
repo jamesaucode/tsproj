@@ -17,9 +17,9 @@ class MyDocument extends Document {
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
         <link rel="manifest" href="/manifest.json"/>
         <link rel="shortcut icon" type="image/png" href="../static/images/favicon.ico"/>
-        <link rel="stylesheet" href="../static/reset.css" />
-        <link rel="stylesheet" href="../static/custom.css" />
-        <link rel="stylesheet" href="../static/nprogress.css" />
+        {/* <link rel="stylesheet" href="../static/reset.css" />
+        <link rel="stylesheet" href="../static/custom.css" /> */}
+        {/* <link rel="stylesheet" href="../static/nprogress.css" /> */}
         <body>
           <noscript>You need Javascript for this website to run correctly.</noscript>
           <Main />

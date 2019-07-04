@@ -26,7 +26,6 @@ const GroupList = styled.ul`
 const GroupItem = styled.li`
   background-color: #fff;
   box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.15);
-  /* color: #333; */
   color: #24292e;
   font-size: 0.9em;
   padding: 1.25em;

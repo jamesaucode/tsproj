@@ -40,7 +40,7 @@ const DividerText = styled.span`
   font-weight: 600;
   background: white;
   padding: 0 1rem;
-  color: #333333;
+  color: ${({ theme }) => theme.mainfc};
 `;
 interface FormInputProps {
   validated: boolean;

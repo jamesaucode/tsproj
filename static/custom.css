@@ -1,16 +1,9 @@
 html {
-	background-color: #e6effc;
+	background-color: #f2faf1;
 	box-sizing: border-box;
 }
 * {
 	box-sizing: border-box;
-}
-.fas {
-    cursor: pointer;
-}
-.fa-user-circle {
-    color: #333333;
-    font-size: 1.5em;
 }
 .small-icon > svg {
 	height: 16px;

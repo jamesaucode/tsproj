@@ -21,6 +21,7 @@ export const SVGWrapper = styled.div<SVGWrapperProps>`
 export const FormBottom = styled.p`
   font-size: 0.8em;
   padding: 1rem 0;
+  color: ${({ theme }) => theme.mainfc};
 `;
 
 export const fadeIn = keyframes`
@@ -61,7 +62,7 @@ export const Heading = styled.h1<HeadingProps>`
   font-size: ${props => (props.sub ? "1.5em" : "2em")};
   font-weight: 600;
   margin: 1rem 0;
-  color: #222;
+  color: ${({ theme }) => theme.mainfc};
 `;
 
 interface MessageProps {
@@ -71,14 +72,12 @@ export const Message = styled.div<MessageProps>`
   display: flex;
   justify-content: space-between;
   font-family: Arial, Helvetica, sans-serif;
-  /* font-size: 0.8em; */
   font-size: 14px;
   font-weight: 400;
   width: 100%;
   max-width: 888px;
   text-align: left;
-  color: ${props =>
-    props.success ? "rgba(255, 255, 255,0.9)" : "rgba(255, 255, 255, 0.9)"};
+  color: ${({ success }) => success ? "rgba(255, 255, 255,0.9)" : "rgba(255, 255, 255, 0.9)"};
   background: ${props => (props.success ? "#51CD80" : "#ff243d")};
   padding: 14px 28px;
   border-radius: 5px;

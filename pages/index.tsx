@@ -18,13 +18,14 @@ const Wrapper = styled.section`
   }
 `;
 const IndexHeading = styled(Heading)`
-  color: #333;
+  color: ${({ theme }) => theme.mainfc};
   font-size: 1.8em;
   letter-spacing: 1.1px;
   text-align: left;
 `;
 const Paragraph = styled.p`
-  color: #666;
+  /* color: #666; */
+  color: ${({ theme }) => theme.fcFade};
   font-size: 0.8em;
   line-height: 1.6;
   text-align: left;
@@ -51,7 +52,8 @@ const Button = styled.button`
   }
 `;
 
-const Index: NextFC = () => {
+const Index: NextFC = (props:any) => {
+  console.log(props);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(false);
