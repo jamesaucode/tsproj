@@ -7,6 +7,7 @@ import { CardsModel, ICard } from "../../schemas/Card";
 import { UserModel, IUser } from "../../schemas/User";
 import { GroupModel, IGroup, IGroupModel } from "../../schemas/Group";
 import { IRequest } from "../../../interfaces/express";
+import { CardSetModel, ICardSetDocument } from "../../schemas/CardSet";
 
 require("dotenv").config();
 console.log("RUNNING");
@@ -107,24 +108,25 @@ router.get(
 );
 router.get("/user/cards", (req, res) => {
   if (req.isAuthenticated()) {
-    const cards = req.user.cards;
+    const cardSet  = req.user.cardSet;
     console.log("Render cards");
-    return nextApp.render(req, res, "/user/cards", { cards });
+    return nextApp.render(req, res, "/user/cards", { cardSet });
   } else {
     return res.redirect("/");
   }
 });
-router.get("/user/group", (req, res) => {
+router.get("/user/group/:name", (req, res) => {
   if (req.isAuthenticated()) {
-    const name = req.query.name;
+    console.log(req.params);
+    const name = req.params.name;
     if (!name) {
-      res.redirect("/user/groups");
+      return res.redirect("/user/groups");
     }
     GroupModel.findOne({ name }, (err: Error, group: any) => {
       if (group) {
         return nextApp.render(req, res, "/user/group", {
           group,
-          queryParams: { ...req.query }
+          name
         });
       } else {
         res.redirect("/user/groups");
@@ -145,7 +147,6 @@ router.get("/user/groups", (req, res) => {
 });
 router.get("/user/profile", (req, res) => {
   if (req.isAuthenticated()) {
-    console.log("I am logged in lmao");
     const user = req.user;
     return nextApp.render(req, res, "/user/profile", { user });
   } else {
@@ -170,18 +171,19 @@ router.get("/user/*", (req, res, next) => {
   }
 });
 
-router.get("/", (req, res, next) => {
-  if (req.isAuthenticated()) {
-    res.redirect("/home");
-  } else {
-    next();
-  }
-});
+// router.get("/", (req, res, next) => {
+//   if (req.isAuthenticated()) {
+//     next();
+//   } else {
+//     next();
+//   }
+// });
 
 router.get("/home", (req, res) => {
   const user = req.user;
   return nextApp.render(req, res, "/home", { user });
 });
+
 router.get("*", (req, res) => {
   const { pathname, query } = parse(req.url, true);
   handler(req, res, parse(req.url, true));
@@ -214,12 +216,16 @@ passport.serializeUser<googleOAuth.Profile | any, any>((user, done) => {
   });
 });
 passport.deserializeUser<googleOAuth.Profile, any>((user, done) => {
-  // console.log('Deserializing');
-  CardsModel.find({ creator: user._id }, (err: Error, cards: ICard) => {
+  CardSetModel.find({ creator: user._id }, (err: Error, cardSet: ICardSetDocument) => {
     if (err) console.error(err.message);
-    user.cards = cards;
+    user.cardSet = cardSet;
     done(null, user);
-  });
+  })
+  // CardsModel.find({ creator: user._id }, (err: Error, cards: ICard) => {
+  //   if (err) console.error(err.message);
+  //   user.cards = cards;
+  //   done(null, user);
+  // });
 });
 
 export default router;

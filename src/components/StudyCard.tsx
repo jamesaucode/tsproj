@@ -7,7 +7,6 @@ import { useUserData } from "../hooks/useUserData";
 const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /* background: #00b800; */
   background: #fff;
   font-size: calc(0.35vw + 16px);
   width: 100%;
@@ -47,22 +46,24 @@ const Wrapper = styled.div`
   max-width: 800px;
 `;
 const StudyCard: React.FunctionComponent<ISession | any> = ({
-  session,
   pushNotification
 }) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  const [selected, setSelected] = useState();
+  console.log(selected);
   const userData = useUserData();
+
   const formControls: {
     [key: string]: React.Dispatch<React.SetStateAction<string>>;
   } = {
     question: setQuestion,
-    answer: setAnswer
+    answer: setAnswer,
+    selected: setSelected
   };
-
   const changeHandler = ({
     target: { name, value }
-  }: React.ChangeEvent<HTMLTextAreaElement>) => {
+  }: React.ChangeEvent<HTMLTextAreaElement | HTMLSelectElement>) => {
     formControls[name](value);
   };
   const clearInput = () => {
@@ -74,9 +75,9 @@ const StudyCard: React.FunctionComponent<ISession | any> = ({
       handleSubmit();
       clearInput();
     }
-  }
+  };
   const handleSubmit = () => {
-    fetch("/api/card", {
+    fetch(`/api/card/${selected}`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -99,6 +100,11 @@ const StudyCard: React.FunctionComponent<ISession | any> = ({
   };
   return (
     <Wrapper>
+      <select name="selected" onChange={changeHandler}>
+        <option value="ayy">ayy</option>
+        <option value="lmao">lmao</option>
+        <option value="lol">lol</option>
+      </select>
       <CardWrapper>
         <Input
           onChange={changeHandler}

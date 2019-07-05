@@ -10,14 +10,13 @@ import getLogout from '../controllers/getLogout';
 import postRegister from '../controllers/getLogout'; 
 import saveCard from '../controllers/saveCard';
 import deleteCard from '../controllers/deleteCard';
+import postJoinGroup from '../controllers/postJoinGroup';
 import { NextFunction } from "express";
 
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
 const router = express.Router();
 
 const isAuthenticated = (req: express.Request | any, res: express.Response, next: NextFunction) => {
-  if (req.user) {
+  if (req.isAuthenticated()) {
     return next();
   }
 }
@@ -28,15 +27,17 @@ router.get("/profile", getProfile);
 router.get("/session", getSession);
 router.get('/cards', getCards);
 router.get("/logout", getLogout);
+router.post('/joingroup/:name', postJoinGroup);
 router.post("/register", postRegister);
-router.post("/login",
-  passport.authenticate('local'),
+router.post(
+  "/login",
+  passport.authenticate("local"),
   isAuthenticated,
-  (req: IncomingMessage | any, res: express.Response) => {
-    res.redirect(302, '/user/create')
+  (req: IncomingMessage, res: express.Response) => {
+    res.redirect(302, "/user/create");
   }
 );
-router.post("/card", saveCard);
+router.post("/card/:cardSetName", saveCard);
 router.delete("/card", deleteCard);
 
 export default router;

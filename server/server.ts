@@ -12,7 +12,10 @@ const app = express();
 const mongoUser = process.env.MONGO_USER
 const mongoPassword = process.env.MONGO_PASSWORD
 // mongoose.connect('mongodb://localhost:27017/myDB', { useNewUrlParser: true });
-mongoose.connect(`mongodb+srv://${mongoUser}:${mongoPassword}@cluster0-odv04.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser: true, dbName: "study" });
+mongoose.connect(
+  `mongodb+srv://${mongoUser}:${mongoPassword}@cluster0-odv04.mongodb.net/test?retryWrites=true&w=majority`,
+  { useNewUrlParser: true, useFindAndModify: false, dbName: "study" }
+);
 const db = mongoose.connection;
 db.on('error', console.error.bind('console', 'connection error!'))
 db.once('open', () => {

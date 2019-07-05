@@ -5,9 +5,9 @@ const googleOAuth = require("passport-google-oauth20");
 const passport = require("passport");
 const url_1 = require("url");
 const nextApp_1 = require("../../nextApp");
-const Card_1 = require("../../schemas/Card");
 const User_1 = require("../../schemas/User");
 const Group_1 = require("../../schemas/Group");
+const CardSet_1 = require("../../schemas/CardSet");
 require("dotenv").config();
 console.log("RUNNING");
 const bcrypt = require("bcrypt");
@@ -83,25 +83,26 @@ router.get("/auth/redirect", (req, res, next) => {
 });
 router.get("/user/cards", (req, res) => {
     if (req.isAuthenticated()) {
-        const cards = req.user.cards;
+        const cardSet = req.user.cardSet;
         console.log("Render cards");
-        return nextApp_1.default.render(req, res, "/user/cards", { cards });
+        return nextApp_1.default.render(req, res, "/user/cards", { cardSet });
     }
     else {
         return res.redirect("/");
     }
 });
-router.get("/user/group", (req, res) => {
+router.get("/user/group/:name", (req, res) => {
     if (req.isAuthenticated()) {
-        const name = req.query.name;
+        console.log(req.params);
+        const name = req.params.name;
         if (!name) {
-            res.redirect("/user/groups");
+            return res.redirect("/user/groups");
         }
         Group_1.GroupModel.findOne({ name }, (err, group) => {
             if (group) {
                 return nextApp_1.default.render(req, res, "/user/group", {
                     group,
-                    queryParams: { ...req.query }
+                    name
                 });
             }
             else {
@@ -125,7 +126,6 @@ router.get("/user/groups", (req, res) => {
 });
 router.get("/user/profile", (req, res) => {
     if (req.isAuthenticated()) {
-        console.log("I am logged in lmao");
         const user = req.user;
         return nextApp_1.default.render(req, res, "/user/profile", { user });
     }
@@ -151,14 +151,13 @@ router.get("/user/*", (req, res, next) => {
         return res.redirect("/");
     }
 });
-router.get("/", (req, res, next) => {
-    if (req.isAuthenticated()) {
-        res.redirect("/home");
-    }
-    else {
-        next();
-    }
-});
+// router.get("/", (req, res, next) => {
+//   if (req.isAuthenticated()) {
+//     next();
+//   } else {
+//     next();
+//   }
+// });
 router.get("/home", (req, res) => {
     const user = req.user;
     return nextApp_1.default.render(req, res, "/home", { user });
@@ -197,13 +196,17 @@ passport.serializeUser((user, done) => {
     });
 });
 passport.deserializeUser((user, done) => {
-    // console.log('Deserializing');
-    Card_1.CardsModel.find({ creator: user._id }, (err, cards) => {
+    CardSet_1.CardSetModel.find({ creator: user._id }, (err, cardSet) => {
         if (err)
             console.error(err.message);
-        user.cards = cards;
+        user.cardSet = cardSet;
         done(null, user);
     });
+    // CardsModel.find({ creator: user._id }, (err: Error, cards: ICard) => {
+    //   if (err) console.error(err.message);
+    //   user.cards = cards;
+    //   done(null, user);
+    // });
 });
 exports.default = router;
 //# sourceMappingURL=route.js.map

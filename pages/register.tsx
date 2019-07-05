@@ -5,7 +5,7 @@ import { FormBottom } from "../src/styles/shared";
 import Link from "next/link";
 import fetch from "isomorphic-unfetch";
 import styled from "styled-components";
-import Register from "../src/components/register";
+import Register from "../src/components/Register";
 
 const maxFormWidth = "400px";
 const LoginButton = styled.a`

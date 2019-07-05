@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NextFC } from "next";
 import styled from "styled-components";
 import fetch from "isomorphic-unfetch";
-import Register from "../components/register";
+import Register from "./Register";
 import { InputValidator } from "../../services/validation.service";
 import { FormBottom } from "../styles/shared";
 import Warning from "./Warning";

@@ -1,34 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
+import NavBar from "../../src/components/NavBar";
+import Link from 'next/link';
+import { withRouter, WithRouterProps } from "next/router";
 import { Layout, Heading } from "../../src/styles/shared";
-import { NextFunctionComponent } from "next";
 import { IGroup } from "../../server/schemas/Group";
 
-interface IProps {
-    group : IGroup,
-    queryParams: {
-        name: string
-    }
-    children?: React.ReactChildren
+interface PropTypes extends WithRouterProps<{ name: string }> {
+  group: IGroup;
+  queryParams: {
+    name: string;
+  };
+  children?: React.ReactChildren;
 }
-const Group: NextFunctionComponent = (props : IProps) => {
+const Group = withRouter((props: PropTypes) => {
+  const lmao = () => (
+    <h1>Lmao</h1>
+  )
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    fetch(`/api/joingroup/${props.router.query.name}`, {
+      method: "POST",
+      credentials: 'include'
+    })
+    .then(response => console.log(response))
+  }
+  console.log(props);
   return (
-    <Layout>
-      <Heading>Group !</Heading>
-      <Heading>{props.group.name}</Heading>
-      <Heading>{props.queryParams.name}</Heading>
-    </Layout>
+    <>
+      <NavBar />
+      <Layout>
+        <Heading>Group !</Heading>
+        <Heading>{props.router.query.name}</Heading>
+        <button onClick={handleClick}>Join this group!</button>
+      </Layout>
+    </>
   );
-};
-
-Group.getInitialProps = async ({ req, query }) => {
-  const isServer = !!req;
-//   console.log(req.url);
-  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
-  const apiUrl = isServer
-    ? `${protocol}://${req.headers.host}/api/groups`
-    : `${protocol}://${window.location.host}/api/groups`;
-
-    return {...query};
-};
+});
 
 export default Group;

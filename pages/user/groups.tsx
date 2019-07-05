@@ -15,6 +15,7 @@ import Link from "next/link";
 const Input = styled.input`
   border: none;
   border: 1px solid #eee;
+  border-radius: 5px;
   font-size: 0.75em;
   padding: 0.5em 1em;
 `;
@@ -97,12 +98,14 @@ const Groups: NextFC = (props: any) => {
           {filteredGroup
             ? filteredGroup.map(group => (
                 <>
-                  <StyledLink href={`/user/group?name=${group.name}`}>
+                  {/* <StyledLink href={`/user/group?name=${group.name}`}> */}
+                  <Link href={`/user/group/${group.name}`}>
                     <GroupItem key={group.name}>
                       <SVG src="/static/images/users.svg" />
                       {group.name}
                     </GroupItem>
-                  </StyledLink>
+                  </Link>
+                  {/* </StyledLink> */}
                 </>
               ))
             : null}

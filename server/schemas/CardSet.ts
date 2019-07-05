@@ -1,29 +1,45 @@
-import { Document, Schema, Model, model} from 'mongoose';
+import { Document, Schema, Model, model, Error} from 'mongoose';
+import { CardsModel, ICard, CardSchema, ICardModel } from './Card';
 
-export interface ICardSet {
+type UserId = string;
+type CardId = string;
+
+export interface ICardSetDocument extends Document{
     name: string
-    cards: string[],
-    creator: string,
-    accessible: string[]
+    cards: CardId[],
+    creator: UserId,
+    accessible: UserId[]
 }
 
-export interface ICardSetModel extends ICardSet, Document {
-    isCreator(id : string): boolean;
-    isAccessible(id : string): boolean;
+export interface ICardSetModel extends Model<ICardSetDocument> {
 }
 
 export const CardSetSchema : Schema = new Schema({
     name: String,
-    cards: [Schema.Types.ObjectId],
+    cards: [CardSchema],
     creator: Schema.Types.ObjectId,
-    accessible: [Schema.Types.ObjectId]
+    accessible: [Schema.Types.ObjectId],
+    createdAt: { type: Date, default: Date.now },
+    // isCreator(id : UserId),
+    // isAccessible(id : UserId)
 })
 
-CardSetSchema.methods.isCreator = function(id : string) {
-    return this.creator === id;
-}
-CardSetSchema.methods.isAccessible = function(id : string) {
-    return this.accessible.include(id);
-}
+CardSetSchema.pre<ICardSetDocument>("save", function() {
 
-export const ICardsSetModel : Model<ICardSetModel> = model<ICardSetModel>('CardSet', CardSetSchema);
+})
+
+CardSetSchema.method({
+    isCreator: function(id: UserId) {
+        return id === this.creator
+    }
+})
+
+
+// CardSetSchema.methods.isCreator = function(id : UserId) {
+//     return this.creator === id;
+// }
+// CardSetSchema.methods.isAccessible = function(id : UserId) {
+//     return this.accessible.includes(id);
+// }
+
+export const CardSetModel : ICardSetModel = model<ICardSetDocument, ICardSetModel>('CardSet', CardSetSchema);

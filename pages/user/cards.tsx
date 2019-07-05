@@ -60,18 +60,19 @@ const Button = styled.button`
 const Cards: NextFC = (props: any) => {
   console.log(props);
   const userData = useUserData();
-  const [cards, setCards] = useState();
+  const [cardSets, setCardSets] = useState();
+  const [selectedSet, setSelectedSet] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [cardToDelete, setCardToDelete] = useState("");
   useEffect(() => {
-    if (props.cards) {
-      if (props.cards) {
-        setCards(props.cards);
+    if (props.cardSet) {
+      if (props.cardSet.cards) {
+        setCardSets(props.cardSet);
       } else if (userData) {
-        setCards(userData.cards);
+        setCardSets(userData.cardSet);
       }
     }
-  }, [userData, props.cards]);
+  }, [userData, props.cardSet]);
   const handleClick = (cardId: string) => {
     setCardToDelete(cardId);
     setShowModal(true);
@@ -86,19 +87,20 @@ const Cards: NextFC = (props: any) => {
       body: JSON.stringify({ id: cardId })
     }).then(response => {
       if (response.ok) {
-        setCards(cards.filter(card => card._id !== cardId));
+        setCardSets(cardSets.filter(card => card._id !== cardId));
       }
     });
     setShowModal(false);
   };
+  
   return (
     <>
       <NavBar />
       <Layout>
         <Heading>Your cards</Heading>
         <CardList>
-          {cards ? (
-            cards.map(card => {
+          {cardSets ? (
+            cardSets[selectedSet].cards.map(card=> {
               return (
                 <CardWrapper key={card._id}>
                   <Card>
@@ -116,7 +118,7 @@ const Cards: NextFC = (props: any) => {
                   </Card>
                 </CardWrapper>
               );
-            })
+              })
           ) : (
             <Heading>{"NO CARDS LMAOO"}</Heading>
           )}
@@ -156,7 +158,7 @@ Cards.getInitialProps = async ({ req, query }) => {
     });
     const json = handleJSONResponse(response);
     return json.then(data => {
-      return { cards: data };
+      return { cardSet: data };
     });
   }
 };

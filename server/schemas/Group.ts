@@ -1,9 +1,10 @@
 import { Document, Schema, Model, model} from 'mongoose';
 
+type UserId = string;
 export interface IGroup {
     name: string
-    ownerId: string[],  // id
-    usersId?: string[]
+    ownerId: UserId[],
+    usersId?: UserId[]
 }
 export interface IGroupModel extends Document, IGroup {
     isMemberById(id : string): boolean;
