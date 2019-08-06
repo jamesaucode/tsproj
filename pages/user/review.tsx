@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../../src/components/NavBar";
 import Card from "../../src/components/Card";
-import Spinner from "../../src/components/Spinner";
+import Loading from "../../src/components/Loading";
+import { Heading } from "../../src/styles/shared";
 import { Layout } from "../../src/styles/shared";
 import styled from "styled-components";
 import { useUserData } from "../../src/hooks/useUserData";
@@ -29,15 +30,14 @@ const Review = props => {
   // Index of card to be shown
   const [currentCard, setCurrentCard] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [selectedSet, setSelectedSet] = useState(0);
   const nextCard = () => {
-    console.log("Next Card");
-    const maxIndex = userData.cards.length;
+    const maxIndex = userData.cards.length || 0;
     if (currentCard + 1 < maxIndex) {
       setCurrentCard(currentCard + 1);
     }
   };
   const previousCard = () => {
-    console.log("Previous Card");
     if (currentCard - 1 >= 0) {
       setCurrentCard(currentCard - 1);
     }
@@ -73,32 +73,41 @@ const Review = props => {
   `;
   const controls = {
     nextCard,
-    previousCard
+    previousCard,
   };
+  console.log(userData);
   return loading ? (
     <>
       <NavBar />
       <Layout>
-        <Spinner />
+        <Loading />
       </Layout>
     </>
   ) : (
     <>
       <NavBar />
       <CustomLayout>
-        <CardWrapper>
-          <ControlsDiv onClick={controls.previousCard}>
-            <SVG className="small-icon" src="/static/images/left-arrow.svg" />
-          </ControlsDiv>
-          <Card
-            {...userData.cards[currentCard]}
-            pushNotification={props.pushNotification}
-            controls={controls}
-          />
-          <ControlsDiv onClick={controls.nextCard}>
-            <SVG className="small-icon" src="/static/images/right-arrow.svg" />
-          </ControlsDiv>
-        </CardWrapper>
+        {userData.cardSet.length > 0 ? (
+          <CardWrapper>
+            <ControlsDiv onClick={controls.previousCard}>
+              <SVG className="small-icon" src="/static/images/left-arrow.svg" />
+            </ControlsDiv>
+            <Card
+              {...userData.cardSet[selectedSet]}
+              pushNotification={props.pushNotification}
+              controls={controls}
+            />
+            )
+            <ControlsDiv onClick={controls.nextCard}>
+              <SVG
+                className="small-icon"
+                src="/static/images/right-arrow.svg"
+              />
+            </ControlsDiv>
+          </CardWrapper>
+        ) : (
+          <Heading>No cards</Heading>
+        )}
       </CustomLayout>
     </>
   );

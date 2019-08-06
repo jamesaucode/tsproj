@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import Modal from "../components/Modal";
-import Login from "../components/Login";
+import LoginForm from "../components/LoginForm";
 import SVG from 'react-inlinesvg';
 import { SVGWrapper } from '../styles/shared';
 
@@ -54,10 +54,8 @@ const StyledLink = styled.a`
   text-decoration: none;
 `;
 const ImportantLink = styled(StyledLink)`
-  /* border: 1px solid #4285f4; */
   border: 1px solid #0f76fc;
   border-radius: 3px;
-  /* color: #4285f4; */
   color: #0f76fc;
   padding: 0.5rem 1.5rem;
   font-size: 1em;
@@ -80,7 +78,7 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
   const { loggedIn, iconName } = props;
   const getModalProps = () => {
     return {
-      Embedded: Login,
+      Embedded: LoginForm,
       isOpen: showModal,
       closeModal: () => {
         setShowModal(!showModal);
@@ -134,7 +132,10 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
         >
           Login
         </ImportantLink>
-        {showModal && <Modal {...getModalProps()} />}
+        {showModal && 
+        <Modal {...getModalProps()}>
+          <LoginForm />
+        </Modal>}
       </DropDownWrapper>
     );
   }

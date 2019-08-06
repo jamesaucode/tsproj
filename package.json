@@ -6,6 +6,7 @@
   "author": "James Au",
   "license": "MIT",
   "scripts": {
+    "test": "jest",
     "start": "NODE_ENV=production node ./bin/server/server.js",
     "dev": "NODE_PATH=. nodemon ./bin/server/server.js",
     "compile": "tsc --project tsconfig.server.json -w",
@@ -19,7 +20,7 @@
     "@types/lodash": "^4.14.135",
     "@types/mongoose": "^5.5.7",
     "@types/next": "^8.0.5",
-    "@types/node": "^12.0.8",
+    "@types/node": "^12.6.9",
     "@types/passport": "^1.0.0",
     "@types/passport-google-oauth2": "^0.1.2",
     "@types/passport-google-oauth20": "^2.0.1",
@@ -59,6 +60,17 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "^1.10.0"
+    "@babel/core": "^7.5.5",
+    "@types/enzyme": "^3.10.3",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/jest": "^24.0.17",
+    "babel-plugin-styled-components": "^1.10.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.4.0",
+    "eslint": "^6.1.0",
+    "eslint-plugin-react": "^7.14.3",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2"
   }
 }

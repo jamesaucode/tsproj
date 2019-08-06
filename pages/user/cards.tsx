@@ -60,12 +60,12 @@ const Button = styled.button`
 const Cards: NextFC = (props: any) => {
   console.log(props);
   const userData = useUserData();
-  const [cardSets, setCardSets] = useState();
+  const [cardSets, setCardSets] = useState([]);
   const [selectedSet, setSelectedSet] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [cardToDelete, setCardToDelete] = useState("");
   useEffect(() => {
-    if (props.cardSet) {
+    if (props.cardSet.length > 0) {
       if (props.cardSet.cards) {
         setCardSets(props.cardSet);
       } else if (userData) {
@@ -99,7 +99,7 @@ const Cards: NextFC = (props: any) => {
       <Layout>
         <Heading>Your cards</Heading>
         <CardList>
-          {cardSets ? (
+          {cardSets.length > 0 ? (
             cardSets[selectedSet].cards.map(card=> {
               return (
                 <CardWrapper key={card._id}>
@@ -120,7 +120,7 @@ const Cards: NextFC = (props: any) => {
               );
               })
           ) : (
-            <Heading>{"NO CARDS LMAOO"}</Heading>
+            <Heading textAlign="center">You do not have any cards yet</Heading>
           )}
           {showModal && (
             <Modal

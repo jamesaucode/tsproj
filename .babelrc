@@ -1,7 +1,7 @@
 {
   "presets": [
+    "@zeit/next-typescript/babel",
     "next/babel",
-    "@zeit/next-typescript/babel"
   ],
   "plugins": [
     [

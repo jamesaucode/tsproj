@@ -6,40 +6,40 @@ import { NextFC } from "next";
 import SVG from "react-inlinesvg";
 
 const ModalWrapper = styled.div`
-  min-height: 300px;
-  max-height: 600px;
-  width: fit-content;
-  height: fit-content;
+  align-items: center;
+  animation: ${fadeIn} 0.5s ease-out 1;
+  background: #fff;
   border-radius: 3px;
-  box-sizing: border-box;
+  bottom: 0;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
-  padding: 2rem;
-  position: absolute;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  height: fit-content;
   justify-content: center;
-  align-items: center;
-  background: #fff;
-  margin: auto;
-  top: 0;
   left: 0;
+  margin: auto;
+  max-height: 600px;
+  min-height: 300px;
+  padding: 2rem;
+  position: absolute;
   right: 0;
-  bottom: 0;
+  top: 0;
+  width: fit-content;
   z-index: 100;
-  animation: ${fadeIn} 0.5s ease-out 1;
 `;
 const DivOverlay = styled.div`
+  background: rgba(0, 0, 0, 0.5);
   height: 100vh;
-  width: 100vw;
-  background: rgba(0, 0, 0, 0.4);
   position: fixed;
   top: 0;
+  width: 100vw;
   z-index: 10;
 `;
 const Wrapper = styled.div`
+  align-items: "center";
   display: "flex";
   justify-content: "center";
-  align-items: "center";
 `;
 const CrossWrapper = styled.div`
   & > span > svg {
@@ -50,12 +50,11 @@ const CrossWrapper = styled.div`
   }
 `;
 interface ModalProps {
-  Embedded?: React.FC;
+  // Embedded?: React.FC;
   closeModal: (value: void) => void;
   parentProps?: any;
 }
 export const Modal: NextFC<ModalProps> = ({
-  Embedded,
   closeModal,
   parentProps,
   children
@@ -89,7 +88,8 @@ export const Modal: NextFC<ModalProps> = ({
               src="/static/images/close_black.svg"
             />
           </CrossWrapper>
-          {Embedded ? <Embedded {...parentProps} /> : children}
+          {/* {Embedded ? <Embedded {...parentProps} /> : children} */}
+          {children}
         </ModalWrapper>
       </Wrapper>
     </>,

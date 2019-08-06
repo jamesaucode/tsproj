@@ -19,12 +19,11 @@ const Input = styled.textarea`
   color: #333;
   flex: 1 auto;
   font-size: 0.7em;
-  font-family: Arial, Helvetica, sans-serif;
   padding: 0.5em 1em;
   resize: none;
   box-sizing: border-box;
   &::placeholder {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: inherit;
   }
 `;
 const Button = styled.button`

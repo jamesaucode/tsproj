@@ -1,6 +1,5 @@
 import React from "react";
 import App, { Container } from "next/app";
-import NavBar from "../src/components/NavBar";
 import Notification from "../src/components/Notification/Notification";
 import Router from "next/router";
 import NProgress from "nprogress";
@@ -18,8 +17,9 @@ Router.events.on("routeChangeError", () => {
   NProgress.done();
 });
 const GlobalStyle = createGlobalStyle`
+a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}html{font-family:Arial,Helvetica,sans-serif}
+
   html {
-	background-color: #f2faf1;
 	box-sizing: border-box;
 }
 * {
@@ -49,7 +49,11 @@ const GlobalStyle = createGlobalStyle`
 	width: 100%;
 	height: 20em;
 }
-a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}html{font-family:Arial,Helvetica,sans-serif}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
 /* Make clicks pass-through */
 #nprogress {
   pointer-events: none;
@@ -128,9 +132,9 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 const themes = {
   darkTheme: {
     mainfc: "#24292e",
-    fcFade: "rgba(36, 41, 46, 0.6)"
+    fcFade: "rgba(36, 41, 46, 0.6)",
   },
-  lightTheme: {}
+  lightTheme: {},
 };
 
 export default class MyApp extends App {
@@ -143,11 +147,11 @@ export default class MyApp extends App {
     return { pageProps };
   }
   state = {
-    mode: "darkTheme"
+    mode: "darkTheme",
   };
   flipTheme = () => {
     this.setState(prevState => ({
-      mode: prevState === "darkTheme" ? "lightTheme" : "darkTheme"
+      mode: prevState === "darkTheme" ? "lightTheme" : "darkTheme",
     }));
   };
   componentDidMount() {

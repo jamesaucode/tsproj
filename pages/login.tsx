@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NextFC } from "next";
 import styled from "styled-components";
 import Register from "./register";
-import Login from "../src/components/Login";
+import LoginForm from "../src/components/LoginForm";
 
 const Wrapper = styled.div`
   display: flex;
@@ -14,11 +14,10 @@ const Wrapper = styled.div`
 
 const LoginPage: NextFC = (props: any) => {
   const [showSignIn, setShowSignIn] = useState(true);
-  console.log(props);
   return (
     <Wrapper>
       {showSignIn ? (
-        <Login />
+        <LoginForm />
       ) : (
         <Register
           toggleForm={() => {

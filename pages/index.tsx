@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Layout, Heading } from "../src/styles/shared";
 import { NextFC } from "next";
 import SVG from "react-inlinesvg";
-import styled, { keyframes } from "styled-components";
+// import MainLogo from "../static/icons/mainlogo.svg";
+import styled from "styled-components";
 import Link from "next/link";
 import NavBar from "../src/components/NavBar";
 
@@ -19,12 +20,10 @@ const Wrapper = styled.section`
 `;
 const IndexHeading = styled(Heading)`
   color: ${({ theme }) => theme.mainfc};
-  font-size: 1.8em;
   letter-spacing: 1.1px;
   text-align: left;
 `;
 const Paragraph = styled.p`
-  /* color: #666; */
   color: ${({ theme }) => theme.fcFade};
   font-size: 0.8em;
   line-height: 1.6;
@@ -52,8 +51,7 @@ const Button = styled.button`
   }
 `;
 
-const Index: NextFC = (props:any) => {
-  console.log(props);
+const Index: NextFC = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(false);
@@ -70,9 +68,10 @@ const Index: NextFC = (props:any) => {
               <IndexHeading>The web application for students.</IndexHeading>
               <Paragraph>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Exercitationem nam quasi suscipit, minus culpa officiis deleniti
-                sequi, ullam at molestiae consequuntur! Libero minus
-                exercitationem rerum nesciunt doloribus neque commodi fugiat.
+                Exercitationem nam quasi suscipit, minus culpa officiis
+                deleniti sequi, ullam at molestiae consequuntur! Libero
+                minus exercitationem rerum nesciunt doloribus neque commodi
+                fugiat.
               </Paragraph>
               <Link href="/login">
                 <Button>Start Studying</Button>
@@ -80,7 +79,7 @@ const Index: NextFC = (props:any) => {
             </TextBox>
             <SVG
               className="main-logo"
-              src="/static/images/undraw_learning.svg"
+              src="/static/images/mainlogo.svg"
             />
           </Wrapper>
         </Layout>
