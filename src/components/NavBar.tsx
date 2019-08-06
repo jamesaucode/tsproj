@@ -12,7 +12,6 @@ const NavWrapper = styled.div`
   height: 100%;
   min-height: 52px;
   box-sizing: border-box;
-  /* border-bottom: 1px solid #eeeeee; */
   box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
@@ -42,11 +41,11 @@ export const NavLink = styled.li`
   cursor: pointer;
 `;
 
-const NavBar: NextFC = props => {
+const NavBar: NextFC = (props): JSX.Element => {
   const windowSize = useWindowSize();
   const [loading, setLoading] = useState<boolean>(true);
   const isLoggedIn = useLoginStatus();
-  useEffect(() => {
+  useEffect((): void => {
     setLoading(false);
   }, [isLoggedIn]);
   if (loading) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, EffectCallback } from "react";
 import { NextFC } from "next";
 import styled from "styled-components";
 import fetch from "isomorphic-unfetch";
@@ -6,6 +6,7 @@ import Register from "./Register";
 import { InputValidator } from "../../services/validation.service";
 import { FormBottom } from "../styles/shared";
 import Warning from "./Warning";
+// import googleLoginButton from '../../static/images/btn_google_signin_dark_normal_web@2x.png';
 
 const googleLoginButton = require("../../static/images/btn_google_signin_dark_normal_web@2x.png");
 const maxFormWidth = "400px";
@@ -40,7 +41,7 @@ const DividerText = styled.span`
   font-weight: 600;
   background: white;
   padding: 0 1rem;
-  color: ${({ theme }) => theme.mainfc};
+  color: ${({ theme }): string => theme.mainfc};
 `;
 interface FormInputProps {
   validated: boolean;
@@ -54,7 +55,7 @@ const FormInput = styled.input<FormInputProps>`
   font-size: 0.7em;
   box-sizing: border-box;
   &:focus {
-    border: ${({ validated }) =>
+    border: ${({ validated }): string =>
       validated ? "1px solid #8610f9" : "1px solid red"};
   }
 `;
@@ -71,8 +72,8 @@ const FormSubmit = styled.button`
   border-radius: 3px;
   padding: 0.65rem;
   background: #8610f9;
-  opacity: ${({ disabled }) => (disabled ? 0.3 : 1)};
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  opacity: ${({ disabled }): number => (disabled ? 0.3 : 1)};
+  cursor: ${({ disabled }): string => (disabled ? "not-allowed" : "pointer")};
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -84,32 +85,31 @@ const Wrapper = styled.div`
   padding: 1em;
 `;
 
-const Login: NextFC = () => {
+const Login: NextFC = (): JSX.Element => {
   const [emailInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [showSignIn, setShowSignIn] = useState(true);
   const [showWarning, setShowWarning] = useState(false);
   const emailInputRef = useRef<HTMLInputElement>();
-  useEffect(() => {
+  useEffect((): EffectCallback => {
     // Focuses on the emailinputref as the component mount
     if (emailInputRef.current) {
       emailInputRef.current.focus();
     }
-    return () => {
-    };
-  }, [])
-  const handleSubmit = () => {
+    return (): void => {};
+  }, []);
+  const handleSubmit = (): void => {
     fetch("/api/login", {
       method: "POST",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: emailInput,
-        password: passwordInput
-      })
-    }).then(response => {
+        password: passwordInput,
+      }),
+    }).then((response): void => {
       if (response.ok && response.redirected) {
         window.location.href = "/user/cards";
       } else {
@@ -118,18 +118,23 @@ const Login: NextFC = () => {
       }
     });
   };
-  const validateEmail = () => InputValidator.email(emailInput);
-  const validatePassword = () => InputValidator.password(passwordInput);
-  const validateInput = () => {
+  const validateEmail = (): boolean => InputValidator.email(emailInput);
+
+  const validatePassword = (): boolean =>
+    InputValidator.password(passwordInput);
+
+  const validateInput = (): boolean => {
     return validateEmail() && validatePassword();
   };
-  const handleKeyDown = (event : React.KeyboardEvent) => {
+
+  const handleKeyDown = (event: React.KeyboardEvent): void => {
     const isValid = validateInput();
     if (event.keyCode === 13 && isValid) {
       handleSubmit();
     }
-  }
-  const handleClick = () => {
+  };
+
+  const handleClick = (): void => {
     setShowSignIn(!showSignIn);
   };
 
@@ -144,7 +149,7 @@ const Login: NextFC = () => {
       <FormWrapper>
         {showWarning && <Warning text={"Incorrect Credentials"} />}
         <FormInput
-          onChange={e => {
+          onChange={(e): void => {
             setUsernameInput(e.target.value);
           }}
           ref={emailInputRef}
@@ -156,7 +161,7 @@ const Login: NextFC = () => {
           type="email"
         />
         <FormInput
-          onChange={e => {
+          onChange={(e): void => {
             setPasswordInput(e.target.value);
           }}
           onKeyDown={handleKeyDown}
@@ -170,14 +175,17 @@ const Login: NextFC = () => {
           Login
         </FormSubmit>
         <FormBottom>
-          New user ? <StyledLink id="signup" onClick={handleClick}>Signup </StyledLink>
+          New user ?{" "}
+          <StyledLink id="signup" onClick={handleClick}>
+            Signup
+          </StyledLink>{" "}
           here!
         </FormBottom>
       </FormWrapper>
     </Wrapper>
   ) : (
     <Register
-      toggleForm={() => {
+      toggleForm={(): void => {
         setShowSignIn(true);
       }}
     />

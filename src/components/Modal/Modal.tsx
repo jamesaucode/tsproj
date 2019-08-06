@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, EffectCallback } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { fadeIn } from "../../styles/shared";
@@ -50,31 +50,29 @@ const CrossWrapper = styled.div`
   }
 `;
 interface ModalProps {
-  // Embedded?: React.FC;
   closeModal: (value: void) => void;
-  parentProps?: any;
+  // parentProps?: Record<string, any>;
 }
 export const Modal: NextFC<ModalProps> = ({
   closeModal,
-  parentProps,
-  children
-}) => {
+  children,
+}): JSX.Element => {
   // For testing
-  const handleKeyDown = (event : KeyboardEvent) => {
+  const handleKeyDown = (event: KeyboardEvent): void => {
     if (event.keyCode === 27) {
       closeModal();
     }
-  }
-  useEffect(() => {
+  };
+  useEffect((): EffectCallback => {
     console.log("Modal Mounted");
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
     // Cleanup function
-    return () => {
-    window.removeEventListener('keydown', handleKeyDown);
+    return (): void => {
+      window.removeEventListener("keydown", handleKeyDown);
       console.log("Unmounting");
     };
   }, []);
-  const handleClick = () => {
+  const handleClick = (): void => {
     closeModal();
   };
   return ReactDOM.createPortal(
@@ -88,17 +86,16 @@ export const Modal: NextFC<ModalProps> = ({
               src="/static/images/close_black.svg"
             />
           </CrossWrapper>
-          {/* {Embedded ? <Embedded {...parentProps} /> : children} */}
           {children}
         </ModalWrapper>
       </Wrapper>
     </>,
-    document.body
+    document.body,
   );
 };
 
 Modal.defaultProps = {
-  closeModal: () => {
+  closeModal: (): void => {
     console.log("No function was passed in..");
-  }
+  },
 };

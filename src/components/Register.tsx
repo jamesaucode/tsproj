@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { handleResponse } from "../../services/fetch.service";
 import { FormBottom } from "../styles/shared";
-import Warning from './Warning';
+import Warning from "./Warning";
 import fetch from "isomorphic-unfetch";
 import styled from "styled-components";
 
@@ -21,7 +21,7 @@ const FormInput = styled.input`
   margin: 0.5rem 0;
   width: 100%;
   box-sizing: border-box;
-  font-size: .7em;
+  font-size: 0.7em;
   &:focus {
     border: 1px solid #8610f9;
   }
@@ -46,13 +46,17 @@ const FormSubmit = styled.button`
   }
 `;
 
-const Register = (props: any) => {
+interface Props {
+  toggleForm: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+}
+
+const Register: React.FunctionComponent<Props> = (props): JSX.Element => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [showWarning, setShowWarning] = useState(false);
-  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const name = event.target.name;
     const value = event.target.value;
     switch (name) {
@@ -72,34 +76,35 @@ const Register = (props: any) => {
         break;
     }
   };
-  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>): void => {
     fetch("/api/register", {
       method: "POST",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         firstName,
         lastName,
         email,
-        password
-      })
+        password,
+      }),
     })
       .then(handleResponse)
-      .then(json => {
+      .then((json): void => {
         // props.pushNotification(json.message, true);
         console.log(json);
       })
-      .catch(error => {
+      .catch((error: Error): void => {
         setShowWarning(true);
+        console.error(error.message);
       });
     console.log("Submitted");
   };
 
   return (
     <FormWrapper>
-      {showWarning && <Warning text={"User already exist"}/>}
+      {showWarning && <Warning text={"User already exist"} />}
       <FormInput
         onChange={changeHandler}
         value={email}

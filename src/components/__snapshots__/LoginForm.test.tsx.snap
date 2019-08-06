@@ -407,7 +407,8 @@ exports[`LoginForm Tests Component Renders 1`] = `
                   <p
                     className="shared__FormBottom-sc-1yigvbr-1 bdCQDx"
                   >
-                    New user ? 
+                    New user ?
+                     
                     <LoginForm__StyledLink
                       id="signup"
                       onClick={[Function]}
@@ -444,10 +445,11 @@ exports[`LoginForm Tests Component Renders 1`] = `
                           id="signup"
                           onClick={[Function]}
                         >
-                          Signup 
+                          Signup
                         </a>
                       </StyledComponent>
                     </LoginForm__StyledLink>
+                     
                     here!
                   </p>
                 </StyledComponent>

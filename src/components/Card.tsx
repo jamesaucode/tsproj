@@ -28,21 +28,23 @@ const AnswerInput = styled.input`
   border-bottom: 1px solid gray;
 `;
 
-const Card: React.FC<PropTypes> = ({
-  _id,
+const Card: React.FunctionComponent<PropTypes> = ({
+  // _id,
   question,
   answer,
   pushNotification,
-  controls
-}) => {
+  controls,
+}): JSX.Element => {
   const [currentAnswer, setCurrentAnswer] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
-  const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (currentAnswer === answer) {
       pushNotification("Correct!", true);
     }
   };
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLInputElement>,
+  ): void => {
     if (event.keyCode === 13) {
       if (currentAnswer === answer) {
         pushNotification("Correct!", true);
@@ -54,7 +56,7 @@ const Card: React.FC<PropTypes> = ({
       }
     }
   };
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setCurrentAnswer(event.target.value);
   };
   return (

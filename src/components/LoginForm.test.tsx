@@ -1,3 +1,4 @@
+/* eslint-disable */
 import LoginForm from "./LoginForm";
 import Warning from "./Warning";
 import Register from "./Register";
@@ -51,8 +52,12 @@ describe("LoginForm Tests", () => {
 
   it("Should show login form on mount, show signup form if user clicks the signup link", () => {
     const wrapper = mount(<LoginForm />);
-    expect(wrapper.find('shared__FormBottom').text()).toBe('New user ? Signup here!');
-    wrapper.find('LoginForm__StyledLink').simulate('click');
-    expect(wrapper.find('shared__FormBottom').text()).toBe('New user ? Login here!');
-  })
+    expect(wrapper.find("shared__FormBottom").text()).toBe(
+      "New user ? Signup here!",
+    );
+    wrapper.find("LoginForm__StyledLink").simulate("click");
+    expect(wrapper.find("shared__FormBottom").text()).toBe(
+      "New user ? Login here!",
+    );
+  });
 });

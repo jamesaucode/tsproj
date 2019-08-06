@@ -20,11 +20,11 @@ const Spinner = styled.div`
   border-top: 0.35em solid rgba(0, 0, 0, 0.2);
   border-right: 0.35em solid rgba(0, 0, 0, 0.2);
   border-bottom: 0.35em solid rgba(0, 0, 0, 0.2);
-  border-left: 0.35em solid #3140F1;
+  border-left: 0.35em solid #3140f1;
   animation: ${rotate} 1s linear infinite;
   text-indent: -9999em;
 `;
-const Loading: React.FunctionComponent = () => {
+const Loading: React.FunctionComponent = (): JSX.Element => {
   return <Spinner></Spinner>;
 };
 
