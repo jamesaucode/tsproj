@@ -55,10 +55,11 @@ export const Layout = styled.main<LayoutProps>`
 
 interface HeadingProps {
   readonly sub?: boolean;
+  readonly textAlign?: string;
 }
 
 export const Heading = styled.h1<HeadingProps>`
-  font-family: Arial, Helvetica, sans-serif;
+  text-align: ${props => props.textAlign };
   font-size: ${props => (props.sub ? "1.5em" : "2em")};
   font-weight: 600;
   margin: 1rem 0;
@@ -71,7 +72,6 @@ interface MessageProps {
 export const Message = styled.div<MessageProps>`
   display: flex;
   justify-content: space-between;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
   font-weight: 400;
   width: 100%;

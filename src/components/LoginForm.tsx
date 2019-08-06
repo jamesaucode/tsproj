@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { NextFC } from "next";
 import styled from "styled-components";
 import fetch from "isomorphic-unfetch";
@@ -89,7 +89,7 @@ const Login: NextFC = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [showSignIn, setShowSignIn] = useState(true);
   const [showWarning, setShowWarning] = useState(false);
-  const emailInputRef = React.createRef<HTMLInputElement>();
+  const emailInputRef = useRef<HTMLInputElement>();
   useEffect(() => {
     // Focuses on the emailinputref as the component mount
     if (emailInputRef.current) {
@@ -118,16 +118,17 @@ const Login: NextFC = () => {
       }
     });
   };
-  const handleKeyDown = (event : React.KeyboardEvent) => {
-    if (event.keyCode === 13) {
-      handleSubmit();
-    }
-  }
   const validateEmail = () => InputValidator.email(emailInput);
   const validatePassword = () => InputValidator.password(passwordInput);
   const validateInput = () => {
     return validateEmail() && validatePassword();
   };
+  const handleKeyDown = (event : React.KeyboardEvent) => {
+    const isValid = validateInput();
+    if (event.keyCode === 13 && isValid) {
+      handleSubmit();
+    }
+  }
   const handleClick = () => {
     setShowSignIn(!showSignIn);
   };
@@ -169,7 +170,7 @@ const Login: NextFC = () => {
           Login
         </FormSubmit>
         <FormBottom>
-          New user ? <StyledLink onClick={handleClick}>Signup </StyledLink>
+          New user ? <StyledLink id="signup" onClick={handleClick}>Signup </StyledLink>
           here!
         </FormBottom>
       </FormWrapper>

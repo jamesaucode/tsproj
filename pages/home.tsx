@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Spinner from "../src/components/Spinner";
+import Loading from "../src/components/Loading";
 import { Layout, Heading } from "../src/styles/shared";
 import { useUserData } from "../src/hooks/useUserData";
 import { NextFC } from "next";
@@ -16,7 +16,7 @@ const Index: NextFC = (props: any) => {
   if (loading) {
     return (
       <Layout>
-        <Spinner />
+        <Loading />
       </Layout>
     );
   } else {

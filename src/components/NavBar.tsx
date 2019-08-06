@@ -32,7 +32,6 @@ const Nav = styled.nav`
   }
 `;
 export const NavLink = styled.li`
-  font-family: Arial, Helvetica, sans-serif;
   text-transform: uppercase;
   margin-right: 4em;
   font-size: 0.9em;
