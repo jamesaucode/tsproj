@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { fadeIn, Message } from "../../styles/shared";
+import { Message } from "../../styles/shared";
 import { NextFC } from "next";
-import { IMessage } from '../../../interfaces/message';
-import SVG from 'react-inlinesvg';
+import { IMessage } from "../../../interfaces/message";
+import SVG from "react-inlinesvg";
 
 interface WrapperProps {
   mounted?: boolean;
@@ -22,15 +22,17 @@ const Important = styled.span`
 `;
 const SVGWrapper = styled.div`
   padding: 0 0.5rem;
-`
-const renderImportant = (text: string) => <Important>{text}</Important>;
+`;
+const renderImportant = (text: string): React.ReactElement => (
+  <Important>{text}</Important>
+);
 const NotificationMessage: NextFC<IMessage> = ({
   success,
   message,
   id,
-  delay = 3000,
-  removeNotification
-}) => {
+  // delay = 3000,
+  removeNotification,
+}): JSX.Element => {
   return (
     <Wrapper key={id}>
       <Message success={success}>
@@ -38,7 +40,7 @@ const NotificationMessage: NextFC<IMessage> = ({
           {success ? renderImportant("Success! ") : renderImportant("Oops! ")}
           {message}
         </div>
-        <SVGWrapper onClick={() => removeNotification(id)}>
+        <SVGWrapper onClick={(): void => removeNotification(id)}>
           <SVG className="small-icon" src="/static/images/close.svg" />
         </SVGWrapper>
       </Message>

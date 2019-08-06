@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, EffectCallback } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import Modal from "../components/Modal";
 import LoginForm from "../components/LoginForm";
-import SVG from 'react-inlinesvg';
-import { SVGWrapper } from '../styles/shared';
+import SVG from "react-inlinesvg";
+import { SVGWrapper } from "../styles/shared";
 
 interface PropTypes {
   iconName: string;
@@ -28,7 +28,7 @@ const DropdownMenu = styled.div<MenuProps>`
   background: #8610f9;
   border-radius: 3px;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
-  display: ${props => (props.expanded ? "flex" : "none")};
+  display: ${(props): string => (props.expanded ? "flex" : "none")};
   flex-direction: column;
   align-items: center;
   position: absolute;
@@ -69,45 +69,49 @@ const OverlayDiv = styled.div`
   top: 0;
   left: 0;
   z-index: 10;
-` 
+`;
 
-
-const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
+const ToggleableMenu: React.FunctionComponent<PropTypes> = (
+  props,
+): JSX.Element => {
   const [expanded, setExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { loggedIn, iconName } = props;
-  const getModalProps = () => {
+  const getModalProps = (): Record<string, any> => {
     return {
       Embedded: LoginForm,
       isOpen: showModal,
-      closeModal: () => {
+      closeModal: (): void => {
         setShowModal(!showModal);
       },
-      parentProps: { ...props }
+      parentProps: { ...props },
     };
   };
-  useEffect(() => {
-    const collapse = () => {
+  useEffect((): EffectCallback => {
+    const collapse = (): void => {
       setExpanded(false);
     };
     const main = document.getElementById("main");
     if (main) {
       main.addEventListener("click", collapse);
     }
-    return () => {
+    return (): void => {
       main ? main.removeEventListener("click", collapse) : null;
     };
   }, []);
-  const handleToggleClick = (event: React.MouseEvent) => {
+  const handleToggleClick = (event: React.MouseEvent): void => {
     setExpanded(!expanded);
   };
   if (loggedIn) {
     return (
       <DropDownWrapper>
-        <SVGWrapper size={{height: 24, width: 24}} onClick={handleToggleClick}>
+        <SVGWrapper
+          size={{ height: 24, width: 24 }}
+          onClick={handleToggleClick}
+        >
           <SVG src="/static/images/user.svg" />
         </SVGWrapper>
-        {expanded && <OverlayDiv onClick={handleToggleClick}/>}
+        {expanded && <OverlayDiv onClick={handleToggleClick} />}
         <DropdownMenu expanded={expanded}>
           <LinkWrapper>
             <Link href="/user/profile">
@@ -126,16 +130,17 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = props => {
     return (
       <DropDownWrapper>
         <ImportantLink
-          onClick={() => {
+          onClick={(): void => {
             setShowModal(true);
           }}
         >
           Login
         </ImportantLink>
-        {showModal && 
-        <Modal {...getModalProps()}>
-          <LoginForm />
-        </Modal>}
+        {showModal && (
+          <Modal {...getModalProps()}>
+            <LoginForm />
+          </Modal>
+        )}
       </DropDownWrapper>
     );
   }

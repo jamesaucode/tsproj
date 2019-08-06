@@ -16,16 +16,16 @@ const MenuWrapper = styled.div<MenuProps>`
   box-sizing: border-box;
   position: absolute;
   transition: 0.75s ease-in-out max-height;
-  max-height: ${({ show }) => (show ? "100%" : "0")};
+  max-height: ${({ show }): string => (show ? "100%" : "0")};
   width: 100%;
   background-color: #fff;
   top: 50px;
   left: 0;
   & > ul {
-    max-height: ${({ show }) => (show ? "100%" : "0")};
+    max-height: ${({ show }): string => (show ? "100%" : "0")};
   }
   & > ul > li {
-    display: ${({ show }) => (show ? "block" : "none")};
+    display: ${({ show }): string => (show ? "block" : "none")};
     animation: ${fadeIn} 0.75s ease-in-out 1;
   }
 `;
@@ -42,10 +42,12 @@ const MenuItem = styled.li`
 interface PropTypes {
   loggedIn: boolean;
 }
-const BurgerMenu: React.FC<PropTypes> = ({ loggedIn }) => {
+const BurgerMenu: React.FunctionComponent<PropTypes> = ({
+  loggedIn,
+}): JSX.Element => {
   const [showMenu, setShowMenu] = useState(false);
   return (
-    <Wrapper onClick={() => setShowMenu(!showMenu)}>
+    <Wrapper onClick={(): void => setShowMenu(!showMenu)}>
       <SVG
         src="/static/images/menu.svg"
         className={`small-icon ${showMenu ? "active" : ""}`}

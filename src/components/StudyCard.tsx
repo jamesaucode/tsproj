@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { ISession } from "../../interfaces/express";
 import { handleResponse } from "../../services/fetch.service";
@@ -45,8 +45,8 @@ const Wrapper = styled.div`
   max-width: 800px;
 `;
 const StudyCard: React.FunctionComponent<ISession | any> = ({
-  pushNotification
-}) => {
+  pushNotification,
+}): JSX.Element => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [selected, setSelected] = useState();
@@ -58,44 +58,46 @@ const StudyCard: React.FunctionComponent<ISession | any> = ({
   } = {
     question: setQuestion,
     answer: setAnswer,
-    selected: setSelected
+    selected: setSelected,
   };
   const changeHandler = ({
-    target: { name, value }
-  }: React.ChangeEvent<HTMLTextAreaElement | HTMLSelectElement>) => {
+    target: { name, value },
+  }: React.ChangeEvent<HTMLTextAreaElement | HTMLSelectElement>): void => {
     formControls[name](value);
   };
-  const clearInput = () => {
+  const clearInput = (): void => {
     setQuestion("");
     setAnswer("");
   };
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.keyCode === 13) {
-      handleSubmit();
-      clearInput();
-    }
-  };
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     fetch(`/api/card/${selected}`, {
       method: "POST",
       credentials: "include",
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
       body: JSON.stringify({
         question,
         answer,
-        creator: userData._id
-      })
+        creator: userData._id,
+      }),
     })
       .then(handleResponse)
-      .then(json => {
+      .then((json): void => {
         pushNotification(json.message, true);
         clearInput();
       })
-      .catch(error => {
+      .catch((error): void => {
         pushNotification(error.message, false);
       });
+  };
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLTextAreaElement>,
+  ): void => {
+    if (event.keyCode === 13) {
+      handleSubmit();
+      clearInput();
+    }
   };
   return (
     <Wrapper>
