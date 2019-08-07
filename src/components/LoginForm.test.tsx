@@ -1,8 +1,7 @@
 /* eslint-disable */
 import LoginForm from "./LoginForm";
 import Warning from "./Warning";
-import Register from "./Register";
-import { mount, shallow } from "enzyme";
+import { mount } from "enzyme";
 
 describe("LoginForm Tests", () => {
   it("Component Renders", () => {

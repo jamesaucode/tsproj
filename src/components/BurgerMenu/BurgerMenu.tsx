@@ -36,7 +36,7 @@ const MenuItem = styled.li`
   color: #222;
   display: block;
   font-size: 1em;
-  padding: 1em;
+  padding: 1em 2em;
   text-align: right;
 `;
 interface PropTypes {

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Heading } from "../src/styles/shared";
 import { NextFC } from "next";
-import SVG from "react-inlinesvg";
-// import MainLogo from "../static/icons/mainlogo.svg";
+import MainLogo from "../src/components/Icons/MainLogo";
 import styled from "styled-components";
 import Link from "next/link";
 import NavBar from "../src/components/NavBar";
@@ -19,13 +18,13 @@ const Wrapper = styled.section`
   }
 `;
 const IndexHeading = styled(Heading)`
-  color: ${({ theme }) => theme.mainfc};
+  color: ${({ theme }): string => theme.mainfc};
   letter-spacing: 1.1px;
   text-align: left;
 `;
 const Paragraph = styled.p`
-  color: ${({ theme }) => theme.fcFade};
-  font-size: 0.8em;
+  color: ${({ theme }): string => theme.fcFade};
+  font-size: 0.9em;
   line-height: 1.6;
   text-align: left;
   margin-bottom: 1rem;
@@ -42,7 +41,7 @@ const Button = styled.button`
   border: none;
   border-radius: 3px;
   padding: 0.75em 1.5em;
-  font-size: 0.7em;
+  font-size: 0.9em;
   font-weight: 400;
   color: #fff;
   transition: 0.5s ease-out background-color;
@@ -51,9 +50,9 @@ const Button = styled.button`
   }
 `;
 
-const Index: NextFC = () => {
+const Index: NextFC = (): JSX.Element => {
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
+  useEffect((): void => {
     setLoading(false);
   }, []);
   if (loading) {
@@ -68,19 +67,15 @@ const Index: NextFC = () => {
               <IndexHeading>The web application for students.</IndexHeading>
               <Paragraph>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Exercitationem nam quasi suscipit, minus culpa officiis
-                deleniti sequi, ullam at molestiae consequuntur! Libero
-                minus exercitationem rerum nesciunt doloribus neque commodi
-                fugiat.
+                Exercitationem nam quasi suscipit, minus culpa officiis deleniti
+                sequi, ullam at molestiae consequuntur! Libero minus
+                exercitationem rerum nesciunt doloribus neque commodi fugiat.
               </Paragraph>
               <Link href="/login">
                 <Button>Start Studying</Button>
               </Link>
             </TextBox>
-            <SVG
-              className="main-logo"
-              src="/static/images/mainlogo.svg"
-            />
+            <MainLogo style={{ flex: "1 0 auto" }} />
           </Wrapper>
         </Layout>
       </>

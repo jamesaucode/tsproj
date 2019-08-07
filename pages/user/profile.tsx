@@ -1,11 +1,11 @@
 import React from "react";
 import { NextFC } from "next";
 import { Layout, Heading } from "../../src/styles/shared";
-import { SessionProps } from "../../typings/express";
+// import { SessionProps } from "../../typings/express";
 import { useUserData } from "../../src/hooks/useUserData";
 import NavBar from "../../src/components/NavBar";
 
-const Profile: NextFC<SessionProps> = props => {
+const Profile: NextFC<{}> = (props): JSX.Element => {
   const userData = useUserData();
   return (
     <>

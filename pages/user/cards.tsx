@@ -57,14 +57,13 @@ const Button = styled.button`
   text-transform: uppercase;
 `;
 
-const Cards: NextFC = (props: any) => {
-  console.log(props);
+const Cards: NextFC = (props: any): JSX.Element => {
   const userData = useUserData();
   const [cardSets, setCardSets] = useState([]);
   const [selectedSet, setSelectedSet] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [cardToDelete, setCardToDelete] = useState("");
-  useEffect(() => {
+  useEffect((): void => {
     if (props.cardSet.length > 0) {
       if (props.cardSet.cards) {
         setCardSets(props.cardSet);
@@ -73,26 +72,26 @@ const Cards: NextFC = (props: any) => {
       }
     }
   }, [userData, props.cardSet]);
-  const handleClick = (cardId: string) => {
+  const handleClick = (cardId: string): void => {
     setCardToDelete(cardId);
     setShowModal(true);
   };
-  const deleteCardHandler = (cardId: string) => {
+  const deleteCardHandler = (cardId: string): void => {
     fetch("/api/card", {
       method: "DELETE",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: cardId })
-    }).then(response => {
+      body: JSON.stringify({ id: cardId }),
+    }).then((response): void => {
       if (response.ok) {
-        setCardSets(cardSets.filter(card => card._id !== cardId));
+        setCardSets(cardSets.filter((card): boolean => card._id !== cardId));
       }
     });
     setShowModal(false);
   };
-  
+
   return (
     <>
       <NavBar />
@@ -100,36 +99,37 @@ const Cards: NextFC = (props: any) => {
         <Heading>Your cards</Heading>
         <CardList>
           {cardSets.length > 0 ? (
-            cardSets[selectedSet].cards.map(card=> {
-              return (
-                <CardWrapper key={card._id}>
-                  <Card>
-                    <CardTextBox>
-                      <CardTag>Question:</CardTag>
-                      <CardText>{card.question}</CardText>
-                    </CardTextBox>
-                    <CardTextBox>
-                      <CardTag>Answer:</CardTag>
-                      <CardText>{card.answer}</CardText>
-                    </CardTextBox>
-                    <Button onClick={() => handleClick(card._id)}>
-                      Remove
-                    </Button>
-                  </Card>
-                </CardWrapper>
-              );
-              })
+            cardSets[selectedSet].cards.map(
+              (card): JSX.Element => {
+                return (
+                  <CardWrapper key={card._id}>
+                    <Card>
+                      <CardTextBox>
+                        <CardTag>Question:</CardTag>
+                        <CardText>{card.question}</CardText>
+                      </CardTextBox>
+                      <CardTextBox>
+                        <CardTag>Answer:</CardTag>
+                        <CardText>{card.answer}</CardText>
+                      </CardTextBox>
+                      <Button onClick={(): void => handleClick(card._id)}>
+                        Remove
+                      </Button>
+                    </Card>
+                  </CardWrapper>
+                );
+              },
+            )
           ) : (
             <Heading textAlign="center">You do not have any cards yet</Heading>
           )}
           {showModal && (
             <Modal
-              Embedded={() => (
-                <Prompt onClick={() => deleteCardHandler(cardToDelete)} />
-              )}
               parentProps={props}
-              closeModal={() => setShowModal(false)}
-            />
+              closeModal={(): void => setShowModal(false)}
+            >
+              <Prompt onClick={(): void => deleteCardHandler(cardToDelete)} />
+            </Modal>
           )}
         </CardList>
       </Layout>
@@ -138,10 +138,10 @@ const Cards: NextFC = (props: any) => {
 };
 
 Cards.defaultProps = {
-  cards: null
+  cards: null,
 };
 
-Cards.getInitialProps = async ({ req, query }) => {
+Cards.getInitialProps = async ({ req, query }): Promise<Record<string, {}>> => {
   const isServer = !!req;
   const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
   const apiUrl = isServer
@@ -153,13 +153,15 @@ Cards.getInitialProps = async ({ req, query }) => {
     const response = await fetch(apiUrl, {
       credentials: "include",
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     });
     const json = handleJSONResponse(response);
-    return json.then(data => {
-      return { cardSet: data };
-    });
+    return json.then(
+      (data): Record<string, {}> => {
+        return { cardSet: data };
+      },
+    );
   }
 };
 

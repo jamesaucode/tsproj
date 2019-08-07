@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NextFC } from "next";
 import styled from "styled-components";
-import Register from "./register";
+import Register from "../src/components/Register";
 import LoginForm from "../src/components/LoginForm";
 
 const Wrapper = styled.div`
@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 
-const LoginPage: NextFC = (props: any) => {
+const LoginPage: NextFC = (props: any): JSX.Element => {
   const [showSignIn, setShowSignIn] = useState(true);
   return (
     <Wrapper>
@@ -20,7 +20,7 @@ const LoginPage: NextFC = (props: any) => {
         <LoginForm />
       ) : (
         <Register
-          toggleForm={() => {
+          toggleForm={(): void => {
             setShowSignIn(!showSignIn);
           }}
         />

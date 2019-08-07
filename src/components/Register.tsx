@@ -17,7 +17,7 @@ const StyledLink = styled.a`
 const FormInput = styled.input`
   border: 1px solid #aaaaaa;
   border-radius: 2px;
-  padding: 0.5rem;
+  padding: 0.75rem;
   margin: 0.5rem 0;
   width: 100%;
   box-sizing: border-box;
@@ -34,7 +34,7 @@ const FormWrapper = styled.div`
 `;
 const FormSubmit = styled.button`
   color: white;
-  font-size: 1em;
+  font-size: 0.75em;
   font-weight: 600;
   width: 100%;
   border: none;

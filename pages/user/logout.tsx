@@ -3,12 +3,10 @@ import * as googleOAuth from "passport-google-oauth20";
 import { Layout, Heading } from "../../src/styles/shared";
 import { NextFC, NextContext } from "next";
 import { IncomingMessage } from "http";
-import { redirect, redirectWithDelay } from "../../utils/redirect";
-import { UserSchemaTypes } from '../../server/schemas/User';
-import Router from 'next/router';
+// import { UserSchemaTypes } from "../../server/schemas/User";
+import Router from "next/router";
 
-const Logout: NextFC = (props: any) => {
-  console.log(props);
+const Logout: NextFC = (props: any): JSX.Element => {
   return (
     <Layout>
       <Heading>Logging out...</Heading>
@@ -22,14 +20,16 @@ interface CustomRequest extends IncomingMessage {
   session?: CookieSessionInterfaces.CookieSessionObject | null;
 }
 
-Logout.getInitialProps = async (ctx: NextContext<{}, { user : UserSchemaTypes, session: any }>) => {
+Logout.getInitialProps = async (
+  ctx: NextContext<{}, { user: UserSchemaTypes; session: any }>,
+) => {
   const { req, query } = ctx;
   const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
   const isServer = !!req;
   if (isServer) {
     if (req.session) {
       req.session = null;
-      ctx.res.writeHead(302, { location: '/'});
+      ctx.res.writeHead(302, { location: "/" });
       // return redirectWithDelay(isServer);
     }
   }
@@ -39,13 +39,13 @@ Logout.getInitialProps = async (ctx: NextContext<{}, { user : UserSchemaTypes, s
   const response = await fetch(apiUrl, {
     credentials: "include",
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   });
   if (isServer) {
-    ctx.res.writeHead(302, { location: '/'});
+    ctx.res.writeHead(302, { location: "/" });
   } else {
-    Router.push('/');
+    Router.push("/");
   }
   // if (!response.ok && req) {
   //   req.session = null;

@@ -47,7 +47,7 @@ const LinkWrapper = styled.div`
   }
 `;
 const StyledLink = styled.a`
-  font-size: 0.9em;
+  font-size: 1em;
   font-weight: 600;
   padding: 0 1rem;
   color: white;
