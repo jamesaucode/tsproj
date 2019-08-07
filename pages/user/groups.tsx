@@ -7,7 +7,7 @@ import { Layout } from "../../src/styles/shared";
 import { NextFC } from "next";
 import {
   handleJSONResponse,
-  handleResponse
+  handleResponse,
 } from "../../services/fetch.service";
 import { useUserData } from "../../src/hooks/useUserData";
 import Link from "next/link";
@@ -40,48 +40,48 @@ const StyledLink = styled.a`
   text-decoration: none;
 `;
 
-const Groups: NextFC = (props: any) => {
+const Groups: NextFC = (props: any): JSX.Element => {
   const userData = useUserData();
   const searchRef = React.createRef<HTMLInputElement>();
-  useEffect(() => {
+  const [groupList, setGroupList] = useState<IGroup[]>([]);
+  useEffect((): void => {
     if (props.groups) {
       setGroupList(props.groups);
     }
     searchRef.current.focus();
   }, []);
-  const [groupList, setGroupList] = useState<IGroup[]>([]);
   const [search, setSearch] = useState<string>("");
   const inputRef = React.createRef<HTMLInputElement>();
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearch(event.target.value);
   };
-  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>): void => {
     fetch("/api/groups", {
       method: "POST",
       credentials: "include",
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
       body: JSON.stringify({
         name: inputRef.current.value,
-        ownerId: [userData._id]
-      })
+        ownerId: [userData._id],
+      }),
     })
       .then(handleResponse)
-      .then(json => {
+      .then((json): void => {
         setGroupList(
           groupList.concat({
             name: inputRef.current.value,
-            ownerId: [userData._id]
-          })
+            ownerId: [userData._id],
+          }),
         );
       })
-      .catch(err => console.log(err.message));
+      .catch((err): void => console.log(err.message));
     inputRef.current.value = "";
   };
   const searchLowerCase = search.toLowerCase();
-  const filteredGroup = groupList.filter(group =>
-    group.name.toLowerCase().includes(searchLowerCase)
+  const filteredGroup = groupList.filter((group): boolean =>
+    group.name.toLowerCase().includes(searchLowerCase),
   );
 
   return (
@@ -96,18 +96,20 @@ const Groups: NextFC = (props: any) => {
         />
         <GroupList>
           {filteredGroup
-            ? filteredGroup.map(group => (
-                <>
-                  {/* <StyledLink href={`/user/group?name=${group.name}`}> */}
-                  <Link href={`/user/group/${group.name}`}>
-                    <GroupItem key={group.name}>
-                      <SVG src="/static/images/users.svg" />
-                      {group.name}
-                    </GroupItem>
-                  </Link>
-                  {/* </StyledLink> */}
-                </>
-              ))
+            ? filteredGroup.map(
+                (group): JSX.Element => (
+                  <>
+                    {/* <StyledLink href={`/user/group?name=${group.name}`}> */}
+                    <Link href={`/user/group/${group.name}`}>
+                      <GroupItem key={group.name}>
+                        <SVG src="/static/images/users.svg" />
+                        {group.name}
+                      </GroupItem>
+                    </Link>
+                    {/* </StyledLink> */}
+                  </>
+                ),
+              )
             : null}
         </GroupList>
         <Input ref={inputRef} placeholder="Group Name" />
@@ -117,7 +119,15 @@ const Groups: NextFC = (props: any) => {
   );
 };
 
-Groups.getInitialProps = async ({ req, query }) => {
+interface InitialPropType {
+  groups: { data: {} };
+}
+
+// Needs fixing this type
+Groups.getInitialProps = async ({
+  req,
+  query,
+}): Promise<InitialPropType | {}> => {
   const isServer = !!req;
   const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
   const apiUrl = isServer
@@ -129,15 +139,17 @@ Groups.getInitialProps = async ({ req, query }) => {
     const response = await fetch(apiUrl, {
       credentials: "include",
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     });
     const json = handleJSONResponse(response);
     return json
-      .then(data => {
-        return { groups: data };
-      })
-      .catch(err => err.message);
+      .then(
+        (data): InitialPropType => {
+          return { groups: data };
+        },
+      )
+      .catch((err: Error): string => err.message);
   }
 };
 

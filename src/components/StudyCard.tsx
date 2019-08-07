@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ISession } from "../../interfaces/express";
 import { handleResponse } from "../../services/fetch.service";
 import { useUserData } from "../hooks/useUserData";
+import DropDownMenu from "./DropDownMenu";
 
 const CardWrapper = styled.div`
   display: flex;
@@ -11,20 +12,20 @@ const CardWrapper = styled.div`
   font-size: calc(0.35vw + 16px);
   width: 100%;
   height: 100%;
+  height: 400px;
 `;
-const Input = styled.textarea`
+const InputArea = styled.textarea`
   width: 100%;
   border: none;
   background: transparent;
   color: #333;
   flex: 1 auto;
-  font-size: 0.7em;
+  font-size: 1em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   padding: 0.5em 1em;
   resize: none;
   box-sizing: border-box;
-  &::placeholder {
-    font-family: inherit;
-  }
 `;
 const Button = styled.button`
   border: none;
@@ -39,10 +40,8 @@ const Button = styled.button`
   }
 `;
 const Wrapper = styled.div`
-  min-height: 300px;
-  max-height: 450px;
-  min-width: 350px;
-  max-width: 800px;
+  width: 100%;
+  max-width: 688px;
 `;
 const StudyCard: React.FunctionComponent<ISession | any> = ({
   pushNotification,
@@ -50,7 +49,6 @@ const StudyCard: React.FunctionComponent<ISession | any> = ({
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [selected, setSelected] = useState();
-  console.log(selected);
   const userData = useUserData();
 
   const formControls: {
@@ -101,20 +99,20 @@ const StudyCard: React.FunctionComponent<ISession | any> = ({
   };
   return (
     <Wrapper>
-      <select name="selected" onChange={changeHandler}>
-        <option value="ayy">ayy</option>
-        <option value="lmao">lmao</option>
-        <option value="lol">lol</option>
-      </select>
+      <DropDownMenu>
+        <DropDownMenu.Option>Lol</DropDownMenu.Option>
+        <DropDownMenu.Option>Lmaooo</DropDownMenu.Option>
+        <DropDownMenu.Option>LUL!</DropDownMenu.Option>
+      </DropDownMenu>
       <CardWrapper>
-        <Input
+        <InputArea
           onChange={changeHandler}
           onKeyDown={handleKeyDown}
           value={question}
           name="question"
           placeholder="Question"
         />
-        <Input
+        <InputArea
           onChange={changeHandler}
           onKeyDown={handleKeyDown}
           value={answer}

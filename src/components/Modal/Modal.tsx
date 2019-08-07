@@ -51,7 +51,7 @@ const CrossWrapper = styled.div`
 `;
 interface ModalProps {
   closeModal: (value: void) => void;
-  // parentProps?: Record<string, any>;
+  parentProps?: Record<string, any>;
 }
 export const Modal: NextFC<ModalProps> = ({
   closeModal,

@@ -4,7 +4,13 @@ import StudyCard from "../../src/components/StudyCard";
 import NavBar from "../../src/components/NavBar";
 import { useLoginStatus } from "../../src/hooks/useLoginStatus";
 
-const Create: React.FunctionComponent<any> = props => {
+interface PropTypes {
+  session: {};
+  pushNotification: Function;
+  popNotification: Function;
+}
+
+const Create: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
   const isLoggedIn = useLoginStatus();
   return isLoggedIn ? (
     <>

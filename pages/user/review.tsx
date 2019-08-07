@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, EffectCallback } from "react";
+import styled from "styled-components";
+import SVG from "react-inlinesvg";
 import NavBar from "../../src/components/NavBar";
 import Card from "../../src/components/Card";
 import Loading from "../../src/components/Loading";
 import { Heading } from "../../src/styles/shared";
 import { Layout } from "../../src/styles/shared";
-import styled from "styled-components";
 import { useUserData } from "../../src/hooks/useUserData";
-import SVG from "react-inlinesvg";
 
 const CardWrapper = styled.div`
   display: flex;
@@ -25,24 +25,28 @@ const CustomLayout = styled(Layout)`
   height: 25em;
 `;
 
-const Review = props => {
+interface PropTypes {
+  pushNotification: Function;
+  popNotification: Function;
+}
+const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
   const userData = useUserData();
   // Index of card to be shown
   const [currentCard, setCurrentCard] = useState(0);
   const [loading, setLoading] = useState(true);
   const [selectedSet, setSelectedSet] = useState(0);
-  const nextCard = () => {
+  const nextCard = (): void => {
     const maxIndex = userData.cards.length || 0;
     if (currentCard + 1 < maxIndex) {
       setCurrentCard(currentCard + 1);
     }
   };
-  const previousCard = () => {
+  const previousCard = (): void => {
     if (currentCard - 1 >= 0) {
       setCurrentCard(currentCard - 1);
     }
   };
-  const handleKeyDown = (event: KeyboardEvent) => {
+  const handleKeyDown = (event: KeyboardEvent): void => {
     switch (event.keyCode) {
       case 39:
         nextCard();
@@ -54,12 +58,12 @@ const Review = props => {
         break;
     }
   };
-  useEffect(() => {
+  useEffect((): EffectCallback => {
     window.addEventListener("keydown", handleKeyDown);
     if (userData) {
       setLoading(false);
     }
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return (): void => window.removeEventListener("keydown", handleKeyDown);
   }, [userData, currentCard]);
   const ControlsDiv = styled.div`
     display: flex;
