@@ -13,7 +13,7 @@ const Wrapper = styled.section`
   width: 100%;
   padding: 2em;
 
-  @media (max-width: 600px) {
+  @media (max-width: 780px) {
     flex-direction: column-reverse;
   }
 `;
@@ -40,8 +40,8 @@ const Button = styled.button`
   background-color: #3140f1;
   border: none;
   border-radius: 3px;
-  padding: 0.75em 1.5em;
-  font-size: 0.9em;
+  padding: 0.5em 1.5em;
+  font-size: 0.8em;
   font-weight: 400;
   color: #fff;
   transition: 0.5s ease-out background-color;
@@ -75,7 +75,7 @@ const Index: NextFC = (): JSX.Element => {
                 <Button>Start Studying</Button>
               </Link>
             </TextBox>
-            <MainLogo style={{ flex: "1 0 auto" }} />
+            <MainLogo style={{ flex: `1 1 250px` }} />
           </Wrapper>
         </Layout>
       </>

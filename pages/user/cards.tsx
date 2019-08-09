@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Heading } from "../../src/styles/shared";
 import { NextFC } from "next";
 import styled from "styled-components";
-import { useUserData } from "../../src/hooks/useUserData";
 import fetch from "isomorphic-unfetch";
 import { handleJSONResponse } from "../../services/fetch.service";
+import { Layout, Heading } from "../../src/styles/shared";
+import { useUserData } from "../../src/hooks/useUserData";
 import NavBar from "../../src/components/NavBar";
 import Modal from "../../src/components/Modal";
 import Prompt from "../../src/components/Prompt";
@@ -64,11 +64,14 @@ const Cards: NextFC = (props: any): JSX.Element => {
   const [showModal, setShowModal] = useState(false);
   const [cardToDelete, setCardToDelete] = useState("");
   useEffect((): void => {
+    console.log(props);
     if (props.cardSet.length > 0) {
-      if (props.cardSet.cards) {
-        setCardSets(props.cardSet);
+      if (props.cardSet) {
+        console.log(props);
+        setCardSets(props);
       } else if (userData) {
-        setCardSets(userData.cardSet);
+        console.log(userData.data.cardSet);
+        setCardSets(userData.data.cardSet);
       }
     }
   }, [userData, props.cardSet]);
@@ -77,13 +80,12 @@ const Cards: NextFC = (props: any): JSX.Element => {
     setShowModal(true);
   };
   const deleteCardHandler = (cardId: string): void => {
-    fetch("/api/card", {
+    fetch(`/api/card/${cardId}`, {
       method: "DELETE",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: cardId }),
     }).then((response): void => {
       if (response.ok) {
         setCardSets(cardSets.filter((card): boolean => card._id !== cardId));
@@ -145,8 +147,8 @@ Cards.getInitialProps = async ({ req, query }): Promise<Record<string, {}>> => {
   const isServer = !!req;
   const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
   const apiUrl = isServer
-    ? `${protocol}://${req.headers.host}/api/cards`
-    : `${protocol}://${window.location.host}/api/cards`;
+    ? `${protocol}://${req.headers.host}/api/cardset`
+    : `${protocol}://${window.location.host}/api/cardset`;
   if (isServer) {
     return { ...query };
   } else {

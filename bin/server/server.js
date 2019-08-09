@@ -4,41 +4,49 @@ const nextApp_1 = require("./nextApp");
 const routes = require("./routes/routes");
 const express = require("express");
 const passport = require("passport");
-require('dotenv').config();
-const bodyParser = require('body-parser');
-const cookieSession = require('cookie-session');
+const card_router_1 = require("../resources/card/card.router");
+const cardSet_router_1 = require("../resources/cardSet/cardSet.router");
+const group_router_1 = require("../resources/group/group.router");
+const user_router_1 = require("../resources/user/user.router");
+require("dotenv").config();
+const bodyParser = require("body-parser");
+const cookieSession = require("cookie-session");
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
-const mongoose = require('mongoose');
-const compression = require('compression');
+const mongoose = require("mongoose");
+const compression = require("compression");
 const app = express();
 const mongoUser = process.env.MONGO_USER;
 const mongoPassword = process.env.MONGO_PASSWORD;
 // mongoose.connect('mongodb://localhost:27017/myDB', { useNewUrlParser: true });
 mongoose.connect(`mongodb+srv://${mongoUser}:${mongoPassword}@cluster0-odv04.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser: true, useFindAndModify: false, dbName: "study" });
 const db = mongoose.connection;
-db.on('error', console.error.bind('console', 'connection error!'));
-db.once('open', () => {
-    console.log('Connected to mongoDB!');
+db.on("error", console.error.bind("console", "connection error!"));
+db.once("open", () => {
+    console.log("Connected to mongoDB!");
 });
 app.use(compression());
 app.use(cookieSession({
-    name: 'session',
+    name: "session",
     maxAge: 6 * 60 * 60 * 1000,
-    keys: ["very secret"]
+    keys: ["very secret"],
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/api', routes.api);
-app.use('/', routes.app);
+app.use("/api", routes.api);
+app.use("/api/card", card_router_1.default);
+app.use("/api/cardset", cardSet_router_1.default);
+app.use("/api/group", group_router_1.default);
+app.use("/api/user", user_router_1.default);
+app.use("/", routes.app);
 (async () => {
     try {
         await nextApp_1.default.prepare();
         app.listen(port, (err) => {
             if (err)
                 throw err;
-            console.log('> Running on localhost:3000');
+            console.log("> Running on localhost:3000");
         });
     }
     catch (err) {

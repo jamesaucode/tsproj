@@ -5,41 +5,33 @@ const googleOAuth = require("passport-google-oauth20");
 const passport = require("passport");
 const url_1 = require("url");
 const nextApp_1 = require("../../nextApp");
-const User_1 = require("../../schemas/User");
-const Group_1 = require("../../schemas/Group");
-const CardSet_1 = require("../../schemas/CardSet");
+const user_model_1 = require("../../../resources/user/user.model");
+const group_model_1 = require("../../../resources/group/group.model");
+const cardSet_model_1 = require("../../../resources/cardSet/cardSet.model");
 require("dotenv").config();
 console.log("RUNNING");
 const bcrypt = require("bcrypt");
-const path = require("path");
 // Own passport strategy , using bcrypt to compare the password hash
 const LocalStrategy = require("passport-local").Strategy;
 const LocalAuthentication = new LocalStrategy({
     usernameField: "email",
     passwordField: "password",
-    session: true
-}, function (email, password, done) {
-    User_1.UserModel.findOne({ email }, (err, user) => {
-        if (err) {
-            return done(err);
-        }
-        if (!user) {
-            return done(null, false, { message: "Failed" });
-        }
-        bcrypt.compare(password, user.password, (err, isCorrect) => {
-            if (err) {
-                return done(err);
-            }
-            if (isCorrect) {
-                console.log("Correct credentials, logging you in");
-                done(null, user);
-            }
-            else {
-                console.log("Incorrect Credentials");
-                done(null, false, { message: "Failed" });
-            }
-        });
-    });
+    session: true,
+}, async (email, password, done) => {
+    const user = await user_model_1.UserModel.findOne({ email })
+        .lean()
+        .exec();
+    if (!user) {
+        return done(null, false, { message: "Failed" });
+    }
+    const passwordMatched = await bcrypt.compare(password, user.password);
+    if (passwordMatched) {
+        console.log("Correct credentials! Logging in ...");
+        done(null, user);
+    }
+    else {
+        done(null, false, { message: "Wrong login credentials" });
+    }
 });
 passport.use(LocalAuthentication);
 const router = express.Router();
@@ -47,10 +39,10 @@ const handler = nextApp_1.default.getRequestHandler();
 const googleLogin = {
     clientID: process.env.GOOGLE_CLIENTID,
     clientSecret: process.env.GOOGLE_SECRET,
-    callbackURL: "/auth/redirect"
+    callbackURL: "/auth/redirect",
 };
 const gotProfile = (accessToken, refreshToken, profile, done) => {
-    User_1.UserModel.findOne({ email: profile.emails[0].value }, (err, user) => {
+    user_model_1.UserModel.findOne({ email: profile.emails[0].value }, (err, user) => {
         if (err) {
             return done(err);
         }
@@ -64,7 +56,7 @@ const googleAuthentication = new googleOAuth.Strategy(googleLogin, gotProfile);
 passport.use(googleAuthentication);
 router.get("/auth/google", passport.authenticate("google", {
     scope: ["profile", "email"],
-    prompt: "select_account"
+    prompt: "select_account",
 }));
 router.get("/auth/redirect", (req, res, next) => {
     console.log("At redirect");
@@ -85,39 +77,37 @@ router.get("/user/cards", (req, res) => {
     if (req.isAuthenticated()) {
         const cardSet = req.user.cardSet;
         console.log("Render cards");
-        return nextApp_1.default.render(req, res, "/user/cards", { cardSet });
+        nextApp_1.default.render(req, res, "/user/cards", { cardSet });
     }
     else {
         return res.redirect("/");
     }
 });
-router.get("/user/group/:name", (req, res) => {
-    if (req.isAuthenticated()) {
-        console.log(req.params);
-        const name = req.params.name;
-        if (!name) {
-            return res.redirect("/user/groups");
-        }
-        Group_1.GroupModel.findOne({ name }, (err, group) => {
-            if (group) {
-                return nextApp_1.default.render(req, res, "/user/group", {
-                    group,
-                    name
-                });
-            }
-            else {
-                res.redirect("/user/groups");
-            }
-        });
-    }
-    else {
-        res.redirect("/");
-    }
-});
+// router.get("/user/group/:name", (req, res) => {
+//   if (req.isAuthenticated()) {
+//     console.log(req.params);
+//     const name = req.params.name;
+//     if (!name) {
+//       return res.redirect("/user/groups");
+//     }
+//     GroupModel.findOne({ name }, (err: Error, group: any) => {
+//       if (group) {
+//         return nextApp.render(req, res, "/user/group", {
+//           group,
+//           name,
+//         });
+//       } else {
+//         res.redirect("/user/groups");
+//       }
+//     });
+//   } else {
+//     res.redirect("/");
+//   }
+// });
 router.get("/user/groups", (req, res) => {
     if (req.isAuthenticated()) {
-        Group_1.GroupModel.find({}, (err, groups) => {
-            return nextApp_1.default.render(req, res, "/user/groups", { groups });
+        group_model_1.GroupModel.find({}, (err, groups) => {
+            nextApp_1.default.render(req, res, "/user/groups", { groups });
         });
     }
     else {
@@ -127,7 +117,7 @@ router.get("/user/groups", (req, res) => {
 router.get("/user/profile", (req, res) => {
     if (req.isAuthenticated()) {
         const user = req.user;
-        return nextApp_1.default.render(req, res, "/user/profile", { user });
+        nextApp_1.default.render(req, res, "/user/profile", { user });
     }
     else {
         return res.redirect("/");
@@ -142,7 +132,7 @@ router.get("/user/logout", (req, res) => {
         return res.redirect("back");
     }
 });
-router.get("/user/*", (req, res, next) => {
+router.get("/user/*", (req, res) => {
     if (req.isAuthenticated()) {
         console.log("You are already logged in");
         handler(req, res, url_1.parse(req.url, true));
@@ -151,16 +141,9 @@ router.get("/user/*", (req, res, next) => {
         return res.redirect("/");
     }
 });
-// router.get("/", (req, res, next) => {
-//   if (req.isAuthenticated()) {
-//     next();
-//   } else {
-//     next();
-//   }
-// });
 router.get("/home", (req, res) => {
     const user = req.user;
-    return nextApp_1.default.render(req, res, "/home", { user });
+    nextApp_1.default.render(req, res, "/home", { user });
 });
 router.get("*", (req, res) => {
     const { pathname, query } = url_1.parse(req.url, true);
@@ -169,7 +152,7 @@ router.get("*", (req, res) => {
 passport.serializeUser((user, done) => {
     console.log("Serializing");
     console.log(user);
-    User_1.UserModel.findById(user._id, (err, userFound) => {
+    user_model_1.UserModel.findById(user._id, (err, userFound) => {
         if (err) {
             console.error(err);
         }
@@ -178,13 +161,13 @@ passport.serializeUser((user, done) => {
             done(null, user);
         }
         else {
-            const UserInstance = new User_1.UserModel({
+            const UserInstance = new user_model_1.UserModel({
                 firstName: user.name.givenName,
                 lastName: user.name.familyName,
                 displayName: user.displayName,
                 email: user.emails ? user.emails[0].value : "",
                 id: user.id,
-                group: []
+                group: [],
             });
             UserInstance.save((err) => {
                 if (err)
@@ -195,18 +178,17 @@ passport.serializeUser((user, done) => {
         }
     });
 });
-passport.deserializeUser((user, done) => {
-    CardSet_1.CardSetModel.find({ creator: user._id }, (err, cardSet) => {
-        if (err)
-            console.error(err.message);
-        user.cardSet = cardSet;
+passport.deserializeUser(async (user, done) => {
+    try {
+        const cardSet = await cardSet_model_1.CardSetModel.find({ creator: user._id })
+            .lean()
+            .exec();
+        Object.assign(user, { cardSet });
         done(null, user);
-    });
-    // CardsModel.find({ creator: user._id }, (err: Error, cards: ICard) => {
-    //   if (err) console.error(err.message);
-    //   user.cards = cards;
-    //   done(null, user);
-    // });
+    }
+    catch (e) {
+        console.error(e);
+    }
 });
 exports.default = router;
 //# sourceMappingURL=route.js.map
