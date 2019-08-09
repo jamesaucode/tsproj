@@ -71,15 +71,19 @@ const OverlayDiv = styled.div`
   z-index: 10;
 `;
 
+interface ModalProps {
+  isOpen: boolean;
+  closeModal: () => void;
+  parentProps: {};
+}
 const ToggleableMenu: React.FunctionComponent<PropTypes> = (
   props,
 ): JSX.Element => {
   const [expanded, setExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const { loggedIn, iconName } = props;
-  const getModalProps = (): Record<string, any> => {
+  const { loggedIn } = props;
+  const getModalProps = (): ModalProps => {
     return {
-      Embedded: LoginForm,
       isOpen: showModal,
       closeModal: (): void => {
         setShowModal(!showModal);
@@ -99,7 +103,7 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = (
       main ? main.removeEventListener("click", collapse) : null;
     };
   }, []);
-  const handleToggleClick = (event: React.MouseEvent): void => {
+  const handleToggleClick = (): void => {
     setExpanded(!expanded);
   };
   if (loggedIn) {

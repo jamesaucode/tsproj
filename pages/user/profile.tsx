@@ -1,7 +1,6 @@
 import React from "react";
 import { NextFC } from "next";
 import { Layout, Heading } from "../../src/styles/shared";
-// import { SessionProps } from "../../typings/express";
 import { useUserData } from "../../src/hooks/useUserData";
 import NavBar from "../../src/components/NavBar";
 
@@ -11,7 +10,7 @@ const Profile: NextFC<{}> = (props): JSX.Element => {
     <>
       <NavBar />
       <Layout fadeIn>
-        {userData && <Heading sub>Hello, {userData.displayName}</Heading>}
+        {userData && <Heading sub>Hello, {userData.data.displayName}</Heading>}
       </Layout>
     </>
   );

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import NavBar from "../../src/components/NavBar";
 import styled from "styled-components";
 import SVG from "react-inlinesvg";
-import { IGroup } from "../../server/schemas/Group";
+import { GroupTypes } from "../../resources/group/group.model";
 import { Layout } from "../../src/styles/shared";
 import { NextFC } from "next";
 import {
@@ -43,7 +43,7 @@ const StyledLink = styled.a`
 const Groups: NextFC = (props: any): JSX.Element => {
   const userData = useUserData();
   const searchRef = React.createRef<HTMLInputElement>();
-  const [groupList, setGroupList] = useState<IGroup[]>([]);
+  const [groupList, setGroupList] = useState<GroupTypes[]>([]);
   useEffect((): void => {
     if (props.groups) {
       setGroupList(props.groups);
@@ -56,7 +56,7 @@ const Groups: NextFC = (props: any): JSX.Element => {
     setSearch(event.target.value);
   };
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    fetch("/api/groups", {
+    fetch("/api/group", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -64,7 +64,7 @@ const Groups: NextFC = (props: any): JSX.Element => {
       },
       body: JSON.stringify({
         name: inputRef.current.value,
-        ownerId: [userData._id],
+        creator: userData.data._id,
       }),
     })
       .then(handleResponse)
@@ -72,7 +72,7 @@ const Groups: NextFC = (props: any): JSX.Element => {
         setGroupList(
           groupList.concat({
             name: inputRef.current.value,
-            ownerId: [userData._id],
+            creator: userData.data._id,
           }),
         );
       })
@@ -99,14 +99,12 @@ const Groups: NextFC = (props: any): JSX.Element => {
             ? filteredGroup.map(
                 (group): JSX.Element => (
                   <>
-                    {/* <StyledLink href={`/user/group?name=${group.name}`}> */}
                     <Link href={`/user/group/${group.name}`}>
                       <GroupItem key={group.name}>
                         <SVG src="/static/images/users.svg" />
                         {group.name}
                       </GroupItem>
                     </Link>
-                    {/* </StyledLink> */}
                   </>
                 ),
               )
@@ -128,12 +126,14 @@ Groups.getInitialProps = async ({
   req,
   query,
 }): Promise<InitialPropType | {}> => {
+  console.log("Hi Lmao");
   const isServer = !!req;
   const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
   const apiUrl = isServer
-    ? `${protocol}://${req.headers.host}/api/groups`
-    : `${protocol}://${window.location.host}/api/groups`;
+    ? `${protocol}://${req.headers.host}/api/group`
+    : `${protocol}://${window.location.host}/api/group`;
   if (isServer) {
+    console.log(query);
     return { ...query };
   } else {
     const response = await fetch(apiUrl, {
@@ -146,6 +146,8 @@ Groups.getInitialProps = async ({
     return json
       .then(
         (data): InitialPropType => {
+          console.log("JSON");
+          console.log(json);
           return { groups: data };
         },
       )

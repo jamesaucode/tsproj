@@ -4,6 +4,9 @@ import styled from "styled-components";
 interface SOptionProps {
   selected?: boolean;
 }
+interface OverlayProps {
+  show?: boolean;
+}
 
 interface ContextTypes {
   selected: string;
@@ -18,9 +21,10 @@ const SOption = styled.span<SOptionProps>`
   background-color: ${({ selected }): string =>
     selected ? "#8610f9" : "#f5f5f5"};
   color: ${({ selected }): string => (selected ? "#fff" : "#333")};
-  font-size: 0.7em;
+  font-size: 0.8em;
   font-weight: 500;
   padding: 16px 24px;
+  z-index: 100;
   &:hover {
     cursor: pointer;
     background-color: #8610f9;
@@ -44,24 +48,36 @@ const MenuWrapper = styled.div`
   top: 36px;
   display: flex;
   flex-direction: column;
+  z-index: 100;
 `;
 const Btn = styled.button`
   border: 0;
   padding: 10px 20px;
   margin-bottom: 1rem;
-  font-size: 0.7em;
+  font-size: 0.8em;
   font-weight: 600;
+  text-align: left;
+  z-index: 100;
+`;
+const Overlay = styled.div<OverlayProps>`
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: ${({ show }): string => (show ? "block" : "none")};
+  z-index: 10;
 `;
 
-interface CompoundComponent<P = {}> extends React.FunctionComponent<P> {
-  Option: React.FunctionComponent;
-  Prompt: React.FunctionComponent;
+interface CompoundComponent<P> extends React.FunctionComponent<P> {
+  Option: React.FunctionComponent<OptionPropTypes>;
 }
 interface MenuPropTypes {
-  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  extraOnClick?: (event: React.MouseEvent<HTMLSpanElement>) => void;
 }
 interface OptionPropTypes {
-  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  extraOnClick?: (event: React.MouseEvent<HTMLSpanElement>) => void;
 }
 
 const useDropDownContext = (): ContextTypes => {
@@ -70,18 +86,29 @@ const useDropDownContext = (): ContextTypes => {
 };
 
 const DropDownMenu: CompoundComponent<MenuPropTypes> = (props): JSX.Element => {
-  const [selected, setSelected] = useState("Choose");
   const [isExpanded, setIsExpanded] = useState(false);
-  const value = { selected, setSelected, isExpanded, setIsExpanded };
+  const [selected, setSelected] = useState("Choose");
+  const value = {
+    selected,
+    setSelected,
+    isExpanded,
+    setIsExpanded,
+  };
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>): void => {
+  const handleClick = (event: React.MouseEvent<HTMLSpanElement>): void => {
     setIsExpanded(!isExpanded);
-    if (props.onClick) {
-      props.onClick(event);
+    if (props.extraOnClick) {
+      props.extraOnClick(event);
     }
   };
   return (
     <DropDownContext.Provider value={value}>
+      <Overlay
+        onClick={(): void => {
+          setIsExpanded(false);
+        }}
+        show={isExpanded}
+      />
       <Wrapper role="menu">
         <Btn onClick={handleClick}>{`${selected} ▼`}</Btn>
         <MenuWrapper>{isExpanded ? props.children : null}</MenuWrapper>
@@ -90,28 +117,16 @@ const DropDownMenu: CompoundComponent<MenuPropTypes> = (props): JSX.Element => {
   );
 };
 
-const Prompt: React.FunctionComponent = ({ children }): JSX.Element => {
-  const { isExpanded, setIsExpanded } = useDropDownContext();
-  const handleClick = (): void => {
-    setIsExpanded(!isExpanded);
-  };
-  return (
-    <SOption onClick={handleClick}>
-      {children ? children : "--Choose an item--"}
-    </SOption>
-  );
-};
-
 const Option: React.FunctionComponent<OptionPropTypes> = ({
   children,
-  onClick = (): void => {},
+  extraOnClick = (): void => {},
 }): JSX.Element => {
   const { selected, setSelected, setIsExpanded } = useDropDownContext();
-  const handleClick = (event: React.MouseEvent<HTMLElement>): void => {
+  const handleClick = (event: React.MouseEvent<HTMLSpanElement>): void => {
     setSelected(children.toString());
     setIsExpanded(false);
-    if (onClick) {
-      onClick(event);
+    if (extraOnClick) {
+      extraOnClick(event);
     }
   };
   return (
@@ -126,6 +141,5 @@ const Option: React.FunctionComponent<OptionPropTypes> = ({
 };
 
 DropDownMenu.Option = Option;
-DropDownMenu.Prompt = Prompt;
 
 export default DropDownMenu;

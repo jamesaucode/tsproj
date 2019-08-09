@@ -42,6 +42,7 @@ const Button = styled.button`
 const Wrapper = styled.div`
   width: 100%;
   max-width: 688px;
+  padding: 1rem;
 `;
 const StudyCard: React.FunctionComponent<ISession | any> = ({
   pushNotification,
@@ -97,12 +98,24 @@ const StudyCard: React.FunctionComponent<ISession | any> = ({
       clearInput();
     }
   };
+  const handleOptionClick = (
+    event: React.MouseEvent<HTMLSpanElement>,
+  ): void => {
+    setSelected(event.target.textContent);
+  };
   return (
     <Wrapper>
       <DropDownMenu>
-        <DropDownMenu.Option>Lol</DropDownMenu.Option>
-        <DropDownMenu.Option>Lmaooo</DropDownMenu.Option>
-        <DropDownMenu.Option>LUL!</DropDownMenu.Option>
+        <DropDownMenu.Option extraOnClick={handleOptionClick}>
+          Lol
+        </DropDownMenu.Option>
+        <DropDownMenu.Option extraOnClick={handleOptionClick}>
+          Lmaooo
+        </DropDownMenu.Option>
+        <DropDownMenu.Option extraOnClick={handleOptionClick}>
+          lmao
+        </DropDownMenu.Option>
+        <DropDownMenu.Option>Really long option LOLLLLL</DropDownMenu.Option>
       </DropDownMenu>
       <CardWrapper>
         <InputArea
@@ -125,4 +138,4 @@ const StudyCard: React.FunctionComponent<ISession | any> = ({
   );
 };
 
-export default React.memo(StudyCard);
+export default StudyCard;

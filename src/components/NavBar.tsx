@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { NextFC } from "next";
 import Link from "next/link";
 import ToggleableMenu from "./ToggleableMenu";
-import { NextFC } from "next";
 import { useLoginStatus } from "../hooks/useLoginStatus";
 import { useWindowSize } from "../hooks/useWindowSize";
 import BurgerMenu from "./BurgerMenu/BurgerMenu";
