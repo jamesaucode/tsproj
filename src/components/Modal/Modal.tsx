@@ -1,7 +1,7 @@
 import React, { useEffect, EffectCallback } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
-import { fadeIn } from "../../styles/shared";
+import { fadeIn } from "../../../utils/style";
 import { NextFC } from "next";
 import SVG from "react-inlinesvg";
 

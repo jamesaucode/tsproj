@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Heading } from "../styles/shared";
+import { Layout, Heading } from "../../utils/style";
 
 const Unauthorized: React.FunctionComponent = (): JSX.Element => {
   return (

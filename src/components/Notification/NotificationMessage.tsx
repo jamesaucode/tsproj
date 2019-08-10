@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Message } from "../../styles/shared";
+import { Message } from "../../../utils/style";
 import { NextFC } from "next";
 import { IMessage } from "../../../interfaces/message";
 import SVG from "react-inlinesvg";
