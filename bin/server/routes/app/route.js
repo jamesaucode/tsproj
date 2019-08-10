@@ -152,7 +152,7 @@ router.get("*", (req, res) => {
 passport.serializeUser((user, done) => {
     console.log("Serializing");
     console.log(user);
-    user_model_1.UserModel.findById(user._id, (err, userFound) => {
+    user_model_1.UserModel.findById(user._id, async (err, userFound) => {
         if (err) {
             console.error(err);
         }
@@ -161,19 +161,20 @@ passport.serializeUser((user, done) => {
             done(null, user);
         }
         else {
-            const UserInstance = new user_model_1.UserModel({
-                firstName: user.name.givenName,
-                lastName: user.name.familyName,
-                displayName: user.displayName,
-                email: user.emails ? user.emails[0].value : "",
-                googleId: user.id,
-            });
-            UserInstance.save((err) => {
-                if (err)
-                    console.error(err);
-                console.log("User saved");
+            try {
+                const UserInstance = await user_model_1.UserModel.create({
+                    firstName: user.name.givenName,
+                    lastName: user.name.familyName,
+                    displayName: user.displayName,
+                    email: user.emails ? user.emails[0].value : "",
+                    googleId: user.id,
+                });
+                console.log(UserInstance);
+            }
+            catch (e) {
+                console.error(e);
                 done(null, user);
-            });
+            }
         }
     });
 });

@@ -180,7 +180,7 @@ passport.serializeUser<googleOAuth.Profile | any, any>((user, done): void => {
   console.log(user);
   UserModel.findById(
     user._id,
-    (err: Error, userFound: googleOAuth.Profile): void => {
+    async (err: Error, userFound: googleOAuth.Profile): Promise<void> => {
       if (err) {
         console.error(err);
       }
@@ -188,18 +188,19 @@ passport.serializeUser<googleOAuth.Profile | any, any>((user, done): void => {
         console.log("User already exist");
         done(null, user);
       } else {
-        const UserInstance = new UserModel({
-          firstName: user.name.givenName,
-          lastName: user.name.familyName,
-          displayName: user.displayName,
-          email: user.emails ? user.emails[0].value : "",
-          googleId: user.id,
-        });
-        UserInstance.save((err: Error): void => {
-          if (err) console.error(err);
-          console.log("User saved");
+        try {
+          const UserInstance = await UserModel.create({
+            firstName: user.name.givenName,
+            lastName: user.name.familyName,
+            displayName: user.displayName,
+            email: user.emails ? user.emails[0].value : "",
+            googleId: user.id,
+          });
+          console.log(UserInstance);
+        } catch (e) {
+          console.error(e);
           done(null, user);
-        });
+        }
       }
     },
   );
