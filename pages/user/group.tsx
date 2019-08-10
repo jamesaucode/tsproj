@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../../src/components/NavBar";
 import { withRouter, WithRouterProps } from "next/router";
-import { Layout, Heading } from "../../src/styles/shared";
+import { Layout, Heading } from "../../utils/style";
 import { IGroup } from "../../server/schemas/Group";
 
 interface PropTypes extends WithRouterProps<{ name: string }> {

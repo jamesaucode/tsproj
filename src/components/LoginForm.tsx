@@ -4,9 +4,8 @@ import styled from "styled-components";
 import fetch from "isomorphic-unfetch";
 import Register from "./Register";
 import { InputValidator } from "../../services/validation.service";
-import { FormBottom } from "../styles/shared";
+import { FormBottom } from "../../utils/style";
 import Warning from "./Warning";
-// import googleLoginButton from '../../static/images/btn_google_signin_dark_normal_web@2x.png';
 
 const googleLoginButton = require("../../static/images/btn_google_signin_dark_normal_web@2x.png");
 const maxFormWidth = "400px";

@@ -1,6 +1,6 @@
 import React from "react";
 import { NextFC } from "next";
-import { Layout, Heading } from "../../src/styles/shared";
+import { Layout, Heading } from "../../utils/style";
 import { useUserData } from "../../src/hooks/useUserData";
 import NavBar from "../../src/components/NavBar";
 

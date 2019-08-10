@@ -4,7 +4,7 @@ import styled from "styled-components";
 import SVG from "react-inlinesvg";
 import Link from "next/link";
 import { GroupTypes } from "../../resources/group/group.model";
-import { Layout } from "../../src/styles/shared";
+import { Layout } from "../../utils/style";
 import { NextFC } from "next";
 import {
   handleJSONResponse,

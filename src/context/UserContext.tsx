@@ -19,7 +19,8 @@ export const UserProvider: React.FunctionComponent = ({
         console.log("Data fetched ...");
         console.log(json);
         setData(json);
-      });
+      })
+      .catch((error): void => console.error(error));
   }, []);
   return <UserContext.Provider value={data}>{children}</UserContext.Provider>;
 };

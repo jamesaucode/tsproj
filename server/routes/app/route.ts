@@ -110,27 +110,6 @@ router.get("/user/cards", (req, res): void => {
     return res.redirect("/");
   }
 });
-// router.get("/user/group/:name", (req, res) => {
-//   if (req.isAuthenticated()) {
-//     console.log(req.params);
-//     const name = req.params.name;
-//     if (!name) {
-//       return res.redirect("/user/groups");
-//     }
-//     GroupModel.findOne({ name }, (err: Error, group: any) => {
-//       if (group) {
-//         return nextApp.render(req, res, "/user/group", {
-//           group,
-//           name,
-//         });
-//       } else {
-//         res.redirect("/user/groups");
-//       }
-//     });
-//   } else {
-//     res.redirect("/");
-//   }
-// });
 router.get("/user/groups", (req, res): void => {
   if (req.isAuthenticated()) {
     GroupModel.find({}, (err: Error, groups: any): void => {

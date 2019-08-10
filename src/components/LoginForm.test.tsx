@@ -51,11 +51,11 @@ describe("LoginForm Tests", () => {
 
   it("Should show login form on mount, show signup form if user clicks the signup link", () => {
     const wrapper = mount(<LoginForm />);
-    expect(wrapper.find("shared__FormBottom").text()).toBe(
+    expect(wrapper.find("style__FormBottom").text()).toBe(
       "New user ? Signup here!",
     );
     wrapper.find("LoginForm__StyledLink").simulate("click");
-    expect(wrapper.find("shared__FormBottom").text()).toBe(
+    expect(wrapper.find("style__FormBottom").text()).toBe(
       "New user ? Login here!",
     );
   });

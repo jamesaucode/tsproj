@@ -1,7 +1,6 @@
 import { crudControllers } from "../../utils/crud";
 import { UserModel } from "./user.model";
 import express from "express";
-import console = require("console");
 
 const SALTROUNDS = 10;
 const bcrypt = require("bcrypt");
@@ -12,7 +11,7 @@ export default {
     if (req.isAuthenticated()) {
       res.status(200).json({ data: req.user });
     } else {
-      res.status(400).end();
+      res.status(400).json({ message: "User is not logged in." });
     }
   },
   registerUser: async (

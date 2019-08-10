@@ -4,8 +4,8 @@ import SVG from "react-inlinesvg";
 import NavBar from "../../src/components/NavBar";
 import Card from "../../src/components/Card";
 import Loading from "../../src/components/Loading";
-import { Heading } from "../../src/styles/shared";
-import { Layout } from "../../src/styles/shared";
+import { Heading } from "../../utils/style";
+import { Layout } from "../../utils/style";
 import { useUserData } from "../../src/hooks/useUserData";
 
 const CardWrapper = styled.div`

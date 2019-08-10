@@ -1,6 +1,6 @@
 import React from "react";
 import * as googleOAuth from "passport-google-oauth20";
-import { Layout, Heading } from "../../src/styles/shared";
+import { Layout, Heading } from "../../utils/style";
 import { NextFC, NextContext } from "next";
 import { IncomingMessage } from "http";
 // import { UserSchemaTypes } from "../../server/schemas/User";

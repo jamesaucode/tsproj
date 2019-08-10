@@ -4,7 +4,7 @@ import Link from "next/link";
 import Modal from "../components/Modal";
 import LoginForm from "../components/LoginForm";
 import SVG from "react-inlinesvg";
-import { SVGWrapper } from "../styles/shared";
+import { SVGWrapper } from "../../utils/style";
 
 interface PropTypes {
   iconName: string;
@@ -28,11 +28,13 @@ const DropdownMenu = styled.div<MenuProps>`
   background: #8610f9;
   border-radius: 3px;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
-  display: ${(props): string => (props.expanded ? "flex" : "none")};
+  transform: ${({ expanded }): string => (expanded ? "scale(1)" : "scale(0)")};
+  transform-origin: top right;
+  transition: transform 300ms ease;
   flex-direction: column;
   align-items: center;
   position: absolute;
-  right: 0;
+  right: 20px;
   z-index: 100;
 `;
 

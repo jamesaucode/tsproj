@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Loading from "../src/components/Loading";
-import { Layout, Heading } from "../src/styles/shared";
+import { Layout, Heading } from "../utils/style";
 import { useUserData } from "../src/hooks/useUserData";
 import { NextFC } from "next";
 import NavBar from "../src/components/NavBar";

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { NextFC } from "next";
 import Link from "next/link";
 import ToggleableMenu from "./ToggleableMenu";
+import DropDownMenu from "./DropDownMenu";
+import { breakPoints } from "../../utils/style";
 import { useLoginStatus } from "../hooks/useLoginStatus";
 import { useWindowSize } from "../hooks/useWindowSize";
 import BurgerMenu from "./BurgerMenu/BurgerMenu";
@@ -54,7 +56,7 @@ const NavBar: NextFC = (props): JSX.Element => {
         <Nav />
       </NavWrapper>
     );
-  } else if (windowSize.size.windowWidth > 700) {
+  } else if (windowSize.size.windowWidth > breakPoints.md) {
     return (
       <NavWrapper>
         <Nav>

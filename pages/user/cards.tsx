@@ -3,7 +3,7 @@ import { NextFC } from "next";
 import styled from "styled-components";
 import fetch from "isomorphic-unfetch";
 import { handleJSONResponse } from "../../services/fetch.service";
-import { Layout, Heading } from "../../src/styles/shared";
+import { Layout, Heading } from "../../utils/style";
 import { useUserData } from "../../src/hooks/useUserData";
 import NavBar from "../../src/components/NavBar";
 import Modal from "../../src/components/Modal";

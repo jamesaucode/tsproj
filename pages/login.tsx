@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { NextFC } from "next";
 import styled from "styled-components";
+import { NextFC } from "next";
 import Register from "../src/components/Register";
 import LoginForm from "../src/components/LoginForm";
 

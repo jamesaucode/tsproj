@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SVG from "react-inlinesvg";
 import styled from "styled-components";
 import Link from "next/link";
-import { fadeIn } from "../../styles/shared";
+import { fadeIn } from "../../../utils/style";
 
 const Wrapper = styled.div`
   cursor: pointer;
@@ -14,6 +14,7 @@ interface MenuProps {
 }
 const MenuWrapper = styled.div<MenuProps>`
   box-sizing: border-box;
+  box-shadow: 0px 12px 15px rgba(0, 0, 0, 0.15);
   position: absolute;
   transition: 0.75s ease-in-out max-height;
   max-height: ${({ show }): string => (show ? "100%" : "0")};
@@ -21,6 +22,7 @@ const MenuWrapper = styled.div<MenuProps>`
   background-color: #fff;
   top: 50px;
   left: 0;
+  z-index: 999;
   & > ul {
     max-height: ${({ show }): string => (show ? "100%" : "0")};
   }

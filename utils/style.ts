@@ -7,6 +7,34 @@ interface SVGWrapperProps {
   };
 }
 
+interface HeadingProps {
+  readonly sub?: boolean;
+}
+
+export const font = {
+  fontFamily:
+    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+  fontSize: {
+    sm: "0.8em",
+    md: "1em",
+    lg: "1.5em",
+    xl: "2em",
+  },
+};
+
+export const colors = {
+  brandDark: "#8610f9",
+  brand: "#9e3bff",
+  brandLight: "#b263ff",
+};
+
+export const breakPoints = {
+  sm: 400,
+  md: 736,
+  lg: 980,
+  xl: 1280,
+};
+
 export const SVGWrapper = styled.div<SVGWrapperProps>`
   padding: 1em;
   & > span > svg {
@@ -39,7 +67,7 @@ interface LayoutProps {
   height?: object;
 }
 export const Layout = styled.main<LayoutProps>`
-  height: ${({ fitContent }) => (fitContent ? "fit-content" : "100%")};
+  height: ${({ fitContent }): string => (fitContent ? "fit-content" : "100%")};
   font-size: calc(0.35vw + 16px);
   box-sizing: border-box;
   max-width: 1200px;
@@ -48,7 +76,8 @@ export const Layout = styled.main<LayoutProps>`
   flex-direction: column;
   align-items: center;
   animation-name: ${fadeIn};
-  animation-duration: ${(props) => (props.fadeIn ? 0.8 + "s" : 0)};
+  animation-duration: ${(props): string | number =>
+    props.fadeIn ? 0.8 + "s " : 0};
   animation-iteration-count: 1;
   animation-timing-function: ease-out;
 `;
@@ -59,11 +88,11 @@ interface HeadingProps {
 }
 
 export const Heading = styled.h1<HeadingProps>`
-  text-align: ${(props) => props.textAlign};
-  font-size: ${(props) => (props.sub ? "1.5em" : "2em")};
+  text-align: ${(props): string => props.textAlign};
+  font-size: ${(props): string => (props.sub ? "1.5em" : "2em")};
   font-weight: 600;
   margin: 1rem 0;
-  color: ${({ theme }) => theme.mainfc};
+  color: ${({ theme }): string => theme.mainfc};
 `;
 
 interface MessageProps {
@@ -79,7 +108,7 @@ export const Message = styled.div<MessageProps>`
   text-align: left;
   color: ${({ success }): string =>
     success ? "rgba(255, 255, 255,0.9)" : "rgba(255, 255, 255, 0.9)"};
-  background: ${(props) => (props.success ? "#51CD80" : "#ff243d")};
+  background: ${(props): string => (props.success ? "#51CD80" : "#ff243d")};
   padding: 14px 28px;
   border-radius: 5px;
   &:hover {
@@ -87,15 +116,18 @@ export const Message = styled.div<MessageProps>`
     opacity: 0.9;
   }
 `;
-
-export const Button = styled.button`
-  background: #4285f4;
+interface ButtonProps {
+  fullWidth?: boolean;
+}
+export const Button = styled.button<ButtonProps>`
+  background: ${colors.brand};
   border: none;
   border-radius: 3px;
-  padding: 0.5em 1.5em;
-  font-size: 0.7em;
+  padding: 8px 15px;
+  font-size: ${font.fontSize.sm};
   font-weight: 400;
   color: #fff;
+  width: ${({ fullWidth }): string => (fullWidth ? "100%" : "")};
   &:hover {
     cursor: pointer;
   }

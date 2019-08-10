@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Button } from "../../utils/style";
 import { ISession } from "../../interfaces/express";
 import { handleResponse } from "../../services/fetch.service";
 import { useUserData } from "../hooks/useUserData";
@@ -26,18 +27,6 @@ const InputArea = styled.textarea`
   padding: 0.5em 1em;
   resize: none;
   box-sizing: border-box;
-`;
-const Button = styled.button`
-  border: none;
-  border-radius: 3px;
-  font-size: 0.9em;
-  width: 100%;
-  padding: 0.5em 1em;
-  background: #8610f9;
-  color: white;
-  &:hover {
-    cursor: pointer;
-  }
 `;
 const Wrapper = styled.div`
   width: 100%;
@@ -140,7 +129,9 @@ const StudyCard: React.FunctionComponent<ISession | any> = ({
           placeholder="Answer"
         />
       </CardWrapper>
-      <Button onClick={handleSubmit}>Save</Button>
+      <Button fullWidth onClick={handleSubmit}>
+        Save
+      </Button>
     </Wrapper>
   );
 };

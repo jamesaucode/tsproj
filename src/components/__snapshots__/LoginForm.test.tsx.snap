@@ -376,26 +376,26 @@ exports[`LoginForm Tests Component Renders 1`] = `
                   </button>
                 </StyledComponent>
               </LoginForm__FormSubmit>
-              <shared__FormBottom>
+              <style__FormBottom>
                 <StyledComponent
                   forwardedComponent={
                     Object {
                       "$$typeof": Symbol(react.forward_ref),
                       "attrs": Array [],
                       "componentStyle": ComponentStyle {
-                        "componentId": "shared__FormBottom-sc-1yigvbr-1",
+                        "componentId": "style__FormBottom-oz4l5n-1",
                         "isStatic": false,
-                        "lastClassName": "bdCQDx",
+                        "lastClassName": "fNxKQZ",
                         "rules": Array [
                           "font-size:0.8em;padding:1rem 0;color:",
                           [Function],
                           ";",
                         ],
                       },
-                      "displayName": "shared__FormBottom",
+                      "displayName": "style__FormBottom",
                       "foldedComponentIds": Array [],
                       "render": [Function],
-                      "styledComponentId": "shared__FormBottom-sc-1yigvbr-1",
+                      "styledComponentId": "style__FormBottom-oz4l5n-1",
                       "target": "p",
                       "toString": [Function],
                       "warnTooManyClasses": [Function],
@@ -405,7 +405,7 @@ exports[`LoginForm Tests Component Renders 1`] = `
                   forwardedRef={null}
                 >
                   <p
-                    className="shared__FormBottom-sc-1yigvbr-1 bdCQDx"
+                    className="style__FormBottom-oz4l5n-1 fNxKQZ"
                   >
                     New user ?
                      
@@ -453,7 +453,7 @@ exports[`LoginForm Tests Component Renders 1`] = `
                     here!
                   </p>
                 </StyledComponent>
-              </shared__FormBottom>
+              </style__FormBottom>
             </div>
           </StyledComponent>
         </LoginForm__FormWrapper>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { handleResponse } from "../../services/fetch.service";
-import { FormBottom } from "../styles/shared";
+import { FormBottom } from "../../utils/style";
 import Warning from "./Warning";
 import fetch from "isomorphic-unfetch";
 import styled from "styled-components";
@@ -76,7 +76,7 @@ const Register: React.FunctionComponent<Props> = (props): JSX.Element => {
         break;
     }
   };
-  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>): void => {
+  const handleSubmit = (): void => {
     fetch("/api/register", {
       method: "POST",
       credentials: "include",

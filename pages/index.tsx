@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Heading } from "../src/styles/shared";
+import styled from "styled-components";
+import { Layout, Heading } from "../utils/style";
 import { NextFC } from "next";
 import MainLogo from "../src/components/Icons/MainLogo";
-import styled from "styled-components";
 import Link from "next/link";
 import NavBar from "../src/components/NavBar";
 
