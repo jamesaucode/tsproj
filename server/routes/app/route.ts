@@ -193,8 +193,7 @@ passport.serializeUser<googleOAuth.Profile | any, any>((user, done): void => {
           lastName: user.name.familyName,
           displayName: user.displayName,
           email: user.emails ? user.emails[0].value : "",
-          id: user.id,
-          group: [],
+          googleId: user.id,
         });
         UserInstance.save((err: Error): void => {
           if (err) console.error(err);

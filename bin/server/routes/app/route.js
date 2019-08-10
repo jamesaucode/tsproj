@@ -166,8 +166,7 @@ passport.serializeUser((user, done) => {
                 lastName: user.name.familyName,
                 displayName: user.displayName,
                 email: user.emails ? user.emails[0].value : "",
-                id: user.id,
-                group: [],
+                googleId: user.id,
             });
             UserInstance.save((err) => {
                 if (err)
