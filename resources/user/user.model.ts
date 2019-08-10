@@ -1,5 +1,6 @@
 import { Document, Model, model, Schema } from "mongoose";
-import { CardTypes, CardSchema } from "../card/card.model";
+import { CardSchema } from "../card/card.model";
+import { CardSetDocument } from "../cardSet/cardSet.model";
 
 type name = string;
 
@@ -9,7 +10,7 @@ export interface UserTypes {
   lastName: name;
   email: string;
   displayName: name;
-  cardSet: CardTypes[];
+  cardSet: CardSetDocument[];
   password: string;
   googleId?: string;
   group: string[];

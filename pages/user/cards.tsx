@@ -18,6 +18,11 @@ const CardWrapper = styled.li`
   border-bottom: 1px solid #ddd;
   margin: 0 auto;
 `;
+const CardTitle = styled.h1`
+  font-size: 1.5em;
+  font-weight: 600;
+  text-align: center;
+`;
 const Card = styled.div`
   align-items: center;
   display: flex;
@@ -64,13 +69,10 @@ const Cards: NextFC = (props: any): JSX.Element => {
   const [showModal, setShowModal] = useState(false);
   const [cardToDelete, setCardToDelete] = useState("");
   useEffect((): void => {
-    console.log(props);
     if (props.cardSet.length > 0) {
       if (props.cardSet) {
-        console.log(props);
-        setCardSets(props);
+        setCardSets(props.cardSet);
       } else if (userData) {
-        console.log(userData.data.cardSet);
         setCardSets(userData.data.cardSet);
       }
     }
@@ -101,24 +103,35 @@ const Cards: NextFC = (props: any): JSX.Element => {
         <Heading>Your cards</Heading>
         <CardList>
           {cardSets.length > 0 ? (
-            cardSets[selectedSet].cards.map(
-              (card): JSX.Element => {
+            cardSets.map(
+              (cardSet): JSX.Element => {
                 return (
-                  <CardWrapper key={card._id}>
-                    <Card>
-                      <CardTextBox>
-                        <CardTag>Question:</CardTag>
-                        <CardText>{card.question}</CardText>
-                      </CardTextBox>
-                      <CardTextBox>
-                        <CardTag>Answer:</CardTag>
-                        <CardText>{card.answer}</CardText>
-                      </CardTextBox>
-                      <Button onClick={(): void => handleClick(card._id)}>
-                        Remove
-                      </Button>
-                    </Card>
-                  </CardWrapper>
+                  <>
+                    <CardTitle>{cardSet.name}</CardTitle>
+                    {cardSet.cards.map(
+                      (card): JSX.Element => {
+                        return (
+                          <CardWrapper key={card._id}>
+                            <Card>
+                              <CardTextBox>
+                                <CardTag>Question:</CardTag>
+                                <CardText>{card.question}</CardText>
+                              </CardTextBox>
+                              <CardTextBox>
+                                <CardTag>Answer:</CardTag>
+                                <CardText>{card.answer}</CardText>
+                              </CardTextBox>
+                              <Button
+                                onClick={(): void => handleClick(card._id)}
+                              >
+                                Remove
+                              </Button>
+                            </Card>
+                          </CardWrapper>
+                        );
+                      },
+                    )}
+                  </>
                 );
               },
             )

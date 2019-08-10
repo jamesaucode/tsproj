@@ -2,10 +2,9 @@ import express from "express";
 import { Model, Document } from "mongoose";
 import console = require("console");
 
-type CrudFunction = (
-  req: express.Request,
-  res: express.Response,
-) => Promise<void | Response>;
+interface CrudFunction {
+  (req: express.Request, res: express.Response): Promise<void | Response>;
+}
 
 export const getOne = (model: Model<Document>): CrudFunction => async (
   req: express.Request,

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import NavBar from "../../src/components/NavBar";
 import styled from "styled-components";
 import SVG from "react-inlinesvg";
+import Link from "next/link";
 import { GroupTypes } from "../../resources/group/group.model";
 import { Layout } from "../../src/styles/shared";
 import { NextFC } from "next";
@@ -10,7 +11,6 @@ import {
   handleResponse,
 } from "../../services/fetch.service";
 import { useUserData } from "../../src/hooks/useUserData";
-import Link from "next/link";
 
 const Input = styled.input`
   border: none;
@@ -79,9 +79,9 @@ const Groups: NextFC = (props: any): JSX.Element => {
       .catch((err): void => console.log(err.message));
     inputRef.current.value = "";
   };
-  const searchLowerCase = search.toLowerCase();
+  const searchTermInLowerCase = search.toLowerCase();
   const filteredGroup = groupList.filter((group): boolean =>
-    group.name.toLowerCase().includes(searchLowerCase),
+    group.name.toLowerCase().includes(searchTermInLowerCase),
   );
 
   return (
@@ -126,14 +126,12 @@ Groups.getInitialProps = async ({
   req,
   query,
 }): Promise<InitialPropType | {}> => {
-  console.log("Hi Lmao");
   const isServer = !!req;
   const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
   const apiUrl = isServer
     ? `${protocol}://${req.headers.host}/api/group`
     : `${protocol}://${window.location.host}/api/group`;
   if (isServer) {
-    console.log(query);
     return { ...query };
   } else {
     const response = await fetch(apiUrl, {
@@ -147,8 +145,7 @@ Groups.getInitialProps = async ({
       .then(
         (data): InitialPropType => {
           console.log("JSON");
-          console.log(json);
-          return { groups: data };
+          return { groups: data.data };
         },
       )
       .catch((err: Error): string => err.message);

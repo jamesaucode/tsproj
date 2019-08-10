@@ -78,7 +78,7 @@ const StudyCard: React.FunctionComponent<ISession | any> = ({
       body: JSON.stringify({
         question,
         answer,
-        creator: userData._id,
+        creator: userData.data._id,
       }),
     })
       .then(handleResponse)
@@ -103,19 +103,26 @@ const StudyCard: React.FunctionComponent<ISession | any> = ({
   ): void => {
     setSelected(event.target.textContent);
   };
+
+  const hasExistingCardsets = userData.data.cardSet.length > 0;
   return (
     <Wrapper>
       <DropDownMenu>
-        <DropDownMenu.Option extraOnClick={handleOptionClick}>
-          Lol
-        </DropDownMenu.Option>
-        <DropDownMenu.Option extraOnClick={handleOptionClick}>
-          Lmaooo
-        </DropDownMenu.Option>
-        <DropDownMenu.Option extraOnClick={handleOptionClick}>
-          lmao
-        </DropDownMenu.Option>
-        <DropDownMenu.Option>Really long option LOLLLLL</DropDownMenu.Option>
+        <DropDownMenu.MenuTitle>Choose a set</DropDownMenu.MenuTitle>
+        {hasExistingCardsets
+          ? userData.data.cardSet.map(
+              (c): JSX.Element => (
+                <DropDownMenu.Option
+                  key={c._id}
+                  extraOnClick={handleOptionClick}
+                >
+                  {c.name}
+                </DropDownMenu.Option>
+              ),
+            )
+          : null}
+        <DropDownMenu.Input placeholder="Create a new set" />
+        <DropDownMenu.MenuButton>Create</DropDownMenu.MenuButton>
       </DropDownMenu>
       <CardWrapper>
         <InputArea
