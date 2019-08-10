@@ -19,7 +19,7 @@ const LocalAuthentication = new LocalStrategy(
     passwordField: "password",
     session: true,
   },
-  async (email: string, password: string, done): Promise<void> => {
+  async (email: string, password: string, done: any): Promise<void> => {
     const user = await UserModel.findOne({ email })
       .lean()
       .exec();

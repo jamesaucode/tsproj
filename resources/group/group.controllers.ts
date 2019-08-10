@@ -5,6 +5,24 @@ import console = require("console");
 
 export default {
   ...crudControllers(GroupModel),
+  getAllGroups: async (
+    req: express.Request,
+    res: express.Response,
+  ): Promise<void> => {
+    try {
+      const allGroups = await GroupModel.find({})
+        .lean()
+        .exec();
+
+      if (!allGroups) {
+        res.status(400).end();
+      }
+      res.status(200).json({ data: allGroups });
+    } catch (e) {
+      console.error(e);
+      res.status(400).end();
+    }
+  },
   joinGroupAsMember: async (
     req: express.Request,
     res: express.Response,

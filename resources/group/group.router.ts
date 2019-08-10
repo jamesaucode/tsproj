@@ -5,13 +5,13 @@ const router = Router();
 
 router
   .route("/")
-  .get(groupControllers.getMany)
+  .get(groupControllers.getAllGroups)
   .post(groupControllers.createOne);
 
 router
   .route("/:id")
   .get(groupControllers.removeOne)
-  .get(groupControllers.getOne);
+  .get(groupControllers.getMany);
 
 router.route("/join/:id").post(groupControllers.joinGroupAsMember);
 

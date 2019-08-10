@@ -6,7 +6,7 @@ import NProgress from "nprogress";
 import { UserProvider } from "../src/context/UserContext";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 
-Router.events.on("routeChangeStart", url => {
+Router.events.on("routeChangeStart", (url) => {
   console.log(`Loading ${url}`);
   NProgress.start();
 });
@@ -52,6 +52,10 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+  input {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
 }
 
 /* Make clicks pass-through */
@@ -150,7 +154,7 @@ export default class MyApp extends App {
     mode: "darkTheme",
   };
   flipTheme = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       mode: prevState === "darkTheme" ? "lightTheme" : "darkTheme",
     }));
   };

@@ -1,4 +1,5 @@
-import { useState, useLayoutEffect, EffectCallback } from "react";
+import { useState, useEffect, EffectCallback } from "react";
+import debounce from "lodash/debounce";
 
 export const useWindowSize = (): { size: Record<string, number> } => {
   const initialWindowWidth =
@@ -7,13 +8,14 @@ export const useWindowSize = (): { size: Record<string, number> } => {
     typeof window !== "undefined" ? window.innerHeight : 1000;
   const [windowWidth, setWindowWidth] = useState<number>(initialWindowWidth);
   const [windowHeight, setWindowHeight] = useState<number>(initialWindowHeight);
-  const handleResize = (): void => {
+  const handleResize = debounce((): void => {
+    console.log("Resize");
     if (typeof window !== "undefined") {
       setWindowWidth(window.innerWidth);
       setWindowHeight(window.innerHeight);
     }
-  };
-  useLayoutEffect((): EffectCallback => {
+  }, 250);
+  useEffect((): EffectCallback => {
     window.addEventListener("resize", handleResize);
     return (): void => {
       window.removeEventListener("resize", handleResize);
