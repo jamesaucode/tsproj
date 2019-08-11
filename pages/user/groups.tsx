@@ -4,7 +4,7 @@ import styled from "styled-components";
 import SVG from "react-inlinesvg";
 import Link from "next/link";
 import { GroupTypes } from "../../resources/group/group.model";
-import { Layout, Button } from "../../utils/style";
+import { Layout, Button, colors } from "../../utils/style";
 import { NextFC } from "next";
 import {
   handleJSONResponse,
@@ -28,7 +28,7 @@ const GroupList = styled.ul`
 const GroupItem = styled.li`
   background-color: #fff;
   box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.15);
-  color: #24292e;
+  color: ${colors.black};
   font-size: 0.9em;
   padding: 1.25em;
   margin: 0.75rem 0;
@@ -53,6 +53,7 @@ const Groups: NextFC = (props: any): JSX.Element => {
     setSearch(event.target.value);
   };
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault();
     fetch("/api/group", {
       method: "POST",
       credentials: "include",

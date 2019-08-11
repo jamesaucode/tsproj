@@ -21,13 +21,14 @@ const IndexHeading = styled(Heading)`
   color: ${({ theme }): string => theme.mainfc};
   letter-spacing: 1.1px;
   text-align: left;
+  margin: 40px 0;
 `;
 const Paragraph = styled.p`
   color: ${({ theme }): string => theme.fcFade};
   font-size: 0.9em;
   line-height: 1.6;
   text-align: left;
-  margin-bottom: 1rem;
+  margin-bottom: 40px;
 `;
 const TextBox = styled.div`
   align-items: flex-start;

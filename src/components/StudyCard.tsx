@@ -15,8 +15,7 @@ const CardWrapper = styled.div`
   background: #fff;
   font-size: calc(0.35vw + 16px);
   width: 100%;
-  height: 100%;
-  height: 400px;
+  height: auto;
 `;
 const InputArea = styled.textarea`
   width: 100%;
@@ -72,7 +71,7 @@ const StudyCard: React.FunctionComponent<ISession | any> = ({
       }),
     })
       .then(handleResponse)
-      .then((json): void => {
+      .then((json: { message: string }): void => {
         pushNotification(json.message, true);
         clearInput();
       })
