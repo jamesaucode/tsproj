@@ -1,4 +1,4 @@
-import React, { useEffect, useState, EffectCallback } from "react";
+import React, { useEffect, useState, EffectCallback, useCallback } from "react";
 import styled from "styled-components";
 import LeftArrow from "../../src/components/Icons/LeftArrow";
 import RightArrow from "../../src/components/Icons/RightArrow";
@@ -38,19 +38,16 @@ const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
   const [selectedSet, setSelectedSet] = useState(0);
   const nextCard = (): void => {
     const maxIndex = data.cardSet[selectedSet].cards.length || 0;
-    console.log("Next Card ... : ", currentCard);
-    if (currentCard + 1 < maxIndex) {
-      setCurrentCard(currentCard + 1);
-    }
+    setCurrentCard((prevCurrentCard): number =>
+      prevCurrentCard + 1 < maxIndex ? prevCurrentCard + 1 : prevCurrentCard,
+    );
   };
   const previousCard = (): void => {
-    console.log("Previous Card ... : ", currentCard);
-    if (currentCard - 1 >= 0) {
-      setCurrentCard(currentCard - 1);
-    }
+    setCurrentCard((prevCurrentCard): number =>
+      prevCurrentCard - 1 < 0 ? prevCurrentCard : prevCurrentCard - 1,
+    );
   };
-  const handleKeyDown = (event: KeyboardEvent): void => {
-    console.log("KEYDOWN");
+  const handleKeyDown = useCallback((event: KeyboardEvent): void => {
     switch (event.keyCode) {
       case 39:
         nextCard();
@@ -61,7 +58,7 @@ const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
       default:
         break;
     }
-  };
+  }, []);
   useEffect((): EffectCallback => {
     window.addEventListener("keydown", handleKeyDown);
     if (data) {

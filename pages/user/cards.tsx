@@ -84,14 +84,8 @@ const Cards: NextFC = (props: any): JSX.Element => {
   const [showModal, setShowModal] = useState(false);
   const [cardToDelete, setCardToDelete] = useState("");
   useEffect((): void => {
-    if (props.cardSet.length > 0) {
-      if (props.cardSet) {
-        setCardSets(props.cardSet);
-      } else if (userData) {
-        setCardSets(userData.data.cardSet);
-      }
-    }
-  }, [userData, props.cardSet]);
+    setCardSets(userData.data.cardSet);
+  }, []);
   const handleClick = (cardId: string): void => {
     setCardToDelete(cardId);
     setShowModal(true);

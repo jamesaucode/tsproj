@@ -6,11 +6,9 @@ export interface GroupTypes {
   creator: UserId;
   adminId?: UserId[];
   usersId?: UserId[];
+  _id?: string;
 }
-export interface GroupModelTypes extends Document, GroupTypes {
-  isMemberById(id: string): boolean;
-  isAdminById(id: string): boolean;
-}
+export interface GroupModelTypes extends Document, GroupTypes {}
 
 export const GroupSchema: Schema = new Schema({
   name: String,

@@ -1,5 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
-// import fetch from "isomorphic-unfetch";
+import React, { createContext, useEffect, useContext, useReducer } from "react";
 import { UserTypes } from "../../resources/user/user.model";
 import { Heading } from "../../utils/style";
 import styled from "styled-components";
@@ -14,45 +13,74 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const UserContext = createContext<{ data: UserTypes } | null>(null);
+export const UserContext = createContext<UserTypes | null>(null);
+
+interface StateProps {
+  data: UserTypes | null;
+  isLoading: boolean;
+  isError: boolean;
+}
+
+const reducer = (state, action): StateProps => {
+  switch (action.type) {
+    case "FETCH_INIT":
+      return { ...state, isLoading: true };
+    case "FETCH_SUCCESS":
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        data: action.payload,
+      };
+    case "FETCH_FAILED":
+      return { ...state, isLoading: false, isError: true };
+    default:
+      throw new Error();
+  }
+};
 
 export const UserProvider: React.FunctionComponent = ({
   children,
 }): JSX.Element => {
-  const [data, setData] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const [state, dispatch] = useReducer(reducer, {
+    data: null,
+    isLoading: true,
+    isError: false,
+  });
   const url = "/api/user";
+
   useEffect((): void => {
     const fetchData = async (): Promise<void> => {
-      setIsLoading(true);
+      dispatch({ type: "FETCH_INIT" });
       try {
         const response = await fetch(url, {
           method: "GET",
           credentials: "include",
         });
-        console.log(response);
         const json = await response.json();
-        setData(json);
         setTimeout((): void => {
-          setIsLoading(false);
+          dispatch({ type: "FETCH_SUCCESS", payload: json });
         }, 1000);
       } catch (error) {
-        setIsError(true);
+        dispatch({ type: "FETCH_FAILED" });
         console.log("Cannot fetch data...");
       }
     };
     fetchData();
-  }, []);
-  return isLoading ? (
+  }, [url]);
+  return state.isLoading ? (
     <Wrapper>
       <Heading>Loading ...</Heading>
       <Loading />
     </Wrapper>
   ) : (
-    <UserContext.Provider value={data}>{children}</UserContext.Provider>
+    <UserContext.Provider value={state.data}>
+      {state.isError && (
+        <Heading>Something went wrong during data fetching...</Heading>
+      )}
+      {children}
+    </UserContext.Provider>
   );
 };
 
-export const useUserContext = (): { data: UserTypes } =>
-  useContext(UserContext);
+export const useUserContext = (): UserTypes => useContext(UserContext);

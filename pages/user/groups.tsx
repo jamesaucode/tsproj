@@ -4,7 +4,7 @@ import styled from "styled-components";
 import SVG from "react-inlinesvg";
 import Link from "next/link";
 import { GroupTypes } from "../../resources/group/group.model";
-import { Layout } from "../../utils/style";
+import { Layout, Button } from "../../utils/style";
 import { NextFC } from "next";
 import {
   handleJSONResponse,
@@ -16,11 +16,12 @@ const Input = styled.input`
   border: none;
   border: 1px solid #eee;
   border-radius: 5px;
+  background-color: #eee;
   font-size: 0.75em;
   padding: 0.5em 1em;
+  margin: 10px 0;
 `;
 const GroupList = styled.ul`
-  padding: 1em;
   display: flex;
   flex-direction: column;
 `;
@@ -34,10 +35,6 @@ const GroupItem = styled.li`
   &:hover {
     cursor: pointer;
   }
-`;
-const StyledLink = styled.a`
-  color: #333;
-  text-decoration: none;
 `;
 
 const Groups: NextFC = (props: any): JSX.Element => {
@@ -98,20 +95,22 @@ const Groups: NextFC = (props: any): JSX.Element => {
           {filteredGroup
             ? filteredGroup.map(
                 (group): JSX.Element => (
-                  <>
+                  <React.Fragment key={group._id}>
                     <Link href={`/user/group/${group.name}`}>
                       <GroupItem key={group.name}>
                         <SVG src="/static/images/users.svg" />
                         {group.name}
                       </GroupItem>
                     </Link>
-                  </>
+                  </React.Fragment>
                 ),
               )
             : null}
+          <Input ref={inputRef} placeholder="Group Name" />
+          <Button fullWidth onClick={handleSubmit}>
+            Create
+          </Button>
         </GroupList>
-        <Input ref={inputRef} placeholder="Group Name" />
-        <button onClick={handleSubmit}>Create</button>
       </Layout>
     </>
   );
@@ -144,7 +143,6 @@ Groups.getInitialProps = async ({
     return json
       .then(
         (data): InitialPropType => {
-          console.log("JSON");
           return { groups: data.data };
         },
       )

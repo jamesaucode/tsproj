@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { NextFC } from "next";
-import { Button, Layout, Heading } from "../utils/style";
 import Link from "next/link";
+import { Button, Layout, Heading } from "../utils/style";
 import NavBar from "../src/components/NavBar";
 import MainLogo from "../src/components/Icons/MainLogo";
 
