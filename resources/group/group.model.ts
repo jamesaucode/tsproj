@@ -6,7 +6,6 @@ export interface GroupTypes {
   creator: UserId;
   adminId?: UserId[];
   usersId?: UserId[];
-  _id?: string;
 }
 export interface GroupModelTypes extends Document, GroupTypes {}
 
