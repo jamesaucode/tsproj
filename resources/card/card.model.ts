@@ -9,11 +9,7 @@ export interface CardTypes {
   creator: UserId;
   createdAt: Date;
 }
-export interface CardModelTypes extends Document, CardTypes {
-  findByUserId(id: UserId): boolean;
-  isCreator(id: UserId): boolean;
-  lmao(): void;
-}
+export interface CardModelTypes extends Document, CardTypes {}
 
 export const CardSchema: Schema = new Schema({
   question: String,
@@ -25,16 +21,3 @@ export const CardsModel: Model<CardModelTypes> = model<CardModelTypes>(
   "Cards",
   CardSchema,
 );
-
-// CardSchema.method({
-//   lmao: function() {
-//     console.log("lmao");
-//   },
-//   isCreator: function(id: UserId) {
-//     return this.creator === id;
-//   },
-// });
-
-// CardSchema.static("findByUserId", function(this: any, id: UserId) {
-//   return this.find({ creator: id });
-// });

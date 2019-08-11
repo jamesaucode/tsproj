@@ -4,7 +4,7 @@ import Link from "next/link";
 import Modal from "../components/Modal";
 import LoginForm from "../components/LoginForm";
 import SVG from "react-inlinesvg";
-import { SVGWrapper } from "../../utils/style";
+import { SVGWrapper, colors } from "../../utils/style";
 
 interface PropTypes {
   iconName: string;
@@ -25,7 +25,8 @@ const DropdownMenu = styled.div<MenuProps>`
   border: none;
   min-width: 160px;
   padding: 0.75rem 0;
-  background: #8610f9;
+  /* background: #8610f9; */
+  background-color: ${colors.brandLight};
   border-radius: 3px;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
   transform: ${({ expanded }): string => (expanded ? "scale(1)" : "scale(0)")};
@@ -52,7 +53,7 @@ const StyledLink = styled.a`
   font-size: 1em;
   font-weight: 600;
   padding: 0 1rem;
-  color: white;
+  color: ${colors.white}cc;
   text-decoration: none;
 `;
 const ImportantLink = styled(StyledLink)`

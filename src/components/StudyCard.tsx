@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Button } from "../../utils/style";
+import { Button, font } from "../../utils/style";
 import { ISession } from "../../interfaces/express";
 import { handleResponse } from "../../services/fetch.service";
 import { useUserData } from "../hooks/useUserData";
@@ -22,13 +22,12 @@ const InputArea = styled.textarea`
   color: #333;
   flex: 1 auto;
   font-size: 1em;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: ${font.fontFamily};
   padding: 0.5em 1em;
   resize: none;
   box-sizing: border-box;
 `;
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   width: 100%;
   max-width: 688px;
   padding: 1rem;
@@ -58,7 +57,7 @@ const StudyCard: React.FunctionComponent<ISession | any> = ({
     setAnswer("");
   };
   const handleSubmit = (): void => {
-    fetch(`/api/card/${selected}`, {
+    fetch(`/api/cardset/${selected}`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -67,7 +66,6 @@ const StudyCard: React.FunctionComponent<ISession | any> = ({
       body: JSON.stringify({
         question,
         answer,
-        creator: userData.data._id,
       }),
     })
       .then(handleResponse)

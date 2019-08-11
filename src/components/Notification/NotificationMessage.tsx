@@ -23,9 +23,6 @@ const Important = styled.span`
 const SVGWrapper = styled.div`
   padding: 0 0.5rem;
 `;
-const renderImportant = (text: string): React.ReactElement => (
-  <Important>{text}</Important>
-);
 const NotificationMessage: NextFC<IMessage> = ({
   success,
   message,
@@ -37,7 +34,11 @@ const NotificationMessage: NextFC<IMessage> = ({
     <Wrapper key={id}>
       <Message success={success}>
         <div>
-          {success ? renderImportant("Success! ") : renderImportant("Oops! ")}
+          {success ? (
+            <Important>Success! </Important>
+          ) : (
+            <Important>Oops! </Important>
+          )}
           {message}
         </div>
         <SVGWrapper onClick={(): void => removeNotification(id)}>

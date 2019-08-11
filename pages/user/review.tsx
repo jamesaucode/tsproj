@@ -1,4 +1,4 @@
-import React, { useEffect, useState, EffectCallback } from "react";
+import React, { useEffect, useState, EffectCallback, useMemo } from "react";
 import styled from "styled-components";
 import SVG from "react-inlinesvg";
 import NavBar from "../../src/components/NavBar";
@@ -26,17 +26,18 @@ const CustomLayout = styled(Layout)`
 `;
 
 interface PropTypes {
-  pushNotification: Function;
-  popNotification: Function;
+  pushNotification: (message: string, success: boolean) => void;
+  popNotification: (message: string, success: boolean) => void;
 }
 const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
-  const userData = useUserData();
+  const { data } = useUserData();
+  // const { data } = useUserData() || { data: { cardSet: [{ cards: [] }] } };
   // Index of card to be shown
   const [currentCard, setCurrentCard] = useState(0);
   const [loading, setLoading] = useState(true);
   const [selectedSet, setSelectedSet] = useState(0);
   const nextCard = (): void => {
-    const maxIndex = userData.cards.length || 0;
+    const maxIndex = data.cardSet[selectedSet].cards.length || 0;
     if (currentCard + 1 < maxIndex) {
       setCurrentCard(currentCard + 1);
     }
@@ -60,11 +61,12 @@ const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
   };
   useEffect((): EffectCallback => {
     window.addEventListener("keydown", handleKeyDown);
-    if (userData) {
+    if (data) {
       setLoading(false);
     }
     return (): void => window.removeEventListener("keydown", handleKeyDown);
-  }, [userData, currentCard]);
+    // }, [data, currentCard]);
+  }, []);
   const ControlsDiv = styled.div`
     display: flex;
     align-items: center;
@@ -79,7 +81,10 @@ const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
     nextCard,
     previousCard,
   };
-  console.log(userData);
+
+  const hasExistingCardsets =
+    data.cardSet[selectedSet].cards.length > 0 || false;
+
   return loading ? (
     <>
       <NavBar />
@@ -91,17 +96,16 @@ const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
     <>
       <NavBar />
       <CustomLayout>
-        {userData.cardSet.length > 0 ? (
+        {hasExistingCardsets ? (
           <CardWrapper>
             <ControlsDiv onClick={controls.previousCard}>
               <SVG className="small-icon" src="/static/images/left-arrow.svg" />
             </ControlsDiv>
             <Card
-              {...userData.cardSet[selectedSet]}
+              {...data.cardSet[selectedSet].cards[currentCard]}
               pushNotification={props.pushNotification}
               controls={controls}
             />
-            )
             <ControlsDiv onClick={controls.nextCard}>
               <SVG
                 className="small-icon"

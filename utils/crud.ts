@@ -10,7 +10,6 @@ export const getOne = (model: Model<Document>): CrudFunction => async (
   req: express.Request,
   res: express.Response,
 ): Promise<void> => {
-  console.log(req.params.id);
   try {
     const doc = await model
       .findOne({ creator: req.user._id, _id: req.params.id })

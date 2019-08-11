@@ -26,6 +26,9 @@ export const colors = {
   brandDark: "#8610f9",
   brand: "#9e3bff",
   brandLight: "#b263ff",
+  blue: "#0f76fc",
+  white: "#ffffff",
+  black: "#222222",
 };
 
 export const breakPoints = {
@@ -123,7 +126,7 @@ export const Button = styled.button<ButtonProps>`
   background: ${colors.brand};
   border: none;
   border-radius: 3px;
-  padding: 8px 15px;
+  padding: 12px 15px;
   font-size: ${font.fontSize.sm};
   font-weight: 400;
   color: #fff;

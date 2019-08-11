@@ -3,7 +3,7 @@ import { NextFC } from "next";
 import styled from "styled-components";
 import fetch from "isomorphic-unfetch";
 import { handleJSONResponse } from "../../services/fetch.service";
-import { Layout, Heading } from "../../utils/style";
+import { colors, font, Layout, Heading } from "../../utils/style";
 import { useUserData } from "../../src/hooks/useUserData";
 import NavBar from "../../src/components/NavBar";
 import Modal from "../../src/components/Modal";
@@ -17,11 +17,24 @@ const CardWrapper = styled.li`
   padding: 0.5em;
   border-bottom: 1px solid #ddd;
   margin: 0 auto;
+  text-align: initial;
 `;
 const CardTitle = styled.h1`
-  font-size: 1.5em;
+  color: ${colors.black};
+  display: inline-block;
+  font-size: ${font.fontSize.lg};
   font-weight: 600;
+  position: relative;
   text-align: center;
+  margin: 20px 0;
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 5px;
+    background-color: ${colors.blue}bb;
+  }
 `;
 const Card = styled.div`
   align-items: center;
@@ -33,8 +46,8 @@ const Card = styled.div`
   }
 `;
 const CardText = styled.span`
-  font-size: 0.8em;
-  color: #333;
+  font-size: ${font.fontSize.sm};
+  color: ${colors.black};
 `;
 const CardTextBox = styled.div`
   flex: 1;
@@ -44,19 +57,21 @@ const CardTextBox = styled.div`
 `;
 const CardTag = styled.span`
   color: #888;
-  font-size: 0.65em;
+  font-size: ${font.fontSize.sm};
   padding: 0.5rem 0;
 `;
 const CardList = styled.ul`
   font-size: calc(0.35vw + 16px);
   padding: 1em;
   width: 100%;
+  text-align: center;
 `;
 const Button = styled.button`
   border: none;
   background-color: red;
   color: #fff;
-  font-size: 0.7em;
+  font-size: ${font.fontSize.sm};
+  font-weight: 600;
   padding: 0.5em;
   margin: 0.5rem;
   text-transform: uppercase;
@@ -99,7 +114,7 @@ const Cards: NextFC = (props: any): JSX.Element => {
   return (
     <>
       <NavBar />
-      <Layout>
+      <Layout fadeIn>
         <Heading>Your cards</Heading>
         <CardList>
           {cardSets.length > 0 ? (

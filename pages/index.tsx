@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Layout, Heading } from "../utils/style";
 import { NextFC } from "next";
-import MainLogo from "../src/components/Icons/MainLogo";
+import { Button, Layout, Heading } from "../utils/style";
 import Link from "next/link";
 import NavBar from "../src/components/NavBar";
+import MainLogo from "../src/components/Icons/MainLogo";
 
 const Wrapper = styled.section`
   font-size: calc(0.35vw + 16px);
@@ -36,18 +36,8 @@ const TextBox = styled.div`
   flex-direction: column;
   margin: 2rem 0;
 `;
-const Button = styled.button`
-  background-color: #3140f1;
-  border: none;
-  border-radius: 3px;
-  padding: 0.5em 1.5em;
-  font-size: 0.8em;
-  font-weight: 400;
-  color: #fff;
-  transition: 0.5s ease-out background-color;
-  &:hover {
-    cursor: pointer;
-  }
+const ThickButton = styled(Button)`
+  padding: 12px 15px;
 `;
 
 const Index: NextFC = (): JSX.Element => {
@@ -72,7 +62,7 @@ const Index: NextFC = (): JSX.Element => {
                 exercitationem rerum nesciunt doloribus neque commodi fugiat.
               </Paragraph>
               <Link href="/login">
-                <Button>Start Studying</Button>
+                <ThickButton>Start Studying</ThickButton>
               </Link>
             </TextBox>
             <MainLogo style={{ flex: `1 1 250px` }} />

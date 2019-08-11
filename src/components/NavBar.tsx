@@ -7,6 +7,7 @@ import DropDownMenu from "./DropDownMenu";
 import { breakPoints } from "../../utils/style";
 import { useLoginStatus } from "../hooks/useLoginStatus";
 import { useWindowSize } from "../hooks/useWindowSize";
+import { useUserData } from "../hooks/useUserData";
 import BurgerMenu from "./BurgerMenu/BurgerMenu";
 
 const NavWrapper = styled.div`
@@ -46,9 +47,14 @@ export const NavLink = styled.li`
 const NavBar: NextFC = (props): JSX.Element => {
   const windowSize = useWindowSize();
   const [loading, setLoading] = useState<boolean>(true);
-  const isLoggedIn = useLoginStatus();
+  // const isLoggedIn = useLoginStatus();
+  const userData = useUserData();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect((): void => {
     setLoading(false);
+    if (userData.data) {
+      setIsLoggedIn(true);
+    }
   }, [isLoggedIn]);
   if (loading) {
     return (

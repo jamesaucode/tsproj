@@ -17,17 +17,21 @@ export default {
       const updatedDoc = await CardSetModel.findOneAndUpdate(
         {
           creator: req.user._id,
-          _id: req.params.id,
+          name: req.params.name,
         },
         { $push: { cards: card } },
       )
         .lean()
         .exec();
-
       if (!updatedDoc) {
         res.status(400).end();
       }
-      res.status(200).json({ data: updatedDoc });
+      res
+        .status(200)
+        .json({
+          data: updatedDoc,
+          message: `Card is added to set ${req.params.name}`,
+        });
     } catch (e) {
       console.error(e);
       res.status(400).end();

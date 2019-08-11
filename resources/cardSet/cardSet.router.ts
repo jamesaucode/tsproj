@@ -11,7 +11,8 @@ router
 router
   .route("/:id")
   .get(cardSetControllers.getOne)
-  .post(cardSetControllers.insertOne)
   .delete(cardSetControllers.removeOne);
+
+router.route("/:name").post(cardSetControllers.insertOne);
 
 export default router;

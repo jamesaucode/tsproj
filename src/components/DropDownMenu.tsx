@@ -26,12 +26,14 @@ const DropDownContext = React.createContext<ContextTypes>(null);
 const SOption = styled.li<SOptionProps>`
   background-color: ${({ selected }): string =>
     selected ? `${colors.brand}40` : "#fff"};
-  border-radius: 5px;
+  border-radius: 3px;
   padding: 10px;
   margin: 5px 0;
   z-index: 100;
   &:hover {
     cursor: pointer;
+    background-color: ${({ selected }): string =>
+      selected ? `${colors.brand}40` : "#eee"};
   }
 
   & > span {
@@ -71,6 +73,7 @@ const MenuWrapper = styled.ul<WrapperProps>`
 
   input {
     border: none;
+    border-radius: 3px;
     background-color: #eee;
     font-size: ${font.fontSize.sm};
     padding: 10px;
@@ -99,6 +102,9 @@ const Overlay = styled.div<OverlayProps>`
   display: ${({ show }): string => (show ? "block" : "none")};
   z-index: 10;
 `;
+const BlueButton = styled(Button)`
+  background: #0f76fc;
+`;
 
 interface CompoundComponent<P> extends React.FunctionComponent<P> {
   Option: React.FunctionComponent<OptionPropTypes>;
@@ -117,8 +123,10 @@ const useDropDownContext = (): ContextTypes => {
   const context = useContext(DropDownContext);
   return context;
 };
-
-const DropDownMenu: CompoundComponent<MenuPropTypes> = (props): JSX.Element => {
+interface DropDownMenuProps {}
+const DropDownMenu: CompoundComponent<DropDownMenuProps> = (
+  props,
+): JSX.Element => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [selected, setSelected] = useState("Choose");
   const value = {
@@ -130,18 +138,21 @@ const DropDownMenu: CompoundComponent<MenuPropTypes> = (props): JSX.Element => {
 
   const handleClick = (event: React.MouseEvent<HTMLSpanElement>): void => {
     setIsExpanded(!isExpanded);
-    if (props.extraOnClick) {
-      props.extraOnClick(event);
-    }
+    // if (props.extraOnClick) {
+    //   props.extraOnClick(event);
+    // }
   };
   return (
     <DropDownContext.Provider value={value}>
-      <Overlay
-        onClick={(): void => {
-          setIsExpanded(false);
-        }}
-        show={isExpanded}
-      />
+      {isExpanded && (
+        <Overlay
+          role="button"
+          onClick={(): void => {
+            setIsExpanded(false);
+          }}
+          show={isExpanded}
+        />
+      )}
       <Wrapper role="menu">
         <Toggle onClick={handleClick}>{`${selected} ▼`}</Toggle>
         <MenuWrapper expanded={isExpanded}>
@@ -163,7 +174,7 @@ const MenuTitle: React.FunctionComponent = ({ children }): JSX.Element => {
 };
 
 const MenuButton: React.FunctionComponent = ({ children }): JSX.Element => {
-  return <Button>{children}</Button>;
+  return <BlueButton>{children}</BlueButton>;
 };
 
 const Input: React.FunctionComponent<InputProps> = ({

@@ -5,6 +5,7 @@ interface PropTypes {
   _id: string;
   question: string;
   answer: string;
+  creator: string;
   pushNotification: (message: string, success: boolean) => void;
   controls: {
     nextCard: () => void;

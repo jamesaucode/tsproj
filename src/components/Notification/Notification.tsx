@@ -38,7 +38,7 @@ const Notification: React.FunctionComponent<PropTypes> = (
       return prevState.filter((n): boolean => n.id !== notificationId);
     });
   };
-  const pushNotification = (message = "Lol", status: boolean): IMessage => {
+  const pushNotification = (message = "", status: boolean): IMessage => {
     const notification = {
       message,
       success: status,
