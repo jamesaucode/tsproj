@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Button, font } from "../../utils/style";
+import { Button, font, colors } from "../../utils/style";
 import { ISession } from "../../interfaces/express";
 import { handleResponse } from "../../services/fetch.service";
 import { useUserData } from "../hooks/useUserData";
 import DropDownMenu from "./DropDownMenu";
 
 const CardWrapper = styled.div`
+  box-shadow: 0px 0px 20px ${colors.black}25;
+  border-radius: 3px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   background: #fff;

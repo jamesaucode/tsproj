@@ -1,6 +1,7 @@
-import React, { useEffect, useState, EffectCallback, useMemo } from "react";
+import React, { useEffect, useState, EffectCallback } from "react";
 import styled from "styled-components";
-import SVG from "react-inlinesvg";
+import LeftArrow from "../../src/components/Icons/LeftArrow";
+import RightArrow from "../../src/components/Icons/RightArrow";
 import NavBar from "../../src/components/NavBar";
 import Card from "../../src/components/Card";
 import Loading from "../../src/components/Loading";
@@ -31,23 +32,25 @@ interface PropTypes {
 }
 const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
   const { data } = useUserData();
-  // const { data } = useUserData() || { data: { cardSet: [{ cards: [] }] } };
   // Index of card to be shown
   const [currentCard, setCurrentCard] = useState(0);
   const [loading, setLoading] = useState(true);
   const [selectedSet, setSelectedSet] = useState(0);
   const nextCard = (): void => {
     const maxIndex = data.cardSet[selectedSet].cards.length || 0;
+    console.log("Next Card ... : ", currentCard);
     if (currentCard + 1 < maxIndex) {
       setCurrentCard(currentCard + 1);
     }
   };
   const previousCard = (): void => {
+    console.log("Previous Card ... : ", currentCard);
     if (currentCard - 1 >= 0) {
       setCurrentCard(currentCard - 1);
     }
   };
   const handleKeyDown = (event: KeyboardEvent): void => {
+    console.log("KEYDOWN");
     switch (event.keyCode) {
       case 39:
         nextCard();
@@ -65,7 +68,6 @@ const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
       setLoading(false);
     }
     return (): void => window.removeEventListener("keydown", handleKeyDown);
-    // }, [data, currentCard]);
   }, []);
   const ControlsDiv = styled.div`
     display: flex;
@@ -99,7 +101,7 @@ const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
         {hasExistingCardsets ? (
           <CardWrapper>
             <ControlsDiv onClick={controls.previousCard}>
-              <SVG className="small-icon" src="/static/images/left-arrow.svg" />
+              <LeftArrow />
             </ControlsDiv>
             <Card
               {...data.cardSet[selectedSet].cards[currentCard]}
@@ -107,10 +109,7 @@ const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
               controls={controls}
             />
             <ControlsDiv onClick={controls.nextCard}>
-              <SVG
-                className="small-icon"
-                src="/static/images/right-arrow.svg"
-              />
+              <RightArrow />
             </ControlsDiv>
           </CardWrapper>
         ) : (

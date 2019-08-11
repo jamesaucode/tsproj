@@ -82,10 +82,13 @@ const MenuWrapper = styled.ul<WrapperProps>`
 `;
 const Toggle = styled.button`
   border: 0;
+  border-radius: 3px;
+  color: ${colors.black};
   padding: 10px 20px;
   margin-bottom: 1rem;
   font-size: 0.8em;
   font-weight: 600;
+  font-family: ${font.fontFamily};
   text-align: left;
   z-index: 100;
   &:hover {
@@ -103,6 +106,7 @@ const Overlay = styled.div<OverlayProps>`
   z-index: 10;
 `;
 const BlueButton = styled(Button)`
+  padding: 10px;
   background: #0f76fc;
 `;
 
@@ -138,20 +142,11 @@ const DropDownMenu: CompoundComponent<DropDownMenuProps> = (
 
   const handleClick = (event: React.MouseEvent<HTMLSpanElement>): void => {
     setIsExpanded(!isExpanded);
-    // if (props.extraOnClick) {
-    //   props.extraOnClick(event);
-    // }
   };
   return (
     <DropDownContext.Provider value={value}>
       {isExpanded && (
-        <Overlay
-          role="button"
-          onClick={(): void => {
-            setIsExpanded(false);
-          }}
-          show={isExpanded}
-        />
+        <Overlay role="button" onClick={handleClick} show={isExpanded} />
       )}
       <Wrapper role="menu">
         <Toggle onClick={handleClick}>{`${selected} ▼`}</Toggle>
