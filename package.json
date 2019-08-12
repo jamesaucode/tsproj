@@ -13,6 +13,9 @@
     "build": "next build && tsc --project tsconfig.server.json",
     "start-prod": "NODE_ENV=production nodemon ./bin/server/server.js"
   },
+  "engines": {
+    "node": "10.16.1"
+  },
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/cookie-session": "^2.0.37",
