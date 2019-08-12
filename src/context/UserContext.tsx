@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useContext, useReducer } from "react";
-import { UserTypes } from "../../resources/user/user.model";
-import { Heading } from "../../utils/style";
 import styled from "styled-components";
+import { UserTypes } from "../../resources/user/user.model";
+import { HeadingBase } from "../../utils/style";
 import Loading from "../components/Loading";
 
 const Wrapper = styled.div`
@@ -20,6 +20,12 @@ interface StateProps {
   isLoading: boolean;
   isError: boolean;
 }
+
+const actions = {
+  FETCH_INIT: "FETCH_INIT",
+  FETCH_SUCCESS: "FETCH_SUCCESS",
+  FETCH_FAILED: "FETCH_FAILED",
+};
 
 const reducer = (state, action): StateProps => {
   switch (action.type) {
@@ -42,16 +48,15 @@ const reducer = (state, action): StateProps => {
 export const UserProvider: React.FunctionComponent = ({
   children,
 }): JSX.Element => {
+  const url = "/api/user";
   const [state, dispatch] = useReducer(reducer, {
     data: null,
     isLoading: true,
     isError: false,
   });
-  const url = "/api/user";
-
   useEffect((): void => {
     const fetchData = async (): Promise<void> => {
-      dispatch({ type: "FETCH_INIT" });
+      dispatch({ type: actions.FETCH_INIT });
       try {
         const response = await fetch(url, {
           method: "GET",
@@ -59,24 +64,24 @@ export const UserProvider: React.FunctionComponent = ({
         });
         const json = await response.json();
         setTimeout((): void => {
-          dispatch({ type: "FETCH_SUCCESS", payload: json });
+          dispatch({ type: actions.FETCH_SUCCESS, payload: json });
         }, 1000);
       } catch (error) {
-        dispatch({ type: "FETCH_FAILED" });
+        dispatch({ type: actions.FETCH_FAILED });
         console.log("Cannot fetch data...");
       }
     };
     fetchData();
-  }, [url]);
+  }, []);
   return state.isLoading ? (
     <Wrapper>
-      <Heading>Loading ...</Heading>
+      <HeadingBase>Loading ...</HeadingBase>
       <Loading />
     </Wrapper>
   ) : (
     <UserContext.Provider value={state.data}>
       {state.isError && (
-        <Heading>Something went wrong during data fetching...</Heading>
+        <HeadingBase>Something went wrong during data fetching...</HeadingBase>
       )}
       {children}
     </UserContext.Provider>

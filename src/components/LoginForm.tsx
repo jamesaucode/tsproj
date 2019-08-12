@@ -97,8 +97,8 @@ const Login: NextFC = (): JSX.Element => {
     }
     return (): void => {};
   }, []);
-  const handleSubmit = (): void => {
-    fetch("/api/login", {
+  const handleSubmit = async (): Promise<void> => {
+    const response = await fetch("/api/login", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -108,14 +108,13 @@ const Login: NextFC = (): JSX.Element => {
         email: emailInput,
         password: passwordInput,
       }),
-    }).then((response): void => {
-      if (response.ok && response.redirected) {
-        window.location.href = "/user/cards";
-      } else {
-        setShowWarning(true);
-        setPasswordInput("");
-      }
     });
+    if (response.ok && response.redirected) {
+      window.location.href = "/user/cards";
+    } else {
+      setShowWarning(true);
+      setPasswordInput("");
+    }
   };
   const validateEmail = (): boolean => InputValidator.email(emailInput);
 

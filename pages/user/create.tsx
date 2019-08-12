@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Heading } from "../../utils/style";
+import { Layout, HeadingBase } from "../../utils/style";
 import StudyCard from "../../src/components/StudyCard";
 import NavBar from "../../src/components/NavBar";
 import { useLoginStatus } from "../../src/hooks/useLoginStatus";
@@ -16,7 +16,7 @@ const Create: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
     <>
       <NavBar />
       <Layout id="main" fadeIn>
-        <Heading>Make a card!</Heading>
+        <HeadingBase>Make a card!</HeadingBase>
         <StudyCard
           pushNotification={props.pushNotification}
           popNotification={props.popNotification}

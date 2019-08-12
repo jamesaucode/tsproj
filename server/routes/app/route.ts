@@ -6,6 +6,7 @@ import nextApp from "../../nextApp";
 import { UserModel, UserTypes } from "../../../resources/user/user.model";
 import { GroupModel } from "../../../resources/group/group.model";
 import { CardSetModel } from "../../../resources/cardSet/cardSet.model";
+import console = require("console");
 
 require("dotenv").config();
 console.log("RUNNING");
@@ -20,20 +21,25 @@ const LocalAuthentication = new LocalStrategy(
     session: true,
   },
   async (email: string, password: string, done: any): Promise<void> => {
-    const user = await UserModel.findOne({ email })
-      .lean()
-      .exec();
+    try {
+      const user = await UserModel.findOne({ email })
+        .lean()
+        .exec();
 
-    if (!user) {
-      return done(null, false, { message: "Failed" });
-    }
-    const passwordMatched = await bcrypt.compare(password, user.password);
+      if (!user) {
+        return done(null, false, { message: "Failed" });
+      }
+      const passwordMatched = await bcrypt.compare(password, user.password);
 
-    if (passwordMatched) {
-      console.log("Correct credentials! Logging in ...");
-      done(null, user);
-    } else {
-      done(null, false, { message: "Wrong login credentials" });
+      if (passwordMatched) {
+        console.log("Correct credentials! Logging in ...");
+        done(null, user);
+      } else {
+        done(null, false, { message: "Wrong login credentials" });
+      }
+    } catch (error) {
+      console.error(error);
+      done(null, false, { message: "Error" });
     }
   },
 );
@@ -50,7 +56,7 @@ const gotProfile = (
   accessToken: string,
   refreshToken: string,
   profile: googleOAuth.Profile | any,
-  done: any,
+  done,
 ): void => {
   UserModel.findOne(
     { email: profile.emails[0].value },

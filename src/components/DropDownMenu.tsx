@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, forwardRef } from "react";
 import styled from "styled-components";
 import { Button, colors, font } from "../../utils/style";
 import Circle from "./Icons/Circle";
@@ -19,6 +19,7 @@ interface ContextTypes {
 
 interface InputProps {
   placeholder?: string;
+  ref?: React.MutableRefObject<HTMLInputElement>;
 }
 
 const DropDownContext = React.createContext<ContextTypes>(null);
@@ -110,11 +111,11 @@ const BlueButton = styled(Button)`
   background: #0f76fc;
 `;
 
-interface CompoundComponent<P> extends React.FunctionComponent<P> {
+interface CompoundComponent<P = {}> extends React.FunctionComponent<P> {
   Option: React.FunctionComponent<OptionPropTypes>;
   MenuTitle: React.FunctionComponent;
   Input: React.FunctionComponent<InputProps>;
-  MenuButton: React.FunctionComponent;
+  MenuButton: React.FunctionComponent<ButtonPropTypes>;
 }
 interface MenuPropTypes {
   extraOnClick?: (event: React.MouseEvent<HTMLSpanElement>) => void;
@@ -122,15 +123,15 @@ interface MenuPropTypes {
 interface OptionPropTypes {
   extraOnClick?: (event: React.MouseEvent<HTMLSpanElement>) => void;
 }
+interface ButtonPropTypes {
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
 
 const useDropDownContext = (): ContextTypes => {
   const context = useContext(DropDownContext);
   return context;
 };
-interface DropDownMenuProps {}
-const DropDownMenu: CompoundComponent<DropDownMenuProps> = (
-  props,
-): JSX.Element => {
+const DropDownMenu: CompoundComponent = (props): JSX.Element => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [selected, setSelected] = useState("Choose");
   const value = {
@@ -141,6 +142,7 @@ const DropDownMenu: CompoundComponent<DropDownMenuProps> = (
   };
 
   const handleClick = (event: React.MouseEvent<HTMLSpanElement>): void => {
+    event.preventDefault();
     setIsExpanded(!isExpanded);
   };
   return (
@@ -168,15 +170,18 @@ const MenuTitle: React.FunctionComponent = ({ children }): JSX.Element => {
   return <Heading>{children}</Heading>;
 };
 
-const MenuButton: React.FunctionComponent = ({ children }): JSX.Element => {
-  return <BlueButton>{children}</BlueButton>;
+const MenuButton: React.FunctionComponent<ButtonPropTypes> = ({
+  children,
+  onClick = (): void => {},
+}): JSX.Element => {
+  return <BlueButton onClick={onClick}>{children}</BlueButton>;
 };
 
-const Input: React.FunctionComponent<InputProps> = ({
-  placeholder,
-}): JSX.Element => {
-  return <input placeholder={placeholder} />;
-};
+const Input: React.FunctionComponent<InputProps> = forwardRef(
+  ({ placeholder }, ref): JSX.Element => {
+    return <input placeholder={placeholder} ref={ref} />;
+  },
+);
 
 const Option: React.FunctionComponent<OptionPropTypes> = ({
   children,
@@ -205,6 +210,7 @@ const Option: React.FunctionComponent<OptionPropTypes> = ({
 
 DropDownMenu.Option = Option;
 DropDownMenu.MenuTitle = MenuTitle;
+Input.displayName = "Input";
 DropDownMenu.Input = Input;
 DropDownMenu.MenuButton = MenuButton;
 

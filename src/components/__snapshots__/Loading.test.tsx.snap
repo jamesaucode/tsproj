@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading Component renders 1`] = `
+<Loading>
+  <Loading__Spinner>
+    <StyledComponent
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "Loading__Spinner-s1l57m-0",
+            "isStatic": true,
+            "lastClassName": "hrJkhd",
+            "rules": Array [
+              "position:relative;margin:0 auto;border-radius:50%;width:2em;height:2em;overflow:hidden;border-top:0.35em solid rgba(0,0,0,0.2);border-right:0.35em solid rgba(0,0,0,0.2);border-bottom:0.35em solid rgba(0,0,0,0.2);border-left:0.35em solid #3140f1;animation:",
+              Keyframes {
+                "id": "sc-keyframes-iVXCSc",
+                "inject": [Function],
+                "name": "iVXCSc",
+                "rules": Array [
+                  "@-webkit-keyframes iVXCSc{from{-webkit-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg);}to{-webkit-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg);}}",
+                  "@keyframes iVXCSc{from{-webkit-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg);}to{-webkit-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg);}}",
+                ],
+                "toString": [Function],
+              },
+              " 1s linear infinite;text-indent:-9999em;",
+            ],
+          },
+          "displayName": "Loading__Spinner",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "Loading__Spinner-s1l57m-0",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+    >
+      <div
+        className="Loading__Spinner-s1l57m-0 hrJkhd"
+      />
+    </StyledComponent>
+  </Loading__Spinner>
+</Loading>
+`;

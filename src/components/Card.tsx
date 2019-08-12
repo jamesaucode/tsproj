@@ -38,11 +38,11 @@ const Card: React.FunctionComponent<PropTypes> = ({
 }): JSX.Element => {
   const [currentAnswer, setCurrentAnswer] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
-  const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    if (currentAnswer === answer) {
-      pushNotification("Correct!", true);
-    }
-  };
+  // const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  //   if (currentAnswer === answer) {
+  //     pushNotification("Correct!", true);
+  //   }
+  // };
   const handleKeyDown = (
     event: React.KeyboardEvent<HTMLInputElement>,
   ): void => {

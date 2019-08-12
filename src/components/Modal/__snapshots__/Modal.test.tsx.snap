@@ -1,0 +1,193 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal Tests Component Renders 1`] = `
+<Modal
+  closeModal={[Function]}
+>
+  <Portal
+    containerInfo={
+      <body>
+        <div
+          class="Modal__DivOverlay-pdadxn-1 iSuvMu"
+        />
+        <div
+          class="Modal__Wrapper-pdadxn-2 imopbv"
+        >
+          <div
+            class="Modal__ModalWrapper-pdadxn-0 lckyPw"
+          >
+            <div
+              class="Modal__CrossWrapper-pdadxn-3 dIKJxW"
+            >
+              <span
+                class="isvg loading small-icon top-right"
+              />
+            </div>
+          </div>
+        </div>
+      </body>
+    }
+  >
+    <Modal__DivOverlay
+      onClick={[Function]}
+    >
+      <StyledComponent
+        forwardedComponent={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "attrs": Array [],
+            "componentStyle": ComponentStyle {
+              "componentId": "Modal__DivOverlay-pdadxn-1",
+              "isStatic": true,
+              "lastClassName": "iSuvMu",
+              "rules": Array [
+                "background:rgba(0,0,0,0.5);height:100vh;position:fixed;top:0;width:100vw;z-index:10;",
+              ],
+            },
+            "displayName": "Modal__DivOverlay",
+            "foldedComponentIds": Array [],
+            "render": [Function],
+            "styledComponentId": "Modal__DivOverlay-pdadxn-1",
+            "target": "div",
+            "toString": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+          }
+        }
+        forwardedRef={null}
+        onClick={[Function]}
+      >
+        <div
+          className="Modal__DivOverlay-pdadxn-1 iSuvMu"
+          onClick={[Function]}
+        />
+      </StyledComponent>
+    </Modal__DivOverlay>
+    <Modal__Wrapper>
+      <StyledComponent
+        forwardedComponent={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "attrs": Array [],
+            "componentStyle": ComponentStyle {
+              "componentId": "Modal__Wrapper-pdadxn-2",
+              "isStatic": true,
+              "lastClassName": "imopbv",
+              "rules": Array [
+                "align-items:\\"center\\";display:\\"flex\\";justify-content:\\"center\\";",
+              ],
+            },
+            "displayName": "Modal__Wrapper",
+            "foldedComponentIds": Array [],
+            "render": [Function],
+            "styledComponentId": "Modal__Wrapper-pdadxn-2",
+            "target": "div",
+            "toString": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+          }
+        }
+        forwardedRef={null}
+      >
+        <div
+          className="Modal__Wrapper-pdadxn-2 imopbv"
+        >
+          <Modal__ModalWrapper>
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "Modal__ModalWrapper-pdadxn-0",
+                    "isStatic": true,
+                    "lastClassName": "lckyPw",
+                    "rules": Array [
+                      "align-items:center;animation:",
+                      Keyframes {
+                        "id": "sc-keyframes-eMLfYp",
+                        "inject": [Function],
+                        "name": "eMLfYp",
+                        "rules": Array [
+                          "@-webkit-keyframes eMLfYp{from{opacity:0;}to{opacity:1;}}",
+                          "@keyframes eMLfYp{from{opacity:0;}to{opacity:1;}}",
+                        ],
+                        "toString": [Function],
+                      },
+                      " 0.5s ease-out 1;background:#fff;border-radius:3px;bottom:0;box-shadow:4px 4px 8px rgba(0,0,0,0.25);box-sizing:border-box;display:flex;flex-direction:column;height:fit-content;justify-content:center;left:0;margin:auto;max-height:600px;min-height:300px;padding:2rem;position:absolute;right:0;top:0;width:fit-content;z-index:100;",
+                    ],
+                  },
+                  "displayName": "Modal__ModalWrapper",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "Modal__ModalWrapper-pdadxn-0",
+                  "target": "div",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+            >
+              <div
+                className="Modal__ModalWrapper-pdadxn-0 lckyPw"
+              >
+                <Modal__CrossWrapper
+                  onClick={[Function]}
+                >
+                  <StyledComponent
+                    forwardedComponent={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "attrs": Array [],
+                        "componentStyle": ComponentStyle {
+                          "componentId": "Modal__CrossWrapper-pdadxn-3",
+                          "isStatic": true,
+                          "lastClassName": "dIKJxW",
+                          "rules": Array [
+                            "& > span > svg{padding:1rem;&:hover{cursor:pointer;}}",
+                          ],
+                        },
+                        "displayName": "Modal__CrossWrapper",
+                        "foldedComponentIds": Array [],
+                        "render": [Function],
+                        "styledComponentId": "Modal__CrossWrapper-pdadxn-3",
+                        "target": "div",
+                        "toString": [Function],
+                        "warnTooManyClasses": [Function],
+                        "withComponent": [Function],
+                      }
+                    }
+                    forwardedRef={null}
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="Modal__CrossWrapper-pdadxn-3 dIKJxW"
+                      onClick={[Function]}
+                    >
+                      <InlineSVG
+                        baseURL=""
+                        cacheGetRequests={false}
+                        className="small-icon top-right"
+                        onLoad={[Function]}
+                        src="/static/images/close_black.svg"
+                        supportTest={[Function]}
+                        uniquifyIDs={true}
+                        wrapper={[Function]}
+                      >
+                        <span
+                          className="isvg loading small-icon top-right"
+                        />
+                      </InlineSVG>
+                    </div>
+                  </StyledComponent>
+                </Modal__CrossWrapper>
+              </div>
+            </StyledComponent>
+          </Modal__ModalWrapper>
+        </div>
+      </StyledComponent>
+    </Modal__Wrapper>
+  </Portal>
+</Modal>
+`;

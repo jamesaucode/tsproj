@@ -16,16 +16,14 @@ const MenuWrapper = styled.div<MenuProps>`
   box-sizing: border-box;
   box-shadow: 0px 12px 15px rgba(0, 0, 0, 0.15);
   position: absolute;
-  transition: 0.75s ease-in-out max-height;
-  max-height: ${({ show }): string => (show ? "100%" : "0")};
+  transition: 500ms ease transform;
+  transform-origin: top;
+  transform: ${({ show }): string => (show ? "scaleY(1)" : "scaleY(0)")};
   width: 100%;
   background-color: #fff;
   top: 50px;
   left: 0;
   z-index: 999;
-  & > ul {
-    max-height: ${({ show }): string => (show ? "100%" : "0")};
-  }
   & > ul > li {
     display: ${({ show }): string => (show ? "block" : "none")};
     animation: ${fadeIn} 0.75s ease-in-out 1;

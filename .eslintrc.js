@@ -1,5 +1,8 @@
 module.exports = {
   parser: "@typescript-eslint/parser", // Specifies the ESLint parser
+  plugins: [
+    "react-hooks",
+  ],
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -24,6 +27,8 @@ module.exports = {
     // e.g. "@typescript-eslint/explicit-function-return-type": "off",
     "react/prop-types": "off",
     "@typescript-eslint/no-var-requires": "off",
+    "react-hooks/rules-of-hooks": 'error',
+    "react-hooks/exhaustive-deps": "warn",
   },
   settings: {
     react: {

@@ -3,6 +3,7 @@ import NotificationMessage from "./NotificationMessage";
 import { IMessage } from "../../../interfaces/message";
 import styled from "styled-components";
 import { useWindowSize } from "../../hooks/useWindowSize";
+
 const uuid = require("uuid");
 
 interface AllNotificationWrapperProps {

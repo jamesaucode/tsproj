@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toggleable Menu Component renders 1`] = `
+<ToggleableMenu>
+  <ToggleableMenu__DropDownWrapper>
+    <StyledComponent
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "ToggleableMenu__DropDownWrapper-sc-1qfmg6u-0",
+            "isStatic": true,
+            "lastClassName": "OPYsp",
+            "rules": Array [
+              "position:relative;display:inline-block;align-items:center;padding:0 1rem;margin:0 auto;",
+            ],
+          },
+          "displayName": "ToggleableMenu__DropDownWrapper",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "ToggleableMenu__DropDownWrapper-sc-1qfmg6u-0",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+    >
+      <div
+        className="ToggleableMenu__DropDownWrapper-sc-1qfmg6u-0 OPYsp"
+      >
+        <ToggleableMenu__ImportantLink
+          onClick={[Function]}
+        >
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "ToggleableMenu__ImportantLink-sc-1qfmg6u-4",
+                  "isStatic": true,
+                  "lastClassName": "bVfOgW",
+                  "rules": Array [
+                    "font-size:1em;font-weight:600;padding:0 1rem;color:",
+                    "#ffffff",
+                    "cc;text-decoration:none;",
+                    "border:1px solid #0f76fc;border-radius:3px;color:#0f76fc;padding:0.5rem 1.5rem;font-size:1em;cursor:pointer;",
+                  ],
+                },
+                "displayName": "ToggleableMenu__ImportantLink",
+                "foldedComponentIds": Array [
+                  "ToggleableMenu__StyledLink-sc-1qfmg6u-3",
+                ],
+                "render": [Function],
+                "styledComponentId": "ToggleableMenu__ImportantLink-sc-1qfmg6u-4",
+                "target": "a",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            onClick={[Function]}
+          >
+            <a
+              className="ToggleableMenu__StyledLink-sc-1qfmg6u-3 ToggleableMenu__ImportantLink-sc-1qfmg6u-4 bVfOgW"
+              onClick={[Function]}
+            >
+              Login
+            </a>
+          </StyledComponent>
+        </ToggleableMenu__ImportantLink>
+      </div>
+    </StyledComponent>
+  </ToggleableMenu__DropDownWrapper>
+</ToggleableMenu>
+`;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { NextFC } from "next";
 import Link from "next/link";
-import { Button, Layout, Heading } from "../utils/style";
+import { Button, Layout, HeadingBase } from "../utils/style";
 import NavBar from "../src/components/NavBar";
 import MainLogo from "../src/components/Icons/MainLogo";
 
@@ -17,7 +17,7 @@ const Wrapper = styled.section`
     flex-direction: column-reverse;
   }
 `;
-const IndexHeading = styled(Heading)`
+const IndexHeading = styled(HeadingBase)`
   color: ${({ theme }): string => theme.mainfc};
   letter-spacing: 1.1px;
   text-align: left;
@@ -33,7 +33,7 @@ const Paragraph = styled.p`
 const TextBox = styled.div`
   align-items: flex-start;
   display: flex;
-  flex: 1.5;
+  flex: 3;
   flex-direction: column;
   margin: 2rem 0;
 `;
@@ -57,10 +57,10 @@ const Index: NextFC = (): JSX.Element => {
             <TextBox>
               <IndexHeading>The web application for students.</IndexHeading>
               <Paragraph>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Exercitationem nam quasi suscipit, minus culpa officiis deleniti
-                sequi, ullam at molestiae consequuntur! Libero minus
-                exercitationem rerum nesciunt doloribus neque commodi fugiat.
+                Study is hard. You get overwhelmed by all the definitions and
+                theories. It is essential to devlelop a good study strategy.
+                Study Well is meant to help you with that. You can create study
+                flashcards that helps with your study now!
               </Paragraph>
               <Link href="/login">
                 <ThickButton>Start Studying</ThickButton>

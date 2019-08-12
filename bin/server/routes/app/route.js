@@ -8,6 +8,7 @@ const nextApp_1 = require("../../nextApp");
 const user_model_1 = require("../../../resources/user/user.model");
 const group_model_1 = require("../../../resources/group/group.model");
 const cardSet_model_1 = require("../../../resources/cardSet/cardSet.model");
+const console = require("console");
 require("dotenv").config();
 console.log("RUNNING");
 const bcrypt = require("bcrypt");
@@ -18,19 +19,25 @@ const LocalAuthentication = new LocalStrategy({
     passwordField: "password",
     session: true,
 }, async (email, password, done) => {
-    const user = await user_model_1.UserModel.findOne({ email })
-        .lean()
-        .exec();
-    if (!user) {
-        return done(null, false, { message: "Failed" });
+    try {
+        const user = await user_model_1.UserModel.findOne({ email })
+            .lean()
+            .exec();
+        if (!user) {
+            return done(null, false, { message: "Failed" });
+        }
+        const passwordMatched = await bcrypt.compare(password, user.password);
+        if (passwordMatched) {
+            console.log("Correct credentials! Logging in ...");
+            done(null, user);
+        }
+        else {
+            done(null, false, { message: "Wrong login credentials" });
+        }
     }
-    const passwordMatched = await bcrypt.compare(password, user.password);
-    if (passwordMatched) {
-        console.log("Correct credentials! Logging in ...");
-        done(null, user);
-    }
-    else {
-        done(null, false, { message: "Wrong login credentials" });
+    catch (error) {
+        console.error(error);
+        done(null, false, { message: "Error" });
     }
 });
 passport.use(LocalAuthentication);

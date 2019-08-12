@@ -90,7 +90,7 @@ interface HeadingProps {
   readonly textAlign?: string;
 }
 
-export const Heading = styled.h1<HeadingProps>`
+export const HeadingBase = styled.h1<HeadingProps>`
   text-align: ${(props): string => props.textAlign};
   font-size: ${(props): string => (props.sub ? "1.5em" : "2em")};
   font-weight: 600;

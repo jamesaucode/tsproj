@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { Button, font, colors } from "../../utils/style";
-import { ISession } from "../../interfaces/express";
 import { handleResponse } from "../../services/fetch.service";
 import { useUserData } from "../hooks/useUserData";
 import DropDownMenu from "./DropDownMenu";
@@ -34,13 +33,15 @@ const Wrapper = styled.section`
   max-width: 688px;
   padding: 1rem;
 `;
-const StudyCard: React.FunctionComponent<ISession | any> = ({
-  pushNotification,
-}): JSX.Element => {
+const StudyCard: React.FunctionComponent<{
+  pushNotification: (message: string, success: boolean) => void;
+}> = ({ pushNotification }): JSX.Element => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [selected, setSelected] = useState();
-  const userData = useUserData();
+
+  const { data } = useUserData();
+  const dropDownInputRef = useRef<HTMLInputElement>();
 
   const formControls: {
     [key: string]: React.Dispatch<React.SetStateAction<string>>;
@@ -90,16 +91,36 @@ const StudyCard: React.FunctionComponent<ISession | any> = ({
   const handleOptionClick = (
     event: React.MouseEvent<HTMLSpanElement>,
   ): void => {
-    setSelected(event.target.textContent);
+    setSelected((event.target as HTMLElement).textContent);
+  };
+  const handleOptionSubmit = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ): Promise<void> => {
+    try {
+      const response = await fetch("/api/cardset", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          name: dropDownInputRef.current.value,
+        }),
+      });
+      const json = await response.json();
+      console.log(json);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const hasExistingCardsets = userData.data.cardSet.length > 0;
+  const hasExistingCardsets = data.cardSet.length > 0;
   return (
     <Wrapper>
       <DropDownMenu>
         <DropDownMenu.MenuTitle>Choose a set</DropDownMenu.MenuTitle>
         {hasExistingCardsets
-          ? userData.data.cardSet.map(
+          ? data.cardSet.map(
               (c): JSX.Element => (
                 <DropDownMenu.Option
                   key={c._id}
@@ -110,8 +131,13 @@ const StudyCard: React.FunctionComponent<ISession | any> = ({
               ),
             )
           : null}
-        <DropDownMenu.Input placeholder="Create a new set" />
-        <DropDownMenu.MenuButton>Create</DropDownMenu.MenuButton>
+        <DropDownMenu.Input
+          ref={dropDownInputRef}
+          placeholder="Create a new set"
+        />
+        <DropDownMenu.MenuButton onClick={handleOptionSubmit}>
+          Create
+        </DropDownMenu.MenuButton>
       </DropDownMenu>
       <CardWrapper>
         <InputArea

@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notifcation Message Render Component 1`] = `
+<NotificationMessage
+  id="random"
+  message="lmao"
+  success={true}
+>
+  <NotificationMessage__Wrapper
+    key="random"
+  >
+    <StyledComponent
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "NotificationMessage__Wrapper-sc-2ou29e-0",
+            "isStatic": true,
+            "lastClassName": "lluviE",
+            "rules": Array [
+              "display:flex;justify-content:center;border-radius:5px;width:100%;padding:0.75rem;box-sizing:border-box;transition:0.5s ease-in-out opacity;",
+            ],
+          },
+          "displayName": "NotificationMessage__Wrapper",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "NotificationMessage__Wrapper-sc-2ou29e-0",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+    >
+      <div
+        className="NotificationMessage__Wrapper-sc-2ou29e-0 lluviE"
+      >
+        <style__Message
+          success={true}
+        >
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "style__Message-oz4l5n-4",
+                  "isStatic": false,
+                  "lastClassName": "jxEjaT",
+                  "rules": Array [
+                    "display:flex;justify-content:space-between;font-size:14px;font-weight:400;width:100%;max-width:888px;text-align:left;color:",
+                    [Function],
+                    ";background:",
+                    [Function],
+                    ";padding:14px 28px;border-radius:5px;&:hover{cursor:pointer;opacity:0.9;}",
+                  ],
+                },
+                "displayName": "style__Message",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "style__Message-oz4l5n-4",
+                "target": "div",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            success={true}
+          >
+            <div
+              className="style__Message-oz4l5n-4 jxEjaT"
+            >
+              <div>
+                <NotificationMessage__Important>
+                  <StyledComponent
+                    forwardedComponent={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "attrs": Array [],
+                        "componentStyle": ComponentStyle {
+                          "componentId": "NotificationMessage__Important-sc-2ou29e-1",
+                          "isStatic": true,
+                          "lastClassName": "gXnHLD",
+                          "rules": Array [
+                            "font-weight:700;",
+                          ],
+                        },
+                        "displayName": "NotificationMessage__Important",
+                        "foldedComponentIds": Array [],
+                        "render": [Function],
+                        "styledComponentId": "NotificationMessage__Important-sc-2ou29e-1",
+                        "target": "span",
+                        "toString": [Function],
+                        "warnTooManyClasses": [Function],
+                        "withComponent": [Function],
+                      }
+                    }
+                    forwardedRef={null}
+                  >
+                    <span
+                      className="NotificationMessage__Important-sc-2ou29e-1 gXnHLD"
+                    >
+                      Success! 
+                    </span>
+                  </StyledComponent>
+                </NotificationMessage__Important>
+                lmao
+              </div>
+              <NotificationMessage__SVGWrapper
+                onClick={[Function]}
+              >
+                <StyledComponent
+                  forwardedComponent={
+                    Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "attrs": Array [],
+                      "componentStyle": ComponentStyle {
+                        "componentId": "NotificationMessage__SVGWrapper-sc-2ou29e-2",
+                        "isStatic": true,
+                        "lastClassName": "eOVNSC",
+                        "rules": Array [
+                          "padding:0 0.5rem;",
+                        ],
+                      },
+                      "displayName": "NotificationMessage__SVGWrapper",
+                      "foldedComponentIds": Array [],
+                      "render": [Function],
+                      "styledComponentId": "NotificationMessage__SVGWrapper-sc-2ou29e-2",
+                      "target": "div",
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                    }
+                  }
+                  forwardedRef={null}
+                  onClick={[Function]}
+                >
+                  <div
+                    className="NotificationMessage__SVGWrapper-sc-2ou29e-2 eOVNSC"
+                    onClick={[Function]}
+                  >
+                    <InlineSVG
+                      baseURL=""
+                      cacheGetRequests={false}
+                      className="small-icon"
+                      onLoad={[Function]}
+                      src="/static/images/close.svg"
+                      supportTest={[Function]}
+                      uniquifyIDs={true}
+                      wrapper={[Function]}
+                    >
+                      <span
+                        className="isvg loading small-icon"
+                      />
+                    </InlineSVG>
+                  </div>
+                </StyledComponent>
+              </NotificationMessage__SVGWrapper>
+            </div>
+          </StyledComponent>
+        </style__Message>
+      </div>
+    </StyledComponent>
+  </NotificationMessage__Wrapper>
+</NotificationMessage>
+`;

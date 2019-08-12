@@ -55,7 +55,6 @@ export const createOne = (model: Model<Document>): CrudFunction => async (
     const doc = await model.create({
       ...req.body,
       creator: req.user._id,
-      // creator: Types.ObjectId(),
     });
     res.status(201).json({ data: doc });
   } catch (e) {

@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Prompt Component renders 1`] = `
+<Prompt
+  onClick={[MockFunction]}
+>
+  <Prompt__Wrapper>
+    <StyledComponent
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "Prompt__Wrapper-vmhjzd-0",
+            "isStatic": true,
+            "lastClassName": "xtSZD",
+            "rules": Array [
+              "display:flex;flex-direction:column;align-items:center;padding:1em;font-size:calc(0.35vw + 16px);",
+            ],
+          },
+          "displayName": "Prompt__Wrapper",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "Prompt__Wrapper-vmhjzd-0",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+    >
+      <div
+        className="Prompt__Wrapper-vmhjzd-0 xtSZD"
+      >
+        <Prompt__Message>
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "Prompt__Message-vmhjzd-1",
+                  "isStatic": true,
+                  "lastClassName": "hLUpBJ",
+                  "rules": Array [
+                    "font-size:1.2em;",
+                  ],
+                },
+                "displayName": "Prompt__Message",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "Prompt__Message-vmhjzd-1",
+                "target": "h2",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+          >
+            <h2
+              className="Prompt__Message-vmhjzd-1 hLUpBJ"
+            >
+              Are you sure you want to delete this card?
+            </h2>
+          </StyledComponent>
+        </Prompt__Message>
+        <Prompt__ConfirmButton
+          onClick={[MockFunction]}
+        >
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "Prompt__ConfirmButton-vmhjzd-2",
+                  "isStatic": true,
+                  "lastClassName": "irQkGI",
+                  "rules": Array [
+                    "background-color:#26c733;border:none;color:#fff;padding:0.5em 1em;",
+                  ],
+                },
+                "displayName": "Prompt__ConfirmButton",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "Prompt__ConfirmButton-vmhjzd-2",
+                "target": "button",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            onClick={[MockFunction]}
+          >
+            <button
+              className="Prompt__ConfirmButton-vmhjzd-2 irQkGI"
+              onClick={[MockFunction]}
+            >
+              Confirm
+            </button>
+          </StyledComponent>
+        </Prompt__ConfirmButton>
+      </div>
+    </StyledComponent>
+  </Prompt__Wrapper>
+</Prompt>
+`;

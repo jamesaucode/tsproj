@@ -1,0 +1,352 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Register Component renders 1`] = `
+<Register
+  toggleForm={[MockFunction]}
+>
+  <Register__FormWrapper>
+    <StyledComponent
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "Register__FormWrapper-sc-1b4znjf-2",
+            "isStatic": true,
+            "lastClassName": "jLdrlS",
+            "rules": Array [
+              "max-width:",
+              "400px",
+              ";font-size:calc(0.35vw + 16px);height:fit-content;text-align:center;",
+            ],
+          },
+          "displayName": "Register__FormWrapper",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "Register__FormWrapper-sc-1b4znjf-2",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+    >
+      <div
+        className="Register__FormWrapper-sc-1b4znjf-2 jLdrlS"
+      >
+        <Register__FormInput
+          name="email"
+          onChange={[Function]}
+          placeholder="Email"
+          required={true}
+          type="email"
+          value=""
+        >
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "Register__FormInput-sc-1b4znjf-1",
+                  "isStatic": true,
+                  "lastClassName": "iYJDBT",
+                  "rules": Array [
+                    "border:1px solid #aaaaaa;border-radius:2px;padding:0.75rem;margin:0.5rem 0;width:100%;box-sizing:border-box;font-size:0.7em;&:focus{border:1px solid #8610f9;}",
+                  ],
+                },
+                "displayName": "Register__FormInput",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "Register__FormInput-sc-1b4znjf-1",
+                "target": "input",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            name="email"
+            onChange={[Function]}
+            placeholder="Email"
+            required={true}
+            type="email"
+            value=""
+          >
+            <input
+              className="Register__FormInput-sc-1b4znjf-1 iYJDBT"
+              name="email"
+              onChange={[Function]}
+              placeholder="Email"
+              required={true}
+              type="email"
+              value=""
+            />
+          </StyledComponent>
+        </Register__FormInput>
+        <Register__FormInput
+          name="password"
+          onChange={[Function]}
+          placeholder="Password"
+          required={true}
+          type="password"
+          value=""
+        >
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "Register__FormInput-sc-1b4znjf-1",
+                  "isStatic": true,
+                  "lastClassName": "iYJDBT",
+                  "rules": Array [
+                    "border:1px solid #aaaaaa;border-radius:2px;padding:0.75rem;margin:0.5rem 0;width:100%;box-sizing:border-box;font-size:0.7em;&:focus{border:1px solid #8610f9;}",
+                  ],
+                },
+                "displayName": "Register__FormInput",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "Register__FormInput-sc-1b4znjf-1",
+                "target": "input",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            name="password"
+            onChange={[Function]}
+            placeholder="Password"
+            required={true}
+            type="password"
+            value=""
+          >
+            <input
+              className="Register__FormInput-sc-1b4znjf-1 iYJDBT"
+              name="password"
+              onChange={[Function]}
+              placeholder="Password"
+              required={true}
+              type="password"
+              value=""
+            />
+          </StyledComponent>
+        </Register__FormInput>
+        <Register__FormInput
+          name="firstName"
+          onChange={[Function]}
+          placeholder="First Name"
+          required={true}
+          type="text"
+          value=""
+        >
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "Register__FormInput-sc-1b4znjf-1",
+                  "isStatic": true,
+                  "lastClassName": "iYJDBT",
+                  "rules": Array [
+                    "border:1px solid #aaaaaa;border-radius:2px;padding:0.75rem;margin:0.5rem 0;width:100%;box-sizing:border-box;font-size:0.7em;&:focus{border:1px solid #8610f9;}",
+                  ],
+                },
+                "displayName": "Register__FormInput",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "Register__FormInput-sc-1b4znjf-1",
+                "target": "input",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            name="firstName"
+            onChange={[Function]}
+            placeholder="First Name"
+            required={true}
+            type="text"
+            value=""
+          >
+            <input
+              className="Register__FormInput-sc-1b4znjf-1 iYJDBT"
+              name="firstName"
+              onChange={[Function]}
+              placeholder="First Name"
+              required={true}
+              type="text"
+              value=""
+            />
+          </StyledComponent>
+        </Register__FormInput>
+        <Register__FormInput
+          name="lastName"
+          onChange={[Function]}
+          placeholder="Last Name"
+          required={true}
+          type="text"
+          value=""
+        >
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "Register__FormInput-sc-1b4znjf-1",
+                  "isStatic": true,
+                  "lastClassName": "iYJDBT",
+                  "rules": Array [
+                    "border:1px solid #aaaaaa;border-radius:2px;padding:0.75rem;margin:0.5rem 0;width:100%;box-sizing:border-box;font-size:0.7em;&:focus{border:1px solid #8610f9;}",
+                  ],
+                },
+                "displayName": "Register__FormInput",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "Register__FormInput-sc-1b4znjf-1",
+                "target": "input",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            name="lastName"
+            onChange={[Function]}
+            placeholder="Last Name"
+            required={true}
+            type="text"
+            value=""
+          >
+            <input
+              className="Register__FormInput-sc-1b4znjf-1 iYJDBT"
+              name="lastName"
+              onChange={[Function]}
+              placeholder="Last Name"
+              required={true}
+              type="text"
+              value=""
+            />
+          </StyledComponent>
+        </Register__FormInput>
+        <Register__FormSubmit
+          onClick={[Function]}
+        >
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "Register__FormSubmit-sc-1b4znjf-3",
+                  "isStatic": true,
+                  "lastClassName": "sUdqg",
+                  "rules": Array [
+                    "color:white;font-size:0.75em;font-weight:600;width:100%;border:none;border-radius:3px;padding:0.65rem;background:#8610f9;&:hover{cursor:pointer;}",
+                  ],
+                },
+                "displayName": "Register__FormSubmit",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "Register__FormSubmit-sc-1b4znjf-3",
+                "target": "button",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            onClick={[Function]}
+          >
+            <button
+              className="Register__FormSubmit-sc-1b4znjf-3 sUdqg"
+              onClick={[Function]}
+            >
+              Sign Up!
+            </button>
+          </StyledComponent>
+        </Register__FormSubmit>
+        <style__FormBottom>
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "style__FormBottom-oz4l5n-1",
+                  "isStatic": false,
+                  "lastClassName": "fNxKQZ",
+                  "rules": Array [
+                    "font-size:0.8em;padding:1rem 0;color:",
+                    [Function],
+                    ";",
+                  ],
+                },
+                "displayName": "style__FormBottom",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "style__FormBottom-oz4l5n-1",
+                "target": "p",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+          >
+            <p
+              className="style__FormBottom-oz4l5n-1 fNxKQZ"
+            >
+              New user ? 
+              <Register__StyledLink
+                onClick={[MockFunction]}
+              >
+                <StyledComponent
+                  forwardedComponent={
+                    Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "attrs": Array [],
+                      "componentStyle": ComponentStyle {
+                        "componentId": "Register__StyledLink-sc-1b4znjf-0",
+                        "isStatic": true,
+                        "lastClassName": "cHuoKM",
+                        "rules": Array [
+                          "color:blue;text-decoration:underline;cursor:pointer;font-weight:bold;",
+                        ],
+                      },
+                      "displayName": "Register__StyledLink",
+                      "foldedComponentIds": Array [],
+                      "render": [Function],
+                      "styledComponentId": "Register__StyledLink-sc-1b4znjf-0",
+                      "target": "a",
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                    }
+                  }
+                  forwardedRef={null}
+                  onClick={[MockFunction]}
+                >
+                  <a
+                    className="Register__StyledLink-sc-1b4znjf-0 cHuoKM"
+                    onClick={[MockFunction]}
+                  >
+                    Login 
+                  </a>
+                </StyledComponent>
+              </Register__StyledLink>
+              here!
+            </p>
+          </StyledComponent>
+        </style__FormBottom>
+      </div>
+    </StyledComponent>
+  </Register__FormWrapper>
+</Register>
+`;

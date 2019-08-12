@@ -1,0 +1,345 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Burger Menu Tests Component Renders 1`] = `
+<BurgerMenu
+  loggedIn={true}
+>
+  <BurgerMenu__Wrapper
+    onClick={[Function]}
+  >
+    <StyledComponent
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "BurgerMenu__Wrapper-sc-7cijn3-0",
+            "isStatic": true,
+            "lastClassName": "ivlpkb",
+            "rules": Array [
+              "cursor:pointer;padding:1rem;margin-left:auto;",
+            ],
+          },
+          "displayName": "BurgerMenu__Wrapper",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "BurgerMenu__Wrapper-sc-7cijn3-0",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+      onClick={[Function]}
+    >
+      <div
+        className="BurgerMenu__Wrapper-sc-7cijn3-0 ivlpkb"
+        onClick={[Function]}
+      >
+        <InlineSVG
+          baseURL=""
+          cacheGetRequests={false}
+          className="small-icon "
+          onLoad={[Function]}
+          src="/static/images/menu.svg"
+          supportTest={[Function]}
+          uniquifyIDs={true}
+          wrapper={[Function]}
+        >
+          <span
+            className="isvg loading small-icon "
+          />
+        </InlineSVG>
+        <BurgerMenu__MenuWrapper
+          show={false}
+        >
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "BurgerMenu__MenuWrapper-sc-7cijn3-1",
+                  "isStatic": false,
+                  "lastClassName": "gwtefU",
+                  "rules": Array [
+                    "box-sizing:border-box;box-shadow:0px 12px 15px rgba(0,0,0,0.15);position:absolute;transition:500ms ease transform;transform-origin:top;transform:",
+                    [Function],
+                    ";width:100%;background-color:#fff;top:50px;left:0;z-index:999;& > ul > li{display:",
+                    [Function],
+                    ";animation:",
+                    Keyframes {
+                      "id": "sc-keyframes-eMLfYp",
+                      "inject": [Function],
+                      "name": "eMLfYp",
+                      "rules": Array [
+                        "@-webkit-keyframes eMLfYp{from{opacity:0;}to{opacity:1;}}",
+                        "@keyframes eMLfYp{from{opacity:0;}to{opacity:1;}}",
+                      ],
+                      "toString": [Function],
+                    },
+                    " 0.75s ease-in-out 1;}",
+                  ],
+                },
+                "displayName": "BurgerMenu__MenuWrapper",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "BurgerMenu__MenuWrapper-sc-7cijn3-1",
+                "target": "div",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            show={false}
+          >
+            <div
+              className="BurgerMenu__MenuWrapper-sc-7cijn3-1 gwtefU"
+            >
+              <BurgerMenu__Menu>
+                <StyledComponent
+                  forwardedComponent={
+                    Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "attrs": Array [],
+                      "componentStyle": ComponentStyle {
+                        "componentId": "BurgerMenu__Menu-sc-7cijn3-2",
+                        "isStatic": true,
+                        "lastClassName": "kVOvjy",
+                        "rules": Array [
+                          "font-size:calc(0.35vw + 16px);",
+                        ],
+                      },
+                      "displayName": "BurgerMenu__Menu",
+                      "foldedComponentIds": Array [],
+                      "render": [Function],
+                      "styledComponentId": "BurgerMenu__Menu-sc-7cijn3-2",
+                      "target": "ul",
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                    }
+                  }
+                  forwardedRef={null}
+                >
+                  <ul
+                    className="BurgerMenu__Menu-sc-7cijn3-2 kVOvjy"
+                  >
+                    <Link
+                      href="/"
+                    >
+                      <BurgerMenu__MenuItem
+                        onClick={[Function]}
+                      >
+                        <StyledComponent
+                          forwardedComponent={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "attrs": Array [],
+                              "componentStyle": ComponentStyle {
+                                "componentId": "BurgerMenu__MenuItem-sc-7cijn3-3",
+                                "isStatic": true,
+                                "lastClassName": "bMLmSM",
+                                "rules": Array [
+                                  "color:#222;display:block;font-size:1em;padding:1em 2em;text-align:right;",
+                                ],
+                              },
+                              "displayName": "BurgerMenu__MenuItem",
+                              "foldedComponentIds": Array [],
+                              "render": [Function],
+                              "styledComponentId": "BurgerMenu__MenuItem-sc-7cijn3-3",
+                              "target": "li",
+                              "toString": [Function],
+                              "warnTooManyClasses": [Function],
+                              "withComponent": [Function],
+                            }
+                          }
+                          forwardedRef={null}
+                          onClick={[Function]}
+                        >
+                          <li
+                            className="BurgerMenu__MenuItem-sc-7cijn3-3 bMLmSM"
+                            onClick={[Function]}
+                          >
+                            Home
+                          </li>
+                        </StyledComponent>
+                      </BurgerMenu__MenuItem>
+                    </Link>
+                    <Link
+                      href="/user/create"
+                    >
+                      <BurgerMenu__MenuItem
+                        onClick={[Function]}
+                      >
+                        <StyledComponent
+                          forwardedComponent={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "attrs": Array [],
+                              "componentStyle": ComponentStyle {
+                                "componentId": "BurgerMenu__MenuItem-sc-7cijn3-3",
+                                "isStatic": true,
+                                "lastClassName": "bMLmSM",
+                                "rules": Array [
+                                  "color:#222;display:block;font-size:1em;padding:1em 2em;text-align:right;",
+                                ],
+                              },
+                              "displayName": "BurgerMenu__MenuItem",
+                              "foldedComponentIds": Array [],
+                              "render": [Function],
+                              "styledComponentId": "BurgerMenu__MenuItem-sc-7cijn3-3",
+                              "target": "li",
+                              "toString": [Function],
+                              "warnTooManyClasses": [Function],
+                              "withComponent": [Function],
+                            }
+                          }
+                          forwardedRef={null}
+                          onClick={[Function]}
+                        >
+                          <li
+                            className="BurgerMenu__MenuItem-sc-7cijn3-3 bMLmSM"
+                            onClick={[Function]}
+                          >
+                            Create Card
+                          </li>
+                        </StyledComponent>
+                      </BurgerMenu__MenuItem>
+                    </Link>
+                    <Link
+                      href="/user/review"
+                    >
+                      <BurgerMenu__MenuItem
+                        onClick={[Function]}
+                      >
+                        <StyledComponent
+                          forwardedComponent={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "attrs": Array [],
+                              "componentStyle": ComponentStyle {
+                                "componentId": "BurgerMenu__MenuItem-sc-7cijn3-3",
+                                "isStatic": true,
+                                "lastClassName": "bMLmSM",
+                                "rules": Array [
+                                  "color:#222;display:block;font-size:1em;padding:1em 2em;text-align:right;",
+                                ],
+                              },
+                              "displayName": "BurgerMenu__MenuItem",
+                              "foldedComponentIds": Array [],
+                              "render": [Function],
+                              "styledComponentId": "BurgerMenu__MenuItem-sc-7cijn3-3",
+                              "target": "li",
+                              "toString": [Function],
+                              "warnTooManyClasses": [Function],
+                              "withComponent": [Function],
+                            }
+                          }
+                          forwardedRef={null}
+                          onClick={[Function]}
+                        >
+                          <li
+                            className="BurgerMenu__MenuItem-sc-7cijn3-3 bMLmSM"
+                            onClick={[Function]}
+                          >
+                            Review
+                          </li>
+                        </StyledComponent>
+                      </BurgerMenu__MenuItem>
+                    </Link>
+                    <Link
+                      href="/user/cards"
+                    >
+                      <BurgerMenu__MenuItem
+                        onClick={[Function]}
+                      >
+                        <StyledComponent
+                          forwardedComponent={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "attrs": Array [],
+                              "componentStyle": ComponentStyle {
+                                "componentId": "BurgerMenu__MenuItem-sc-7cijn3-3",
+                                "isStatic": true,
+                                "lastClassName": "bMLmSM",
+                                "rules": Array [
+                                  "color:#222;display:block;font-size:1em;padding:1em 2em;text-align:right;",
+                                ],
+                              },
+                              "displayName": "BurgerMenu__MenuItem",
+                              "foldedComponentIds": Array [],
+                              "render": [Function],
+                              "styledComponentId": "BurgerMenu__MenuItem-sc-7cijn3-3",
+                              "target": "li",
+                              "toString": [Function],
+                              "warnTooManyClasses": [Function],
+                              "withComponent": [Function],
+                            }
+                          }
+                          forwardedRef={null}
+                          onClick={[Function]}
+                        >
+                          <li
+                            className="BurgerMenu__MenuItem-sc-7cijn3-3 bMLmSM"
+                            onClick={[Function]}
+                          >
+                            Cards
+                          </li>
+                        </StyledComponent>
+                      </BurgerMenu__MenuItem>
+                    </Link>
+                    <Link
+                      href="/user/groups"
+                    >
+                      <BurgerMenu__MenuItem
+                        onClick={[Function]}
+                      >
+                        <StyledComponent
+                          forwardedComponent={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "attrs": Array [],
+                              "componentStyle": ComponentStyle {
+                                "componentId": "BurgerMenu__MenuItem-sc-7cijn3-3",
+                                "isStatic": true,
+                                "lastClassName": "bMLmSM",
+                                "rules": Array [
+                                  "color:#222;display:block;font-size:1em;padding:1em 2em;text-align:right;",
+                                ],
+                              },
+                              "displayName": "BurgerMenu__MenuItem",
+                              "foldedComponentIds": Array [],
+                              "render": [Function],
+                              "styledComponentId": "BurgerMenu__MenuItem-sc-7cijn3-3",
+                              "target": "li",
+                              "toString": [Function],
+                              "warnTooManyClasses": [Function],
+                              "withComponent": [Function],
+                            }
+                          }
+                          forwardedRef={null}
+                          onClick={[Function]}
+                        >
+                          <li
+                            className="BurgerMenu__MenuItem-sc-7cijn3-3 bMLmSM"
+                            onClick={[Function]}
+                          >
+                            Groups
+                          </li>
+                        </StyledComponent>
+                      </BurgerMenu__MenuItem>
+                    </Link>
+                  </ul>
+                </StyledComponent>
+              </BurgerMenu__Menu>
+            </div>
+          </StyledComponent>
+        </BurgerMenu__MenuWrapper>
+      </div>
+    </StyledComponent>
+  </BurgerMenu__Wrapper>
+</BurgerMenu>
+`;

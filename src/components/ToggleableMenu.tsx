@@ -4,11 +4,11 @@ import Link from "next/link";
 import Modal from "../components/Modal";
 import LoginForm from "../components/LoginForm";
 import SVG from "react-inlinesvg";
+import UserIcon from "../components/Icons/UserIcon";
 import { SVGWrapper, colors } from "../../utils/style";
 
 interface PropTypes {
-  iconName: string;
-  loggedIn: boolean;
+  loggedIn?: boolean;
 }
 interface MenuProps {
   expanded?: boolean;
@@ -25,7 +25,6 @@ const DropdownMenu = styled.div<MenuProps>`
   border: none;
   min-width: 160px;
   padding: 0.75rem 0;
-  /* background: #8610f9; */
   background-color: ${colors.brandLight};
   border-radius: 3px;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
@@ -73,6 +72,11 @@ const OverlayDiv = styled.div`
   left: 0;
   z-index: 10;
 `;
+const StyledIcon = styled(UserIcon)`
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+`;
 
 interface ModalProps {
   isOpen: boolean;
@@ -112,12 +116,7 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = (
   if (loggedIn) {
     return (
       <DropDownWrapper>
-        <SVGWrapper
-          size={{ height: 24, width: 24 }}
-          onClick={handleToggleClick}
-        >
-          <SVG src="/static/images/user.svg" />
-        </SVGWrapper>
+        <StyledIcon onClick={handleToggleClick} height={24} width={24} />
         {expanded && <OverlayDiv onClick={handleToggleClick} />}
         <DropdownMenu expanded={expanded}>
           <LinkWrapper>
@@ -151,6 +150,10 @@ const ToggleableMenu: React.FunctionComponent<PropTypes> = (
       </DropDownWrapper>
     );
   }
+};
+
+ToggleableMenu.defaultProps = {
+  loggedIn: false,
 };
 
 export default React.memo(ToggleableMenu);

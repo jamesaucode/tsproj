@@ -1,0 +1,190 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavBar Component renders 1`] = `
+<NavBar>
+  <NavBar__NavWrapper>
+    <StyledComponent
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "NavBar__NavWrapper-xnd01y-0",
+            "isStatic": true,
+            "lastClassName": "degUwl",
+            "rules": Array [
+              "width:100%;height:100%;min-height:52px;box-sizing:border-box;box-shadow:0px 8px 18px rgba(0,0,0,0.05);display:flex;align-items:center;",
+            ],
+          },
+          "displayName": "NavBar__NavWrapper",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "NavBar__NavWrapper-xnd01y-0",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+    >
+      <div
+        className="NavBar__NavWrapper-xnd01y-0 degUwl"
+      >
+        <NavBar__Nav>
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "NavBar__Nav-xnd01y-1",
+                  "isStatic": true,
+                  "lastClassName": "dOCoEg",
+                  "rules": Array [
+                    "align-items:center;display:flex;height:100%;width:100%;padding:0 1rem;max-width:700px;margin:0 auto;@media (max-width:600px){padding-left:0;padding-right:0;}",
+                  ],
+                },
+                "displayName": "NavBar__Nav",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "NavBar__Nav-xnd01y-1",
+                "target": "nav",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+          >
+            <nav
+              className="NavBar__Nav-xnd01y-1 dOCoEg"
+            >
+              <Link
+                href="/"
+              >
+                <NavBar__NavLink
+                  onClick={[Function]}
+                >
+                  <StyledComponent
+                    forwardedComponent={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "attrs": Array [],
+                        "componentStyle": ComponentStyle {
+                          "componentId": "NavBar__NavLink-xnd01y-2",
+                          "isStatic": true,
+                          "lastClassName": "jyUWVf",
+                          "rules": Array [
+                            "text-transform:uppercase;margin-right:4em;font-size:0.9em;letter-spacing:1px;list-style:none;font-weight:600;color:#333333;cursor:pointer;",
+                          ],
+                        },
+                        "displayName": "NavBar__NavLink",
+                        "foldedComponentIds": Array [],
+                        "render": [Function],
+                        "styledComponentId": "NavBar__NavLink-xnd01y-2",
+                        "target": "li",
+                        "toString": [Function],
+                        "warnTooManyClasses": [Function],
+                        "withComponent": [Function],
+                      }
+                    }
+                    forwardedRef={null}
+                    onClick={[Function]}
+                  >
+                    <li
+                      className="NavBar__NavLink-xnd01y-2 jyUWVf"
+                      onClick={[Function]}
+                    >
+                      Home
+                    </li>
+                  </StyledComponent>
+                </NavBar__NavLink>
+              </Link>
+            </nav>
+          </StyledComponent>
+        </NavBar__Nav>
+        <ToggleableMenu
+          iconName="fas fa-user-circle"
+          loggedIn={false}
+        >
+          <ToggleableMenu__DropDownWrapper>
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "ToggleableMenu__DropDownWrapper-sc-1qfmg6u-0",
+                    "isStatic": true,
+                    "lastClassName": "OPYsp",
+                    "rules": Array [
+                      "position:relative;display:inline-block;align-items:center;padding:0 1rem;margin:0 auto;",
+                    ],
+                  },
+                  "displayName": "ToggleableMenu__DropDownWrapper",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "ToggleableMenu__DropDownWrapper-sc-1qfmg6u-0",
+                  "target": "div",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+            >
+              <div
+                className="ToggleableMenu__DropDownWrapper-sc-1qfmg6u-0 OPYsp"
+              >
+                <ToggleableMenu__ImportantLink
+                  onClick={[Function]}
+                >
+                  <StyledComponent
+                    forwardedComponent={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "attrs": Array [],
+                        "componentStyle": ComponentStyle {
+                          "componentId": "ToggleableMenu__ImportantLink-sc-1qfmg6u-4",
+                          "isStatic": true,
+                          "lastClassName": "bVfOgW",
+                          "rules": Array [
+                            "font-size:1em;font-weight:600;padding:0 1rem;color:",
+                            "#ffffff",
+                            "cc;text-decoration:none;",
+                            "border:1px solid #0f76fc;border-radius:3px;color:#0f76fc;padding:0.5rem 1.5rem;font-size:1em;cursor:pointer;",
+                          ],
+                        },
+                        "displayName": "ToggleableMenu__ImportantLink",
+                        "foldedComponentIds": Array [
+                          "ToggleableMenu__StyledLink-sc-1qfmg6u-3",
+                        ],
+                        "render": [Function],
+                        "styledComponentId": "ToggleableMenu__ImportantLink-sc-1qfmg6u-4",
+                        "target": "a",
+                        "toString": [Function],
+                        "warnTooManyClasses": [Function],
+                        "withComponent": [Function],
+                      }
+                    }
+                    forwardedRef={null}
+                    onClick={[Function]}
+                  >
+                    <a
+                      className="ToggleableMenu__StyledLink-sc-1qfmg6u-3 ToggleableMenu__ImportantLink-sc-1qfmg6u-4 bVfOgW"
+                      onClick={[Function]}
+                    >
+                      Login
+                    </a>
+                  </StyledComponent>
+                </ToggleableMenu__ImportantLink>
+              </div>
+            </StyledComponent>
+          </ToggleableMenu__DropDownWrapper>
+        </ToggleableMenu>
+      </div>
+    </StyledComponent>
+  </NavBar__NavWrapper>
+</NavBar>
+`;

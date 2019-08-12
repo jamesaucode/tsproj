@@ -1,9 +1,9 @@
 import React, { useEffect, EffectCallback } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
+import SVG from "react-inlinesvg";
 import { fadeIn } from "../../../utils/style";
 import { NextFC } from "next";
-import SVG from "react-inlinesvg";
 
 const ModalWrapper = styled.div`
   align-items: center;
@@ -71,7 +71,7 @@ export const Modal: NextFC<ModalProps> = ({
       window.removeEventListener("keydown", handleKeyDown);
       console.log("Unmounting");
     };
-  }, []);
+  }, [handleKeyDown]);
   const handleClick = (): void => {
     closeModal();
   };

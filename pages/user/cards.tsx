@@ -3,7 +3,7 @@ import { NextFC } from "next";
 import styled from "styled-components";
 import fetch from "isomorphic-unfetch";
 import { handleJSONResponse } from "../../services/fetch.service";
-import { colors, font, Layout, Heading } from "../../utils/style";
+import { colors, font, Layout, HeadingBase } from "../../utils/style";
 import { useUserData } from "../../src/hooks/useUserData";
 import NavBar from "../../src/components/NavBar";
 import Modal from "../../src/components/Modal";
@@ -23,7 +23,7 @@ const CardTitle = styled.h1`
   color: ${colors.black};
   display: inline-block;
   font-size: ${font.fontSize.lg};
-  font-weight: 600;
+  font-weight: 500;
   position: relative;
   text-align: center;
   margin: 20px 0;
@@ -76,8 +76,12 @@ const Button = styled.button`
   margin: 0.5rem;
   text-transform: uppercase;
 `;
+const Heading = styled(HeadingBase)`
+  font-size: ${font.fontSize.md};
+  font-weight: 500;
+`;
 
-const Cards: NextFC = (props: any): JSX.Element => {
+const Cards: NextFC = (props): JSX.Element => {
   const userData = useUserData();
   const [cardSets, setCardSets] = useState([]);
   const [selectedSet, setSelectedSet] = useState(0);
@@ -85,7 +89,7 @@ const Cards: NextFC = (props: any): JSX.Element => {
   const [cardToDelete, setCardToDelete] = useState("");
   useEffect((): void => {
     setCardSets(userData.data.cardSet);
-  }, []);
+  }, [userData.data.cardSet]);
   const handleClick = (cardId: string): void => {
     setCardToDelete(cardId);
     setShowModal(true);
@@ -109,13 +113,13 @@ const Cards: NextFC = (props: any): JSX.Element => {
     <>
       <NavBar />
       <Layout fadeIn>
-        <Heading>Your cards</Heading>
+        <HeadingBase>Your cards</HeadingBase>
         <CardList>
           {cardSets.length > 0 ? (
             cardSets.map(
               (cardSet): JSX.Element => {
                 return (
-                  <>
+                  <React.Fragment key={cardSet._id}>
                     <CardTitle>{cardSet.name}</CardTitle>
                     {cardSet.cards.map(
                       (card): JSX.Element => {
@@ -140,7 +144,7 @@ const Cards: NextFC = (props: any): JSX.Element => {
                         );
                       },
                     )}
-                  </>
+                  </React.Fragment>
                 );
               },
             )

@@ -26,12 +26,10 @@ export default {
       if (!updatedDoc) {
         res.status(400).end();
       }
-      res
-        .status(200)
-        .json({
-          data: updatedDoc,
-          message: `Card is added to set ${req.params.name}`,
-        });
+      res.status(200).json({
+        data: updatedDoc,
+        message: `Card is added to set ${req.params.name}`,
+      });
     } catch (e) {
       console.error(e);
       res.status(400).end();

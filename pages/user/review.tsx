@@ -5,8 +5,7 @@ import RightArrow from "../../src/components/Icons/RightArrow";
 import NavBar from "../../src/components/NavBar";
 import Card from "../../src/components/Card";
 import Loading from "../../src/components/Loading";
-import { Heading } from "../../utils/style";
-import { Layout } from "../../utils/style";
+import { HeadingBase, Layout } from "../../utils/style";
 import { useUserData } from "../../src/hooks/useUserData";
 
 const CardWrapper = styled.div`
@@ -32,40 +31,46 @@ interface PropTypes {
 }
 const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
   const { data } = useUserData();
-  // Index of card to be shown
-  const [currentCard, setCurrentCard] = useState(0);
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [selectedSet, setSelectedSet] = useState(0);
-  const nextCard = (): void => {
+  const nextCard = useCallback((): void => {
     const maxIndex = data.cardSet[selectedSet].cards.length || 0;
-    setCurrentCard((prevCurrentCard): number =>
-      prevCurrentCard + 1 < maxIndex ? prevCurrentCard + 1 : prevCurrentCard,
+    setCurrentCardIndex((prevCurrentCardIndex): number =>
+      prevCurrentCardIndex + 1 < maxIndex
+        ? prevCurrentCardIndex + 1
+        : prevCurrentCardIndex,
     );
-  };
-  const previousCard = (): void => {
-    setCurrentCard((prevCurrentCard): number =>
-      prevCurrentCard - 1 < 0 ? prevCurrentCard : prevCurrentCard - 1,
+  }, [data.cardSet, selectedSet]);
+  const previousCard = useCallback((): void => {
+    setCurrentCardIndex((prevCurrentCardIndex): number =>
+      prevCurrentCardIndex - 1 < 0
+        ? prevCurrentCardIndex
+        : prevCurrentCardIndex - 1,
     );
-  };
-  const handleKeyDown = useCallback((event: KeyboardEvent): void => {
-    switch (event.keyCode) {
-      case 39:
-        nextCard();
-        break;
-      case 37:
-        previousCard();
-        break;
-      default:
-        break;
-    }
   }, []);
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent): void => {
+      switch (event.keyCode) {
+        case 39:
+          nextCard();
+          break;
+        case 37:
+          previousCard();
+          break;
+        default:
+          break;
+      }
+    },
+    [nextCard, previousCard],
+  );
   useEffect((): EffectCallback => {
     window.addEventListener("keydown", handleKeyDown);
     if (data) {
       setLoading(false);
     }
     return (): void => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [data, handleKeyDown]);
   const ControlsDiv = styled.div`
     display: flex;
     align-items: center;
@@ -81,18 +86,17 @@ const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
     previousCard,
   };
 
-  const hasExistingCardsets =
-    data.cardSet[selectedSet].cards.length > 0 || false;
+  const hasExistingCardsets = data.cardSet.length > 0 || false;
 
   return loading ? (
-    <>
+    <React.Fragment>
       <NavBar />
       <Layout>
         <Loading />
       </Layout>
-    </>
+    </React.Fragment>
   ) : (
-    <>
+    <React.Fragment>
       <NavBar />
       <CustomLayout>
         {hasExistingCardsets ? (
@@ -101,7 +105,7 @@ const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
               <LeftArrow />
             </ControlsDiv>
             <Card
-              {...data.cardSet[selectedSet].cards[currentCard]}
+              {...data.cardSet[selectedSet].cards[currentCardIndex]}
               pushNotification={props.pushNotification}
               controls={controls}
             />
@@ -110,10 +114,10 @@ const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
             </ControlsDiv>
           </CardWrapper>
         ) : (
-          <Heading>No cards</Heading>
+          <HeadingBase>No cards</HeadingBase>
         )}
       </CustomLayout>
-    </>
+    </React.Fragment>
   );
 };
 
