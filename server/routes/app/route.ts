@@ -56,7 +56,7 @@ const gotProfile = (
   accessToken: string,
   refreshToken: string,
   profile: googleOAuth.Profile | any,
-  done,
+  done: any,
 ): void => {
   UserModel.findOne(
     { email: profile.emails[0].value },
