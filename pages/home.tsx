@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Loading from "../src/components/Loading";
-import { Layout, Heading } from "../utils/style";
+import { Layout, HeadingBase } from "../utils/style";
 import { useUserData } from "../src/hooks/useUserData";
 import { NextFC } from "next";
 import NavBar from "../src/components/NavBar";
@@ -24,11 +24,11 @@ const Index: NextFC = (props: any) => {
       <>
         <NavBar />
         <Layout fadeIn>
-          <Heading sub>
+          <HeadingBase sub>
             {userData
               ? `Welcome. ${userData.displayName}`
               : `You can sign in with your Google Account !`}
-          </Heading>
+          </HeadingBase>
         </Layout>
       </>
     );

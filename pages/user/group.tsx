@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../../src/components/NavBar";
 import { withRouter, WithRouterProps } from "next/router";
-import { Layout, Heading } from "../../utils/style";
+import { Layout, HeadingBase } from "../../utils/style";
 import { IGroup } from "../../server/schemas/Group";
 
 interface PropTypes extends WithRouterProps<{ name: string }> {
@@ -24,8 +24,8 @@ const Group = withRouter(
       <>
         <NavBar />
         <Layout>
-          <Heading>Group !</Heading>
-          <Heading>{props.router.query.name}</Heading>
+          <HeadingBase>Group !</HeadingBase>
+          <HeadingBase>{props.router.query.name}</HeadingBase>
           <button onClick={handleClick}>Join this group!</button>
         </Layout>
       </>
