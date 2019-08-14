@@ -83,6 +83,10 @@ export const Layout = styled.main<LayoutProps>`
     props.fadeIn ? 0.8 + "s " : 0};
   animation-iteration-count: 1;
   animation-timing-function: ease-out;
+
+  @media (max-width: ${breakPoints.md}px) {
+    margin: 2rem 20px;
+  }
 `;
 
 interface HeadingProps {

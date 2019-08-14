@@ -3,7 +3,7 @@ import * as googleOAuth from "passport-google-oauth20";
 import * as passport from "passport";
 import { parse } from "url";
 import nextApp from "../../nextApp";
-import { UserModel, UserTypes } from "../../../resources/user/user.model";
+import { UserModel } from "../../../resources/user/user.model";
 import { GroupModel } from "../../../resources/group/group.model";
 import { CardSetModel } from "../../../resources/cardSet/cardSet.model";
 import console = require("console");
@@ -12,7 +12,6 @@ require("dotenv").config();
 console.log("RUNNING");
 
 const bcrypt = require("bcrypt");
-// Own passport strategy , using bcrypt to compare the password hash
 const LocalStrategy = require("passport-local").Strategy;
 const LocalAuthentication = new LocalStrategy(
   {
@@ -52,24 +51,26 @@ const googleLogin: googleOAuth.StrategyOptions = {
   clientSecret: process.env.GOOGLE_SECRET as string,
   callbackURL: "/auth/redirect",
 };
-const gotProfile = (
+const gotProfile = async (
   accessToken: string,
   refreshToken: string,
   profile: googleOAuth.Profile | any,
   done: any,
-): void => {
-  UserModel.findOne(
-    { email: profile.emails[0].value },
-    (err: Error, user: UserTypes): void => {
-      if (err) {
-        return done(err);
-      }
-      if (!user) {
-        return done(null, profile);
-      }
-      return done(null, user);
-    },
-  );
+): Promise<void> => {
+  try {
+    const existingUser = await UserModel.findOne({
+      email: profile.emails[0].value,
+    })
+      .lean()
+      .exec();
+    if (existingUser) {
+      done(null, existingUser);
+    }
+    done(null, profile);
+  } catch (error) {
+    console.error(error);
+    done(null, profile);
+  }
 };
 
 const googleAuthentication = new googleOAuth.Strategy(googleLogin, gotProfile);
@@ -110,21 +111,24 @@ router.get(
 router.get("/user/cards", (req, res): void => {
   if (req.isAuthenticated()) {
     const cardSet = req.user.cardSet;
-    console.log("Render cards");
     nextApp.render(req, res, "/user/cards", { cardSet });
   } else {
     return res.redirect("/");
   }
 });
-router.get("/user/groups", (req, res): void => {
-  if (req.isAuthenticated()) {
-    GroupModel.find({}, (err: Error, groups: any): void => {
-      nextApp.render(req, res, "/user/groups", { groups });
-    });
-  } else {
-    return res.redirect("/");
-  }
-});
+router.get(
+  "/user/groups",
+  async (req, res): Promise<void> => {
+    if (req.isAuthenticated()) {
+      const allGroups = await GroupModel.find({})
+        .lean()
+        .exec();
+      nextApp.render(req, res, "/user/groups", { groups: allGroups });
+    } else {
+      return res.redirect("/");
+    }
+  },
+);
 router.get("/user/profile", (req, res): void => {
   if (req.isAuthenticated()) {
     const user = req.user;

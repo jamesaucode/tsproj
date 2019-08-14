@@ -43,7 +43,9 @@ exports[`Card Component Render Component 1`] = `
       <div
         className="Card__CardBody-d2183a-0 bnnVid"
       >
-        <Card__CardText>
+        <Card__CardText
+          shouldSlideIn={true}
+        >
           <StyledComponent
             forwardedComponent={
               Object {
@@ -52,9 +54,13 @@ exports[`Card Component Render Component 1`] = `
                 "componentStyle": ComponentStyle {
                   "componentId": "Card__CardText-d2183a-1",
                   "isStatic": true,
-                  "lastClassName": "hYFboU",
+                  "lastClassName": "gDeGUy",
                   "rules": Array [
-                    "color:#333;font-size:1em;",
+                    "color:",
+                    "#222222",
+                    ";font-size:",
+                    "1.5em",
+                    ";transition:transform 400ms ease;",
                   ],
                 },
                 "displayName": "Card__CardText",
@@ -68,9 +74,10 @@ exports[`Card Component Render Component 1`] = `
               }
             }
             forwardedRef={null}
+            shouldSlideIn={true}
           >
             <h2
-              className="Card__CardText-d2183a-1 hYFboU"
+              className="Card__CardText-d2183a-1 gDeGUy"
             />
           </StyledComponent>
         </Card__CardText>

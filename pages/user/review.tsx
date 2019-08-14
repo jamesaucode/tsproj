@@ -5,14 +5,14 @@ import RightArrow from "../../src/components/Icons/RightArrow";
 import NavBar from "../../src/components/NavBar";
 import Card from "../../src/components/Card";
 import Loading from "../../src/components/Loading";
-import { HeadingBase, Layout } from "../../utils/style";
+import { HeadingBase, Layout, colors } from "../../utils/style";
 import { useUserData } from "../../src/hooks/useUserData";
 
 const CardWrapper = styled.div`
   display: flex;
   background-color: #ffffff;
   box-sizing: border-box;
-  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 20px ${colors.black}25;
   font-size: calc(0.35vw + 16px);
   padding: 1em 0;
   width: 100%;
@@ -25,11 +25,7 @@ const CustomLayout = styled(Layout)`
   height: 25em;
 `;
 
-interface PropTypes {
-  pushNotification: (message: string, success: boolean) => void;
-  popNotification: (message: string, success: boolean) => void;
-}
-const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
+const Review: React.FunctionComponent = (): JSX.Element => {
   const { data } = useUserData();
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -105,8 +101,9 @@ const Review: React.FunctionComponent<PropTypes> = (props): JSX.Element => {
               <LeftArrow />
             </ControlsDiv>
             <Card
+              // key={data.cardSet[selectedSet].cards[currentCardIndex]._id}
+              key={`card${currentCardIndex}`}
               {...data.cardSet[selectedSet].cards[currentCardIndex]}
-              pushNotification={props.pushNotification}
               controls={controls}
             />
             <ControlsDiv onClick={controls.nextCard}>

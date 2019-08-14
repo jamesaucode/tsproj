@@ -12,7 +12,6 @@ const console = require("console");
 require("dotenv").config();
 console.log("RUNNING");
 const bcrypt = require("bcrypt");
-// Own passport strategy , using bcrypt to compare the password hash
 const LocalStrategy = require("passport-local").Strategy;
 const LocalAuthentication = new LocalStrategy({
     usernameField: "email",
@@ -48,16 +47,22 @@ const googleLogin = {
     clientSecret: process.env.GOOGLE_SECRET,
     callbackURL: "/auth/redirect",
 };
-const gotProfile = (accessToken, refreshToken, profile, done) => {
-    user_model_1.UserModel.findOne({ email: profile.emails[0].value }, (err, user) => {
-        if (err) {
-            return done(err);
+const gotProfile = async (accessToken, refreshToken, profile, done) => {
+    try {
+        const existingUser = await user_model_1.UserModel.findOne({
+            email: profile.emails[0].value,
+        })
+            .lean()
+            .exec();
+        if (existingUser) {
+            done(null, existingUser);
         }
-        if (!user) {
-            return done(null, profile);
-        }
-        return done(null, user);
-    });
+        done(null, profile);
+    }
+    catch (error) {
+        console.error(error);
+        done(null, profile);
+    }
 };
 const googleAuthentication = new googleOAuth.Strategy(googleLogin, gotProfile);
 passport.use(googleAuthentication);
@@ -83,18 +88,18 @@ router.get("/auth/redirect", (req, res, next) => {
 router.get("/user/cards", (req, res) => {
     if (req.isAuthenticated()) {
         const cardSet = req.user.cardSet;
-        console.log("Render cards");
         nextApp_1.default.render(req, res, "/user/cards", { cardSet });
     }
     else {
         return res.redirect("/");
     }
 });
-router.get("/user/groups", (req, res) => {
+router.get("/user/groups", async (req, res) => {
     if (req.isAuthenticated()) {
-        group_model_1.GroupModel.find({}, (err, groups) => {
-            nextApp_1.default.render(req, res, "/user/groups", { groups });
-        });
+        const allGroups = await group_model_1.GroupModel.find({})
+            .lean()
+            .exec();
+        nextApp_1.default.render(req, res, "/user/groups", { groups: allGroups });
     }
     else {
         return res.redirect("/");

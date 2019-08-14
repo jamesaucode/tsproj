@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { NextFC } from "next";
 import Link from "next/link";
 import ToggleableMenu from "./ToggleableMenu";
-import { breakPoints } from "../../utils/style";
+import { breakPoints, colors } from "../../utils/style";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { useUserData } from "../hooks/useUserData";
 import BurgerMenu from "./BurgerMenu/BurgerMenu";
+import { useRouter } from "next/router";
 
 const NavWrapper = styled.div`
   width: 100%;
@@ -31,22 +32,49 @@ const Nav = styled.nav`
     padding-right: 0;
   }
 `;
-export const NavLink = styled.li`
-  text-transform: uppercase;
-  margin-right: 4em;
-  font-size: 0.9em;
-  letter-spacing: 1px;
-  list-style: none;
-  font-weight: 600;
+interface NavLinkProps {
+  isActive?: boolean;
+}
+export const NavLink = styled.li<NavLinkProps>`
   color: #333333;
   cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  list-style: none;
+  margin-right: 4em;
+  position: relative;
+  text-transform: uppercase;
+  &::before {
+    background-color: ${colors.brand};
+    bottom: -10px;
+    content: "";
+    height: 4px;
+    position: absolute;
+    width: 100%;
+    transition: 400ms ease transform;
+    transform: ${({ isActive }): string =>
+      isActive ? "scaleX(1)" : "scaleX(0)"};
+    transform-origin: left;
+  }
+  &:hover:before {
+    transform: scaleX(1);
+  }
 `;
 
 const NavBar: NextFC = (props): JSX.Element => {
   const windowSize = useWindowSize();
-  const [loading, setLoading] = useState<boolean>(true);
   const userData = useUserData() || {};
+  const [loading, setLoading] = useState<boolean>(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const protectedRoutes = [
+    "/user/review",
+    "/user/groups",
+    "/user/create",
+    "/user/cards",
+  ];
+  const { pathname } = useRouter();
   useEffect((): void => {
     setLoading(false);
     if (userData.data) {
@@ -64,31 +92,40 @@ const NavBar: NextFC = (props): JSX.Element => {
       <NavWrapper>
         <Nav>
           <Link href="/">
-            <NavLink>Home</NavLink>
+            <NavLink
+              isActive={pathname === "/" && !isHovering}
+              onMouseOver={(): void => setIsHovering(true)}
+              onMouseLeave={(): void => setIsHovering(false)}
+            >
+              Home
+            </NavLink>
           </Link>
           {/* Protected Nav Items */}
           {isLoggedIn && (
             <React.Fragment>
-              <Link href="/user/review">
-                <NavLink>Review</NavLink>
-              </Link>
-              <Link href="/user/groups">
-                <NavLink>Groups</NavLink>
-              </Link>
-              <Link href="/user/create">
-                <NavLink>Make Card</NavLink>
-              </Link>
-              <Link href="/user/cards">
-                <NavLink>Cards</NavLink>
-              </Link>
+              {protectedRoutes.map(
+                (route, index): JSX.Element => (
+                  <React.Fragment key={`route ${index}`}>
+                    <Link href={route}>
+                      <NavLink
+                        isActive={pathname === route && !isHovering}
+                        onMouseOver={(): void => {
+                          setIsHovering(true && !(pathname === route));
+                        }}
+                        onMouseLeave={(): void => {
+                          setIsHovering(false);
+                        }}
+                      >
+                        {route.replace("/user/", "")}
+                      </NavLink>
+                    </Link>
+                  </React.Fragment>
+                ),
+              )}
             </React.Fragment>
           )}
         </Nav>
-        <ToggleableMenu
-          loggedIn={isLoggedIn}
-          iconName="fas fa-user-circle"
-          {...props}
-        />
+        <ToggleableMenu loggedIn={isLoggedIn} {...props} />
       </NavWrapper>
     );
   } else {
@@ -97,11 +134,7 @@ const NavBar: NextFC = (props): JSX.Element => {
         <Nav>
           <BurgerMenu loggedIn={isLoggedIn} />
         </Nav>
-        <ToggleableMenu
-          loggedIn={isLoggedIn}
-          iconName="fas fa-user-circle"
-          {...props}
-        />
+        <ToggleableMenu loggedIn={isLoggedIn} {...props} />
       </NavWrapper>
     );
   }

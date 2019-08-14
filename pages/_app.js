@@ -1,6 +1,6 @@
 import React from "react";
 import App, { Container } from "next/app";
-import Notification from "../src/components/Notification/Notification";
+import { NotificationProvider } from "../src/components/Notification/Notification";
 import Router from "next/router";
 import NProgress from "nprogress";
 import { UserProvider } from "../src/context/UserContext";
@@ -169,9 +169,9 @@ export default class MyApp extends App {
         <GlobalStyle />
         <UserProvider>
           <ThemeProvider theme={themes[mode]}>
-            <Notification>
+            <NotificationProvider>
               <Component {...pageProps} />
-            </Notification>
+            </NotificationProvider>
           </ThemeProvider>
         </UserProvider>
       </Container>

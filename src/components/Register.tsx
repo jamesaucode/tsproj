@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { handleResponse } from "../../services/fetch.service";
-import { FormBottom } from "../../utils/style";
-import Warning from "./Warning";
+import { FormBottom, font } from "../../utils/style";
 import fetch from "isomorphic-unfetch";
 import styled from "styled-components";
+import { useNotification } from "./Notification/Notification";
 
-const maxFormWidth = "400px";
+const MAXFORMWIDTH = "400px";
 
 const StyledLink = styled.a`
   color: blue;
@@ -27,7 +26,7 @@ const FormInput = styled.input`
   }
 `;
 const FormWrapper = styled.div`
-  max-width: ${maxFormWidth};
+  max-width: ${MAXFORMWIDTH};
   font-size: calc(0.35vw + 16px);
   height: fit-content;
   text-align: center;
@@ -46,11 +45,17 @@ const FormSubmit = styled.button`
   }
 `;
 
+const Warning = styled.p`
+  font-size: ${font.fontSize.sm};
+  color: red;
+`;
+
 interface Props {
   toggleForm: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 }
 
 const Register: React.FunctionComponent<Props> = (props): JSX.Element => {
+  const { pushNotification } = useNotification();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -76,35 +81,36 @@ const Register: React.FunctionComponent<Props> = (props): JSX.Element => {
         break;
     }
   };
-  const handleSubmit = (): void => {
-    fetch("/api/register", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firstName,
-        lastName,
-        email,
-        password,
-      }),
-    })
-      .then(handleResponse)
-      .then((json): void => {
-        // props.pushNotification(json.message, true);
-        console.log(json);
-      })
-      .catch((error: Error): void => {
-        setShowWarning(true);
-        console.error(error.message);
+  const handleSubmit = async (event): Promise<void> => {
+    event.preventDefault();
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          password,
+        }),
       });
-    console.log("Submitted");
+      const json = await response.json();
+      if (response.ok && json) {
+        pushNotification(json.message, true);
+      }
+    } catch (error) {
+      setShowWarning(true);
+      pushNotification(error.message, true);
+      console.error(error.message);
+    }
   };
 
   return (
     <FormWrapper>
-      {showWarning && <Warning text={"User already exist"} />}
+      {showWarning && <Warning>User already exist</Warning>}
       <FormInput
         onChange={changeHandler}
         value={email}

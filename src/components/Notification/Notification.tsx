@@ -6,9 +6,18 @@ import { useWindowSize } from "../../hooks/useWindowSize";
 
 const uuid = require("uuid");
 
+interface PropTypes {
+  children: React.ReactChild;
+}
+
 interface AllNotificationWrapperProps {
   windowHeight: number;
   os: number;
+}
+
+interface NotificationContextProps {
+  pushNotification: (message: string, success: boolean) => void;
+  removeNotification: (message: string, success: boolean) => void;
 }
 const AllNotificationsWrapper = styled.div<AllNotificationWrapperProps>`
   height: 0;
@@ -18,12 +27,12 @@ const AllNotificationsWrapper = styled.div<AllNotificationWrapperProps>`
   position: absolute;
   z-index: 1000;
 `;
-interface PropTypes {
-  children: React.ReactChild;
-}
-const Notification: React.FunctionComponent<PropTypes> = (
-  props,
-): JSX.Element => {
+const NotificationContext = React.createContext<NotificationContextProps | null>(
+  null,
+);
+export const NotificationProvider: React.FunctionComponent<PropTypes> = ({
+  children,
+}): JSX.Element => {
   const [notifications, setNotifications] = useState<IMessage[]>([]);
   const windowSize = useWindowSize();
   const delay = 5000;
@@ -35,7 +44,6 @@ const Notification: React.FunctionComponent<PropTypes> = (
   }, []);
   const removeNotification = (notificationId: string): void => {
     setNotifications((prevState): IMessage[] => {
-      console.log("Removing Notification");
       return prevState.filter((n): boolean => n.id !== notificationId);
     });
   };
@@ -46,9 +54,7 @@ const Notification: React.FunctionComponent<PropTypes> = (
       id: uuid(),
       delay,
     };
-    console.log("Setting up the timer");
     const timerId = setTimeout((): void => {
-      console.log("Now removing the notification");
       removeNotification(notification.id);
       id.current.splice(id.current.indexOf(timerId), 1);
     }, delay);
@@ -59,18 +65,13 @@ const Notification: React.FunctionComponent<PropTypes> = (
     return notification;
   };
 
-  const children = React.Children.map(
-    props.children,
-    (child): React.ReactElement => {
-      return React.cloneElement(child, {
-        pushNotification,
-        removeNotification,
-      });
-    },
-  );
+  const value = {
+    pushNotification,
+    removeNotification,
+  };
   if (notifications) {
     return (
-      <React.Fragment>
+      <NotificationContext.Provider value={value}>
         <AllNotificationsWrapper
           windowHeight={windowSize.size.windowHeight}
           os={notifications.length * 54}
@@ -91,11 +92,12 @@ const Notification: React.FunctionComponent<PropTypes> = (
           )}
         </AllNotificationsWrapper>
         {children}
-      </React.Fragment>
+      </NotificationContext.Provider>
     );
   } else {
     return <React.Fragment>{children}</React.Fragment>;
   }
 };
 
-export default React.memo(Notification);
+export const useNotification = (): NotificationContextProps =>
+  React.useContext(NotificationContext);

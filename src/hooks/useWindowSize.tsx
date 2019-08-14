@@ -1,7 +1,9 @@
 import { useState, useEffect, EffectCallback } from "react";
 import debounce from "lodash/debounce";
 
-export const useWindowSize = (): { size: Record<string, number> } => {
+export const useWindowSize = (): {
+  size: { windowWidth: number; windowHeight: number };
+} => {
   const initialWindowWidth =
     typeof window !== "undefined" ? window.innerWidth : 1000;
   const initialWindowHeight =
@@ -20,7 +22,7 @@ export const useWindowSize = (): { size: Record<string, number> } => {
     return (): void => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [handleResize]);
 
   return { size: { windowWidth, windowHeight } };
 };

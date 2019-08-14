@@ -4,8 +4,9 @@ import styled from "styled-components";
 import fetch from "isomorphic-unfetch";
 import Register from "./Register";
 import { InputValidator } from "../../services/validation.service";
-import { FormBottom } from "../../utils/style";
-import Warning from "./Warning";
+import { FormBottom, colors } from "../../utils/style";
+import { useNotification } from "./Notification/Notification";
+import { useWindowSize } from "../hooks/useWindowSize";
 
 const googleLoginButton = require("../../static/images/btn_google_signin_dark_normal_web@2x.png");
 const maxFormWidth = "400px";
@@ -48,14 +49,38 @@ interface FormInputProps {
 const FormInput = styled.input<FormInputProps>`
   border: 1px solid #aaaaaa;
   border-radius: 2px;
+  height: 40px;
+  position: relative;
   padding: 0.75rem;
   margin: 0.5rem 0;
   width: 100%;
-  font-size: 0.7em;
+  width: ${(props): string => `${props.width}px`};
+  max-width: 300px;
+  font-size: 0.8em;
   box-sizing: border-box;
   &:focus {
     border: ${({ validated }): string =>
       validated ? "1px solid #8610f9" : "1px solid red"};
+  }
+`;
+interface FormInputWrapperProps {
+  isFocused?: boolean;
+  text: string;
+}
+const FormInputWrapper = styled.div<FormInputWrapperProps>`
+  position: relative;
+  &::before {
+    content: ${(props): string => `"${props.text}"`};
+    color: ${colors.black}80;
+    position: absolute;
+    transition: 500ms transform ease;
+    transform: ${({ isFocused }): string =>
+      isFocused ? "translate(5px, 0)" : "translate(15px, 20px)"};
+    transform: ${({ isFocused }): string => isFocused && "scale(0.7)"};
+    z-index: 10;
+    background-color: #fff;
+    font-weight: 400;
+    font-size: 0.8em;
   }
 `;
 const FormWrapper = styled.div`
@@ -88,7 +113,9 @@ const Login: NextFC = (): JSX.Element => {
   const [emailInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [showSignIn, setShowSignIn] = useState(true);
-  const [showWarning, setShowWarning] = useState(false);
+  const [focused, setFocused] = useState(1);
+  const { pushNotification } = useNotification();
+  const { size } = useWindowSize();
   const emailInputRef = useRef<HTMLInputElement>();
   useEffect((): EffectCallback => {
     // Focuses on the emailinputref as the component mount
@@ -98,21 +125,26 @@ const Login: NextFC = (): JSX.Element => {
     return (): void => {};
   }, []);
   const handleSubmit = async (): Promise<void> => {
-    const response = await fetch("/api/login", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: emailInput,
-        password: passwordInput,
-      }),
-    });
-    if (response.ok && response.redirected) {
-      window.location.href = "/user/cards";
-    } else {
-      setShowWarning(true);
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: emailInput,
+          password: passwordInput,
+        }),
+      });
+      if (response.ok && response.redirected) {
+        window.location.href = "/user/cards";
+      } else {
+        pushNotification("Incorrect credentials", false);
+        setPasswordInput("");
+      }
+    } catch (error) {
+      pushNotification(error.message, false);
       setPasswordInput("");
     }
   };
@@ -145,30 +177,37 @@ const Login: NextFC = (): JSX.Element => {
         <DividerText>or</DividerText>
       </Divider>
       <FormWrapper>
-        {showWarning && <Warning text={"Incorrect Credentials"} />}
-        <FormInput
-          onChange={(e): void => {
-            setUsernameInput(e.target.value);
-          }}
-          ref={emailInputRef}
-          onKeyDown={handleKeyDown}
-          validated={validateEmail()}
-          value={emailInput}
-          placeholder="Username / Email"
-          name="username"
-          type="email"
-        />
-        <FormInput
-          onChange={(e): void => {
-            setPasswordInput(e.target.value);
-          }}
-          onKeyDown={handleKeyDown}
-          value={passwordInput}
-          validated={validatePassword()}
-          placeholder="Password"
-          name="password"
-          type="password"
-        />
+        <FormInputWrapper text="Email" isFocused={focused === 1}>
+          <FormInput
+            onChange={(e): void => {
+              setUsernameInput(e.target.value);
+            }}
+            width={size.windowWidth}
+            onFocus={() => setFocused(1)}
+            onBlur={() => setFocused(0)}
+            ref={emailInputRef}
+            onKeyDown={handleKeyDown}
+            validated={validateEmail()}
+            value={emailInput}
+            name="username"
+            type="email"
+          />
+        </FormInputWrapper>
+        <FormInputWrapper text="Password" isFocused={focused === 2}>
+          <FormInput
+            onChange={(e): void => {
+              setPasswordInput(e.target.value);
+            }}
+            width={size.windowWidth}
+            onFocus={() => setFocused(2)}
+            onBlur={() => setFocused(0)}
+            onKeyDown={handleKeyDown}
+            value={passwordInput}
+            validated={validatePassword()}
+            name="password"
+            type="password"
+          />
+        </FormInputWrapper>
         <FormSubmit disabled={!validateInput()} onClick={handleSubmit}>
           Login
         </FormSubmit>

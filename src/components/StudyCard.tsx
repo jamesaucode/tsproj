@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { Button, font, colors } from "../../utils/style";
-import { handleResponse } from "../../services/fetch.service";
+import { useNotification } from "../components/Notification/Notification";
 import { useUserData } from "../hooks/useUserData";
 import DropDownMenu from "./DropDownMenu";
 
@@ -33,13 +33,12 @@ const Wrapper = styled.section`
   max-width: 688px;
   padding: 1rem;
 `;
-const StudyCard: React.FunctionComponent<{
-  pushNotification: (message: string, success: boolean) => void;
-}> = ({ pushNotification }): JSX.Element => {
+const StudyCard: React.FunctionComponent = (): JSX.Element => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [selected, setSelected] = useState();
 
+  const { pushNotification } = useNotification();
   const { data } = useUserData();
   const dropDownInputRef = useRef<HTMLInputElement>();
 
@@ -59,26 +58,28 @@ const StudyCard: React.FunctionComponent<{
     setQuestion("");
     setAnswer("");
   };
-  const handleSubmit = (): void => {
-    fetch(`/api/cardset/${selected}`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        question,
-        answer,
-      }),
-    })
-      .then(handleResponse)
-      .then((json: { message: string }): void => {
+  const handleSubmit = async (): Promise<void> => {
+    try {
+      event.preventDefault();
+      const response = await fetch(`/api/cardset/${selected}`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          question,
+          answer,
+        }),
+      });
+      const json = await response.json();
+      if (response.ok && json) {
         pushNotification(json.message, true);
         clearInput();
-      })
-      .catch((error): void => {
-        pushNotification(error.message, false);
-      });
+      }
+    } catch (error) {
+      pushNotification(error.message, false);
+    }
   };
   const handleKeyDown = (
     event: React.KeyboardEvent<HTMLTextAreaElement>,
@@ -97,6 +98,7 @@ const StudyCard: React.FunctionComponent<{
     event: React.MouseEvent<HTMLButtonElement>,
   ): Promise<void> => {
     try {
+      event.preventDefault();
       const response = await fetch("/api/cardset", {
         method: "POST",
         credentials: "include",

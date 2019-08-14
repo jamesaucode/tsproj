@@ -12,7 +12,7 @@ const isAuthenticated = (
   if (req.isAuthenticated()) {
     next();
   } else {
-    res.status(400).end();
+    res.status(400).json({ message: "Incorrect credentials" });
   }
 };
 

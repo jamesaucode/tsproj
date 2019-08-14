@@ -24,8 +24,68 @@ const Spinner = styled.div`
   animation: ${rotate} 1s linear infinite;
   text-indent: -9999em;
 `;
+interface BouncingDotProps {
+  delay: number;
+}
+const bouncing = keyframes`
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+`;
+const expanding = keyframes`
+  0% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.5);
+  }
+`;
+const BouncingDot = styled.circle<BouncingDotProps>`
+  border-radius: 50%;
+  height: 8px;
+  width: 8px;
+  background-color: #999;
+  fill: #999;
+  /* animation: ${bouncing} 1000ms infinite; */
+  animation: ${expanding} 1000ms infinite;
+  animation-delay: ${(props): number => props.delay}ms;
+`;
+const Wrapper = styled.div`
+  display: flex;
+  margin: 0 auto;
+  position: relative;
+`;
+const SVG = styled.svg`
+  height: 10px;
+  width: 10px;
+  margin: 0 3px;
+`;
 const Loading: React.FunctionComponent = (): JSX.Element => {
-  return <Spinner></Spinner>;
+  return (
+    <React.Fragment>
+      {/* <Spinner /> */}
+      <Wrapper>
+        <SVG height={10} width={10} viewBox="0 0 20 20">
+          <BouncingDot delay={200} cx="10" cy="10" r="10" />
+        </SVG>
+        <SVG height={10} width={10} viewBox="0 0 20 20">
+          <BouncingDot delay={400} cx="10" cy="10" r="10" />
+        </SVG>
+        <SVG height={10} width={10} viewBox="0 0 20 20">
+          <BouncingDot delay={600} cx="10" cy="10" r="10" />
+        </SVG>
+      </Wrapper>
+    </React.Fragment>
+  );
 };
 
 export default Loading;

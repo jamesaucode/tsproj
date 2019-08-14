@@ -3,7 +3,13 @@ import { NextFC } from "next";
 import styled from "styled-components";
 import fetch from "isomorphic-unfetch";
 import { handleJSONResponse } from "../../services/fetch.service";
-import { colors, font, Layout, HeadingBase } from "../../utils/style";
+import {
+  colors,
+  font,
+  Layout,
+  HeadingBase,
+  breakPoints,
+} from "../../utils/style";
 import { useUserData } from "../../src/hooks/useUserData";
 import NavBar from "../../src/components/NavBar";
 import Modal from "../../src/components/Modal";
@@ -41,7 +47,7 @@ const Card = styled.div`
   display: flex;
   font-size: calc(0.35vw + 16px);
   justify-content: space-between;
-  @media (max-width: 500px) {
+  @media (max-width: ${breakPoints.sm}px) {
     flex-direction: column;
   }
 `;
@@ -68,13 +74,13 @@ const CardList = styled.ul`
 `;
 const Button = styled.button`
   border: none;
-  background-color: red;
+  border-radius: 3px;
+  background-color: #ff351f;
   color: #fff;
   font-size: ${font.fontSize.sm};
   font-weight: 600;
-  padding: 0.5em;
+  padding: 0.75em;
   margin: 0.5rem;
-  text-transform: uppercase;
 `;
 const Heading = styled(HeadingBase)`
   font-size: ${font.fontSize.md};

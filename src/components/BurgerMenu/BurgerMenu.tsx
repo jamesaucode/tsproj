@@ -47,7 +47,11 @@ const BurgerMenu: React.FunctionComponent<PropTypes> = ({
 }): JSX.Element => {
   const [showMenu, setShowMenu] = useState(false);
   return (
-    <Wrapper onClick={(): void => setShowMenu(!showMenu)}>
+    <Wrapper
+      onClick={(): void =>
+        setShowMenu((currentShowMenu): boolean => !currentShowMenu)
+      }
+    >
       <SVG
         src="/static/images/menu.svg"
         className={`small-icon ${showMenu ? "active" : ""}`}

@@ -19,7 +19,6 @@ const Wrapper = styled.section`
 `;
 const IndexHeading = styled(HeadingBase)`
   color: ${({ theme }): string => theme.mainfc};
-  letter-spacing: 1.1px;
   text-align: left;
   margin: 40px 0;
 `;
