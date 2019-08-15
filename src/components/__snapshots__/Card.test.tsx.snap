@@ -1,37 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Card Component Render Component 1`] = `
-<Card
-  _id=""
-  answer=""
-  controls={
-    Object {
-      "nextCard": [Function],
-      "previousCard": [Function],
-    }
-  }
-  creator=""
-  pushNotification={[Function]}
-  question=""
->
-  <Card__CardBody>
+<NotificationProvider>
+  <Notification__AllNotificationsWrapper
+    os={0}
+    windowHeight={768}
+  >
     <StyledComponent
       forwardedComponent={
         Object {
           "$$typeof": Symbol(react.forward_ref),
           "attrs": Array [],
           "componentStyle": ComponentStyle {
-            "componentId": "Card__CardBody-d2183a-0",
+            "componentId": "Notification__AllNotificationsWrapper-sc-14z8rhj-0",
             "isStatic": true,
-            "lastClassName": "bnnVid",
+            "lastClassName": "kdjGqQ",
             "rules": Array [
-              "display:flex;flex:1;flex-direction:column;justify-content:space-between;",
+              "height:0;top:0px;font-size:calc(0.35vw + 16px);width:100%;position:absolute;z-index:1000;",
             ],
           },
-          "displayName": "Card__CardBody",
+          "displayName": "Notification__AllNotificationsWrapper",
           "foldedComponentIds": Array [],
           "render": [Function],
-          "styledComponentId": "Card__CardBody-d2183a-0",
+          "styledComponentId": "Notification__AllNotificationsWrapper-sc-14z8rhj-0",
           "target": "div",
           "toString": [Function],
           "warnTooManyClasses": [Function],
@@ -39,97 +30,151 @@ exports[`Card Component Render Component 1`] = `
         }
       }
       forwardedRef={null}
+      os={0}
+      windowHeight={768}
     >
       <div
-        className="Card__CardBody-d2183a-0 bnnVid"
+        className="Notification__AllNotificationsWrapper-sc-14z8rhj-0 kdjGqQ"
+      />
+    </StyledComponent>
+  </Notification__AllNotificationsWrapper>
+  <Card
+    _id=""
+    answer=""
+    controls={
+      Object {
+        "nextCard": [Function],
+        "previousCard": [Function],
+      }
+    }
+    creator=""
+    question=""
+  >
+    <Card__CardBody>
+      <StyledComponent
+        forwardedComponent={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "attrs": Array [],
+            "componentStyle": ComponentStyle {
+              "componentId": "Card__CardBody-d2183a-0",
+              "isStatic": true,
+              "lastClassName": "bnnVid",
+              "rules": Array [
+                "display:flex;flex:1;flex-direction:column;justify-content:space-between;",
+              ],
+            },
+            "displayName": "Card__CardBody",
+            "foldedComponentIds": Array [],
+            "render": [Function],
+            "styledComponentId": "Card__CardBody-d2183a-0",
+            "target": "div",
+            "toString": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+          }
+        }
+        forwardedRef={null}
       >
-        <Card__CardText
-          shouldSlideIn={true}
+        <div
+          className="Card__CardBody-d2183a-0 bnnVid"
         >
-          <StyledComponent
-            forwardedComponent={
-              Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "attrs": Array [],
-                "componentStyle": ComponentStyle {
-                  "componentId": "Card__CardText-d2183a-1",
-                  "isStatic": true,
-                  "lastClassName": "gDeGUy",
-                  "rules": Array [
-                    "color:",
-                    "#222222",
-                    ";font-size:",
-                    "1.5em",
-                    ";transition:transform 400ms ease;",
-                  ],
-                },
-                "displayName": "Card__CardText",
-                "foldedComponentIds": Array [],
-                "render": [Function],
-                "styledComponentId": "Card__CardText-d2183a-1",
-                "target": "h2",
-                "toString": [Function],
-                "warnTooManyClasses": [Function],
-                "withComponent": [Function],
+          <Card__CardText>
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "Card__CardText-d2183a-1",
+                    "isStatic": true,
+                    "lastClassName": "gHqJfA",
+                    "rules": Array [
+                      "color:",
+                      "#222222",
+                      ";font-size:",
+                      "1.5em",
+                      ";animation:",
+                      Keyframes {
+                        "id": "sc-keyframes-flmnuA",
+                        "inject": [Function],
+                        "name": "flmnuA",
+                        "rules": Array [
+                          "@-webkit-keyframes flmnuA{from{-webkit-transform:translateX(-10%);-ms-transform:translateX(-10%);transform:translateX(-10%);opacity:0;}to{-webkit-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0);opacity:1;}}",
+                          "@keyframes flmnuA{from{-webkit-transform:translateX(-10%);-ms-transform:translateX(-10%);transform:translateX(-10%);opacity:0;}to{-webkit-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0);opacity:1;}}",
+                        ],
+                        "toString": [Function],
+                      },
+                      " 400ms ease 1 forwards;",
+                    ],
+                  },
+                  "displayName": "Card__CardText",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "Card__CardText-d2183a-1",
+                  "target": "h2",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
               }
-            }
-            forwardedRef={null}
-            shouldSlideIn={true}
-          >
-            <h2
-              className="Card__CardText-d2183a-1 gDeGUy"
-            />
-          </StyledComponent>
-        </Card__CardText>
-        <Card__AnswerInput
-          name="answer"
-          onChange={[Function]}
-          onKeyDown={[Function]}
-          placeholder="Answer"
-          value=""
-        >
-          <StyledComponent
-            forwardedComponent={
-              Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "attrs": Array [],
-                "componentStyle": ComponentStyle {
-                  "componentId": "Card__AnswerInput-d2183a-2",
-                  "isStatic": true,
-                  "lastClassName": "jwEAoi",
-                  "rules": Array [
-                    "padding:0.5em;background-color:transparent;border:none;border-bottom:1px solid gray;",
-                  ],
-                },
-                "displayName": "Card__AnswerInput",
-                "foldedComponentIds": Array [],
-                "render": [Function],
-                "styledComponentId": "Card__AnswerInput-d2183a-2",
-                "target": "input",
-                "toString": [Function],
-                "warnTooManyClasses": [Function],
-                "withComponent": [Function],
-              }
-            }
-            forwardedRef={null}
+              forwardedRef={null}
+            >
+              <h2
+                className="Card__CardText-d2183a-1 gHqJfA"
+              />
+            </StyledComponent>
+          </Card__CardText>
+          <Card__AnswerInput
             name="answer"
             onChange={[Function]}
             onKeyDown={[Function]}
             placeholder="Answer"
             value=""
           >
-            <input
-              className="Card__AnswerInput-d2183a-2 jwEAoi"
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "Card__AnswerInput-d2183a-2",
+                    "isStatic": true,
+                    "lastClassName": "jwEAoi",
+                    "rules": Array [
+                      "padding:0.5em;background-color:transparent;border:none;border-bottom:1px solid gray;",
+                    ],
+                  },
+                  "displayName": "Card__AnswerInput",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "Card__AnswerInput-d2183a-2",
+                  "target": "input",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
               name="answer"
               onChange={[Function]}
               onKeyDown={[Function]}
               placeholder="Answer"
               value=""
-            />
-          </StyledComponent>
-        </Card__AnswerInput>
-      </div>
-    </StyledComponent>
-  </Card__CardBody>
-</Card>
+            >
+              <input
+                className="Card__AnswerInput-d2183a-2 jwEAoi"
+                name="answer"
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Answer"
+                value=""
+              />
+            </StyledComponent>
+          </Card__AnswerInput>
+        </div>
+      </StyledComponent>
+    </Card__CardBody>
+  </Card>
+</NotificationProvider>
 `;

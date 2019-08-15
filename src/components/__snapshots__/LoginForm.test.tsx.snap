@@ -1,25 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LoginForm Tests Component Renders 1`] = `
-<Login>
-  <LoginForm__Wrapper>
+<NotificationProvider>
+  <Notification__AllNotificationsWrapper
+    os={0}
+    windowHeight={768}
+  >
     <StyledComponent
       forwardedComponent={
         Object {
           "$$typeof": Symbol(react.forward_ref),
           "attrs": Array [],
           "componentStyle": ComponentStyle {
-            "componentId": "LoginForm__Wrapper-zzt754-8",
+            "componentId": "Notification__AllNotificationsWrapper-sc-14z8rhj-0",
             "isStatic": true,
-            "lastClassName": "kgJUNV",
+            "lastClassName": "kdjGqQ",
             "rules": Array [
-              "display:flex;flex-direction:column;align-items:center;height:fit-content;max-width:400px;font-size:calc(0.35vw + 16px);padding:1em;",
+              "height:0;top:0px;font-size:calc(0.35vw + 16px);width:100%;position:absolute;z-index:1000;",
             ],
           },
-          "displayName": "LoginForm__Wrapper",
+          "displayName": "Notification__AllNotificationsWrapper",
           "foldedComponentIds": Array [],
           "render": [Function],
-          "styledComponentId": "LoginForm__Wrapper-zzt754-8",
+          "styledComponentId": "Notification__AllNotificationsWrapper-sc-14z8rhj-0",
           "target": "div",
           "toString": [Function],
           "warnTooManyClasses": [Function],
@@ -27,438 +30,579 @@ exports[`LoginForm Tests Component Renders 1`] = `
         }
       }
       forwardedRef={null}
+      os={0}
+      windowHeight={768}
     >
       <div
-        className="LoginForm__Wrapper-zzt754-8 kgJUNV"
+        className="Notification__AllNotificationsWrapper-sc-14z8rhj-0 kdjGqQ"
+      />
+    </StyledComponent>
+  </Notification__AllNotificationsWrapper>
+  <Login>
+    <LoginForm__Wrapper>
+      <StyledComponent
+        forwardedComponent={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "attrs": Array [],
+            "componentStyle": ComponentStyle {
+              "componentId": "LoginForm__Wrapper-zzt754-9",
+              "isStatic": true,
+              "lastClassName": "kTzLFO",
+              "rules": Array [
+                "display:flex;flex-direction:column;align-items:center;height:fit-content;max-width:400px;font-size:calc(0.35vw + 16px);padding:1em;",
+              ],
+            },
+            "displayName": "LoginForm__Wrapper",
+            "foldedComponentIds": Array [],
+            "render": [Function],
+            "styledComponentId": "LoginForm__Wrapper-zzt754-9",
+            "target": "div",
+            "toString": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+          }
+        }
+        forwardedRef={null}
       >
-        <LoginForm__LoginButton
-          href="/auth/google"
+        <div
+          className="LoginForm__Wrapper-zzt754-9 kTzLFO"
         >
-          <StyledComponent
-            forwardedComponent={
-              Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "attrs": Array [],
-                "componentStyle": ComponentStyle {
-                  "componentId": "LoginForm__LoginButton-zzt754-0",
-                  "isStatic": true,
-                  "lastClassName": "btamXy",
-                  "rules": Array [
-                    "max-width:200px;cursor:pointer;margin:1rem;",
-                  ],
-                },
-                "displayName": "LoginForm__LoginButton",
-                "foldedComponentIds": Array [],
-                "render": [Function],
-                "styledComponentId": "LoginForm__LoginButton-zzt754-0",
-                "target": "a",
-                "toString": [Function],
-                "warnTooManyClasses": [Function],
-                "withComponent": [Function],
-              }
-            }
-            forwardedRef={null}
+          <LoginForm__LoginButton
             href="/auth/google"
           >
-            <a
-              className="LoginForm__LoginButton-zzt754-0 btamXy"
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "LoginForm__LoginButton-zzt754-0",
+                    "isStatic": true,
+                    "lastClassName": "btamXy",
+                    "rules": Array [
+                      "max-width:200px;cursor:pointer;margin:1rem;",
+                    ],
+                  },
+                  "displayName": "LoginForm__LoginButton",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "LoginForm__LoginButton-zzt754-0",
+                  "target": "a",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
               href="/auth/google"
             >
-              <LoginForm__LoginButtonLogo
-                src={
-                  Object {
-                    "process": [Function],
-                  }
-                }
+              <a
+                className="LoginForm__LoginButton-zzt754-0 btamXy"
+                href="/auth/google"
               >
-                <StyledComponent
-                  forwardedComponent={
-                    Object {
-                      "$$typeof": Symbol(react.forward_ref),
-                      "attrs": Array [],
-                      "componentStyle": ComponentStyle {
-                        "componentId": "LoginForm__LoginButtonLogo-zzt754-2",
-                        "isStatic": true,
-                        "lastClassName": "hIWQXf",
-                        "rules": Array [
-                          "width:100%;height:100%;",
-                        ],
-                      },
-                      "displayName": "LoginForm__LoginButtonLogo",
-                      "foldedComponentIds": Array [],
-                      "render": [Function],
-                      "styledComponentId": "LoginForm__LoginButtonLogo-zzt754-2",
-                      "target": "img",
-                      "toString": [Function],
-                      "warnTooManyClasses": [Function],
-                      "withComponent": [Function],
-                    }
-                  }
-                  forwardedRef={null}
+                <LoginForm__LoginButtonLogo
                   src={
                     Object {
                       "process": [Function],
                     }
                   }
                 >
-                  <img
-                    className="LoginForm__LoginButtonLogo-zzt754-2 hIWQXf"
+                  <StyledComponent
+                    forwardedComponent={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "attrs": Array [],
+                        "componentStyle": ComponentStyle {
+                          "componentId": "LoginForm__LoginButtonLogo-zzt754-2",
+                          "isStatic": true,
+                          "lastClassName": "hIWQXf",
+                          "rules": Array [
+                            "width:100%;height:100%;",
+                          ],
+                        },
+                        "displayName": "LoginForm__LoginButtonLogo",
+                        "foldedComponentIds": Array [],
+                        "render": [Function],
+                        "styledComponentId": "LoginForm__LoginButtonLogo-zzt754-2",
+                        "target": "img",
+                        "toString": [Function],
+                        "warnTooManyClasses": [Function],
+                        "withComponent": [Function],
+                      }
+                    }
+                    forwardedRef={null}
                     src={
                       Object {
                         "process": [Function],
                       }
                     }
-                  />
-                </StyledComponent>
-              </LoginForm__LoginButtonLogo>
-            </a>
-          </StyledComponent>
-        </LoginForm__LoginButton>
-        <LoginForm__Divider>
-          <StyledComponent
-            forwardedComponent={
-              Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "attrs": Array [],
-                "componentStyle": ComponentStyle {
-                  "componentId": "LoginForm__Divider-zzt754-3",
-                  "isStatic": true,
-                  "lastClassName": "iwtJTG",
-                  "rules": Array [
-                    "width:100%;max-width:",
-                    "400px",
-                    ";height:0.6em;border-bottom:1px solid #dddddd;text-align:center;margin-bottom:2rem;",
-                  ],
-                },
-                "displayName": "LoginForm__Divider",
-                "foldedComponentIds": Array [],
-                "render": [Function],
-                "styledComponentId": "LoginForm__Divider-zzt754-3",
-                "target": "div",
-                "toString": [Function],
-                "warnTooManyClasses": [Function],
-                "withComponent": [Function],
-              }
-            }
-            forwardedRef={null}
-          >
-            <div
-              className="LoginForm__Divider-zzt754-3 iwtJTG"
-            >
-              <LoginForm__DividerText>
-                <StyledComponent
-                  forwardedComponent={
-                    Object {
-                      "$$typeof": Symbol(react.forward_ref),
-                      "attrs": Array [],
-                      "componentStyle": ComponentStyle {
-                        "componentId": "LoginForm__DividerText-zzt754-4",
-                        "isStatic": false,
-                        "lastClassName": "heqDou",
-                        "rules": Array [
-                          "font-size:0.7em;font-weight:600;background:white;padding:0 1rem;color:",
-                          [Function],
-                          ";",
-                        ],
-                      },
-                      "displayName": "LoginForm__DividerText",
-                      "foldedComponentIds": Array [],
-                      "render": [Function],
-                      "styledComponentId": "LoginForm__DividerText-zzt754-4",
-                      "target": "span",
-                      "toString": [Function],
-                      "warnTooManyClasses": [Function],
-                      "withComponent": [Function],
-                    }
-                  }
-                  forwardedRef={null}
-                >
-                  <span
-                    className="LoginForm__DividerText-zzt754-4 heqDou"
                   >
-                    or
-                  </span>
-                </StyledComponent>
-              </LoginForm__DividerText>
-            </div>
-          </StyledComponent>
-        </LoginForm__Divider>
-        <LoginForm__FormWrapper>
-          <StyledComponent
-            forwardedComponent={
-              Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "attrs": Array [],
-                "componentStyle": ComponentStyle {
-                  "componentId": "LoginForm__FormWrapper-zzt754-6",
-                  "isStatic": true,
-                  "lastClassName": "cJOUov",
-                  "rules": Array [
-                    "max-width:",
-                    "400px",
-                    ";text-align:center;",
-                  ],
-                },
-                "displayName": "LoginForm__FormWrapper",
-                "foldedComponentIds": Array [],
-                "render": [Function],
-                "styledComponentId": "LoginForm__FormWrapper-zzt754-6",
-                "target": "div",
-                "toString": [Function],
-                "warnTooManyClasses": [Function],
-                "withComponent": [Function],
+                    <img
+                      className="LoginForm__LoginButtonLogo-zzt754-2 hIWQXf"
+                      src={
+                        Object {
+                          "process": [Function],
+                        }
+                      }
+                    />
+                  </StyledComponent>
+                </LoginForm__LoginButtonLogo>
+              </a>
+            </StyledComponent>
+          </LoginForm__LoginButton>
+          <LoginForm__Divider>
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "LoginForm__Divider-zzt754-3",
+                    "isStatic": true,
+                    "lastClassName": "iwtJTG",
+                    "rules": Array [
+                      "width:100%;max-width:",
+                      "400px",
+                      ";height:0.6em;border-bottom:1px solid #dddddd;text-align:center;margin-bottom:2rem;",
+                    ],
+                  },
+                  "displayName": "LoginForm__Divider",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "LoginForm__Divider-zzt754-3",
+                  "target": "div",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
               }
-            }
-            forwardedRef={null}
-          >
-            <div
-              className="LoginForm__FormWrapper-zzt754-6 cJOUov"
+              forwardedRef={null}
             >
-              <LoginForm__FormInput
-                name="username"
-                onChange={[Function]}
-                onKeyDown={[Function]}
-                placeholder="Username / Email"
-                type="email"
-                validated={false}
-                value=""
+              <div
+                className="LoginForm__Divider-zzt754-3 iwtJTG"
               >
-                <StyledComponent
-                  forwardedComponent={
-                    Object {
-                      "$$typeof": Symbol(react.forward_ref),
-                      "attrs": Array [],
-                      "componentStyle": ComponentStyle {
-                        "componentId": "LoginForm__FormInput-zzt754-5",
-                        "isStatic": false,
-                        "lastClassName": "lkxRMC",
-                        "rules": Array [
-                          "border:1px solid #aaaaaa;border-radius:2px;padding:0.75rem;margin:0.5rem 0;width:100%;font-size:0.7em;box-sizing:border-box;&:focus{border:",
-                          [Function],
-                          ";}",
-                        ],
-                      },
-                      "displayName": "LoginForm__FormInput",
-                      "foldedComponentIds": Array [],
-                      "render": [Function],
-                      "styledComponentId": "LoginForm__FormInput-zzt754-5",
-                      "target": "input",
-                      "toString": [Function],
-                      "warnTooManyClasses": [Function],
-                      "withComponent": [Function],
+                <LoginForm__DividerText>
+                  <StyledComponent
+                    forwardedComponent={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "attrs": Array [],
+                        "componentStyle": ComponentStyle {
+                          "componentId": "LoginForm__DividerText-zzt754-4",
+                          "isStatic": false,
+                          "lastClassName": "heqDou",
+                          "rules": Array [
+                            "font-size:0.7em;font-weight:600;background:white;padding:0 1rem;color:",
+                            [Function],
+                            ";",
+                          ],
+                        },
+                        "displayName": "LoginForm__DividerText",
+                        "foldedComponentIds": Array [],
+                        "render": [Function],
+                        "styledComponentId": "LoginForm__DividerText-zzt754-4",
+                        "target": "span",
+                        "toString": [Function],
+                        "warnTooManyClasses": [Function],
+                        "withComponent": [Function],
+                      }
                     }
-                  }
-                  forwardedRef={
-                    Object {
-                      "current": <input
-                        class="LoginForm__FormInput-zzt754-5 lkxRMC"
+                    forwardedRef={null}
+                  >
+                    <span
+                      className="LoginForm__DividerText-zzt754-4 heqDou"
+                    >
+                      or
+                    </span>
+                  </StyledComponent>
+                </LoginForm__DividerText>
+              </div>
+            </StyledComponent>
+          </LoginForm__Divider>
+          <LoginForm__FormWrapper>
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "LoginForm__FormWrapper-zzt754-7",
+                    "isStatic": true,
+                    "lastClassName": "fiDPzG",
+                    "rules": Array [
+                      "max-width:",
+                      "400px",
+                      ";text-align:center;",
+                    ],
+                  },
+                  "displayName": "LoginForm__FormWrapper",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "LoginForm__FormWrapper-zzt754-7",
+                  "target": "div",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+            >
+              <div
+                className="LoginForm__FormWrapper-zzt754-7 fiDPzG"
+              >
+                <LoginForm__FormInputWrapper
+                  isFocused={true}
+                  text="Email"
+                >
+                  <StyledComponent
+                    forwardedComponent={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "attrs": Array [],
+                        "componentStyle": ComponentStyle {
+                          "componentId": "LoginForm__FormInputWrapper-zzt754-6",
+                          "isStatic": false,
+                          "lastClassName": "gbrVTj",
+                          "rules": Array [
+                            "position:relative;&::before{content:",
+                            [Function],
+                            ";color:",
+                            "#222222",
+                            "80;position:absolute;transition:500ms transform ease;transform:",
+                            [Function],
+                            ";transform:",
+                            [Function],
+                            ";z-index:10;background-color:#fff;font-weight:400;font-size:0.8em;}",
+                          ],
+                        },
+                        "displayName": "LoginForm__FormInputWrapper",
+                        "foldedComponentIds": Array [],
+                        "render": [Function],
+                        "styledComponentId": "LoginForm__FormInputWrapper-zzt754-6",
+                        "target": "div",
+                        "toString": [Function],
+                        "warnTooManyClasses": [Function],
+                        "withComponent": [Function],
+                      }
+                    }
+                    forwardedRef={null}
+                    isFocused={true}
+                    text="Email"
+                  >
+                    <div
+                      className="LoginForm__FormInputWrapper-zzt754-6 cHKgZw"
+                    >
+                      <LoginForm__FormInput
                         name="username"
-                        placeholder="Username / Email"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         type="email"
+                        validated={false}
                         value=""
-                      />,
-                    }
-                  }
-                  name="username"
-                  onChange={[Function]}
-                  onKeyDown={[Function]}
-                  placeholder="Username / Email"
-                  type="email"
-                  validated={false}
-                  value=""
+                        width={1024}
+                      >
+                        <StyledComponent
+                          forwardedComponent={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "attrs": Array [],
+                              "componentStyle": ComponentStyle {
+                                "componentId": "LoginForm__FormInput-zzt754-5",
+                                "isStatic": false,
+                                "lastClassName": "lgdUyJ",
+                                "rules": Array [
+                                  "border:1px solid #aaaaaa;border-radius:2px;height:40px;position:relative;padding:0.75rem;margin:0.5rem 0;width:100%;width:",
+                                  [Function],
+                                  ";max-width:300px;font-size:0.8em;box-sizing:border-box;&:focus{border:",
+                                  [Function],
+                                  ";}",
+                                ],
+                              },
+                              "displayName": "LoginForm__FormInput",
+                              "foldedComponentIds": Array [],
+                              "render": [Function],
+                              "styledComponentId": "LoginForm__FormInput-zzt754-5",
+                              "target": "input",
+                              "toString": [Function],
+                              "warnTooManyClasses": [Function],
+                              "withComponent": [Function],
+                            }
+                          }
+                          forwardedRef={
+                            Object {
+                              "current": <input
+                                class="LoginForm__FormInput-zzt754-5 lgdUyJ"
+                                name="username"
+                                type="email"
+                                value=""
+                                width="1024"
+                              />,
+                            }
+                          }
+                          name="username"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          type="email"
+                          validated={false}
+                          value=""
+                          width={1024}
+                        >
+                          <input
+                            className="LoginForm__FormInput-zzt754-5 lgdUyJ"
+                            name="username"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            type="email"
+                            value=""
+                            width={1024}
+                          />
+                        </StyledComponent>
+                      </LoginForm__FormInput>
+                    </div>
+                  </StyledComponent>
+                </LoginForm__FormInputWrapper>
+                <LoginForm__FormInputWrapper
+                  isFocused={false}
+                  text="Password"
                 >
-                  <input
-                    className="LoginForm__FormInput-zzt754-5 lkxRMC"
-                    name="username"
-                    onChange={[Function]}
-                    onKeyDown={[Function]}
-                    placeholder="Username / Email"
-                    type="email"
-                    value=""
-                  />
-                </StyledComponent>
-              </LoginForm__FormInput>
-              <LoginForm__FormInput
-                name="password"
-                onChange={[Function]}
-                onKeyDown={[Function]}
-                placeholder="Password"
-                type="password"
-                validated={false}
-                value=""
-              >
-                <StyledComponent
-                  forwardedComponent={
-                    Object {
-                      "$$typeof": Symbol(react.forward_ref),
-                      "attrs": Array [],
-                      "componentStyle": ComponentStyle {
-                        "componentId": "LoginForm__FormInput-zzt754-5",
-                        "isStatic": false,
-                        "lastClassName": "lkxRMC",
-                        "rules": Array [
-                          "border:1px solid #aaaaaa;border-radius:2px;padding:0.75rem;margin:0.5rem 0;width:100%;font-size:0.7em;box-sizing:border-box;&:focus{border:",
-                          [Function],
-                          ";}",
-                        ],
-                      },
-                      "displayName": "LoginForm__FormInput",
-                      "foldedComponentIds": Array [],
-                      "render": [Function],
-                      "styledComponentId": "LoginForm__FormInput-zzt754-5",
-                      "target": "input",
-                      "toString": [Function],
-                      "warnTooManyClasses": [Function],
-                      "withComponent": [Function],
+                  <StyledComponent
+                    forwardedComponent={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "attrs": Array [],
+                        "componentStyle": ComponentStyle {
+                          "componentId": "LoginForm__FormInputWrapper-zzt754-6",
+                          "isStatic": false,
+                          "lastClassName": "gbrVTj",
+                          "rules": Array [
+                            "position:relative;&::before{content:",
+                            [Function],
+                            ";color:",
+                            "#222222",
+                            "80;position:absolute;transition:500ms transform ease;transform:",
+                            [Function],
+                            ";transform:",
+                            [Function],
+                            ";z-index:10;background-color:#fff;font-weight:400;font-size:0.8em;}",
+                          ],
+                        },
+                        "displayName": "LoginForm__FormInputWrapper",
+                        "foldedComponentIds": Array [],
+                        "render": [Function],
+                        "styledComponentId": "LoginForm__FormInputWrapper-zzt754-6",
+                        "target": "div",
+                        "toString": [Function],
+                        "warnTooManyClasses": [Function],
+                        "withComponent": [Function],
+                      }
                     }
-                  }
-                  forwardedRef={null}
-                  name="password"
-                  onChange={[Function]}
-                  onKeyDown={[Function]}
-                  placeholder="Password"
-                  type="password"
-                  validated={false}
-                  value=""
-                >
-                  <input
-                    className="LoginForm__FormInput-zzt754-5 lkxRMC"
-                    name="password"
-                    onChange={[Function]}
-                    onKeyDown={[Function]}
-                    placeholder="Password"
-                    type="password"
-                    value=""
-                  />
-                </StyledComponent>
-              </LoginForm__FormInput>
-              <LoginForm__FormSubmit
-                disabled={true}
-                onClick={[Function]}
-              >
-                <StyledComponent
+                    forwardedRef={null}
+                    isFocused={false}
+                    text="Password"
+                  >
+                    <div
+                      className="LoginForm__FormInputWrapper-zzt754-6 gbrVTj"
+                    >
+                      <LoginForm__FormInput
+                        name="password"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        type="password"
+                        validated={false}
+                        value=""
+                        width={1024}
+                      >
+                        <StyledComponent
+                          forwardedComponent={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "attrs": Array [],
+                              "componentStyle": ComponentStyle {
+                                "componentId": "LoginForm__FormInput-zzt754-5",
+                                "isStatic": false,
+                                "lastClassName": "lgdUyJ",
+                                "rules": Array [
+                                  "border:1px solid #aaaaaa;border-radius:2px;height:40px;position:relative;padding:0.75rem;margin:0.5rem 0;width:100%;width:",
+                                  [Function],
+                                  ";max-width:300px;font-size:0.8em;box-sizing:border-box;&:focus{border:",
+                                  [Function],
+                                  ";}",
+                                ],
+                              },
+                              "displayName": "LoginForm__FormInput",
+                              "foldedComponentIds": Array [],
+                              "render": [Function],
+                              "styledComponentId": "LoginForm__FormInput-zzt754-5",
+                              "target": "input",
+                              "toString": [Function],
+                              "warnTooManyClasses": [Function],
+                              "withComponent": [Function],
+                            }
+                          }
+                          forwardedRef={null}
+                          name="password"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          type="password"
+                          validated={false}
+                          value=""
+                          width={1024}
+                        >
+                          <input
+                            className="LoginForm__FormInput-zzt754-5 lgdUyJ"
+                            name="password"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            type="password"
+                            value=""
+                            width={1024}
+                          />
+                        </StyledComponent>
+                      </LoginForm__FormInput>
+                    </div>
+                  </StyledComponent>
+                </LoginForm__FormInputWrapper>
+                <LoginForm__FormSubmit
                   disabled={true}
-                  forwardedComponent={
-                    Object {
-                      "$$typeof": Symbol(react.forward_ref),
-                      "attrs": Array [],
-                      "componentStyle": ComponentStyle {
-                        "componentId": "LoginForm__FormSubmit-zzt754-7",
-                        "isStatic": false,
-                        "lastClassName": "czvsHN",
-                        "rules": Array [
-                          "color:white;font-size:0.7em;font-weight:600;width:100%;border:none;border-radius:3px;padding:0.65rem;background:#8610f9;opacity:",
-                          [Function],
-                          ";cursor:",
-                          [Function],
-                          ";",
-                        ],
-                      },
-                      "displayName": "LoginForm__FormSubmit",
-                      "foldedComponentIds": Array [],
-                      "render": [Function],
-                      "styledComponentId": "LoginForm__FormSubmit-zzt754-7",
-                      "target": "button",
-                      "toString": [Function],
-                      "warnTooManyClasses": [Function],
-                      "withComponent": [Function],
-                    }
-                  }
-                  forwardedRef={null}
                   onClick={[Function]}
                 >
-                  <button
-                    className="LoginForm__FormSubmit-zzt754-7 czvsHN"
+                  <StyledComponent
                     disabled={true}
+                    forwardedComponent={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "attrs": Array [],
+                        "componentStyle": ComponentStyle {
+                          "componentId": "LoginForm__FormSubmit-zzt754-8",
+                          "isStatic": false,
+                          "lastClassName": "eBkuqv",
+                          "rules": Array [
+                            "color:white;font-size:0.7em;font-weight:600;width:100%;border:none;border-radius:3px;padding:0.65rem;background:#8610f9;opacity:",
+                            [Function],
+                            ";cursor:",
+                            [Function],
+                            ";",
+                          ],
+                        },
+                        "displayName": "LoginForm__FormSubmit",
+                        "foldedComponentIds": Array [],
+                        "render": [Function],
+                        "styledComponentId": "LoginForm__FormSubmit-zzt754-8",
+                        "target": "button",
+                        "toString": [Function],
+                        "warnTooManyClasses": [Function],
+                        "withComponent": [Function],
+                      }
+                    }
+                    forwardedRef={null}
                     onClick={[Function]}
                   >
-                    Login
-                  </button>
-                </StyledComponent>
-              </LoginForm__FormSubmit>
-              <style__FormBottom>
-                <StyledComponent
-                  forwardedComponent={
-                    Object {
-                      "$$typeof": Symbol(react.forward_ref),
-                      "attrs": Array [],
-                      "componentStyle": ComponentStyle {
-                        "componentId": "style__FormBottom-oz4l5n-1",
-                        "isStatic": false,
-                        "lastClassName": "fNxKQZ",
-                        "rules": Array [
-                          "font-size:0.8em;padding:1rem 0;color:",
-                          [Function],
-                          ";",
-                        ],
-                      },
-                      "displayName": "style__FormBottom",
-                      "foldedComponentIds": Array [],
-                      "render": [Function],
-                      "styledComponentId": "style__FormBottom-oz4l5n-1",
-                      "target": "p",
-                      "toString": [Function],
-                      "warnTooManyClasses": [Function],
-                      "withComponent": [Function],
-                    }
-                  }
-                  forwardedRef={null}
-                >
-                  <p
-                    className="style__FormBottom-oz4l5n-1 fNxKQZ"
-                  >
-                    New user ?
-                     
-                    <LoginForm__StyledLink
-                      id="signup"
+                    <button
+                      className="LoginForm__FormSubmit-zzt754-8 eBkuqv"
+                      disabled={true}
                       onClick={[Function]}
                     >
-                      <StyledComponent
-                        forwardedComponent={
-                          Object {
-                            "$$typeof": Symbol(react.forward_ref),
-                            "attrs": Array [],
-                            "componentStyle": ComponentStyle {
-                              "componentId": "LoginForm__StyledLink-zzt754-1",
-                              "isStatic": true,
-                              "lastClassName": "jfVguh",
-                              "rules": Array [
-                                "color:blue;text-decoration:underline;cursor:pointer;font-weight:bold;",
-                              ],
-                            },
-                            "displayName": "LoginForm__StyledLink",
-                            "foldedComponentIds": Array [],
-                            "render": [Function],
-                            "styledComponentId": "LoginForm__StyledLink-zzt754-1",
-                            "target": "a",
-                            "toString": [Function],
-                            "warnTooManyClasses": [Function],
-                            "withComponent": [Function],
-                          }
-                        }
-                        forwardedRef={null}
+                      Login
+                    </button>
+                  </StyledComponent>
+                </LoginForm__FormSubmit>
+                <style__FormBottom>
+                  <StyledComponent
+                    forwardedComponent={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "attrs": Array [],
+                        "componentStyle": ComponentStyle {
+                          "componentId": "style__FormBottom-oz4l5n-1",
+                          "isStatic": false,
+                          "lastClassName": "fNxKQZ",
+                          "rules": Array [
+                            "font-size:0.8em;padding:1rem 0;color:",
+                            [Function],
+                            ";",
+                          ],
+                        },
+                        "displayName": "style__FormBottom",
+                        "foldedComponentIds": Array [],
+                        "render": [Function],
+                        "styledComponentId": "style__FormBottom-oz4l5n-1",
+                        "target": "p",
+                        "toString": [Function],
+                        "warnTooManyClasses": [Function],
+                        "withComponent": [Function],
+                      }
+                    }
+                    forwardedRef={null}
+                  >
+                    <p
+                      className="style__FormBottom-oz4l5n-1 fNxKQZ"
+                    >
+                      New user ?
+                       
+                      <LoginForm__StyledLink
                         id="signup"
                         onClick={[Function]}
                       >
-                        <a
-                          className="LoginForm__StyledLink-zzt754-1 jfVguh"
+                        <StyledComponent
+                          forwardedComponent={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "attrs": Array [],
+                              "componentStyle": ComponentStyle {
+                                "componentId": "LoginForm__StyledLink-zzt754-1",
+                                "isStatic": true,
+                                "lastClassName": "jfVguh",
+                                "rules": Array [
+                                  "color:blue;text-decoration:underline;cursor:pointer;font-weight:bold;",
+                                ],
+                              },
+                              "displayName": "LoginForm__StyledLink",
+                              "foldedComponentIds": Array [],
+                              "render": [Function],
+                              "styledComponentId": "LoginForm__StyledLink-zzt754-1",
+                              "target": "a",
+                              "toString": [Function],
+                              "warnTooManyClasses": [Function],
+                              "withComponent": [Function],
+                            }
+                          }
+                          forwardedRef={null}
                           id="signup"
                           onClick={[Function]}
                         >
-                          Signup
-                        </a>
-                      </StyledComponent>
-                    </LoginForm__StyledLink>
-                     
-                    here!
-                  </p>
-                </StyledComponent>
-              </style__FormBottom>
-            </div>
-          </StyledComponent>
-        </LoginForm__FormWrapper>
-      </div>
-    </StyledComponent>
-  </LoginForm__Wrapper>
-</Login>
+                          <a
+                            className="LoginForm__StyledLink-zzt754-1 jfVguh"
+                            id="signup"
+                            onClick={[Function]}
+                          >
+                            Signup
+                          </a>
+                        </StyledComponent>
+                      </LoginForm__StyledLink>
+                       
+                      here!
+                    </p>
+                  </StyledComponent>
+                </style__FormBottom>
+              </div>
+            </StyledComponent>
+          </LoginForm__FormWrapper>
+        </div>
+      </StyledComponent>
+    </LoginForm__Wrapper>
+  </Login>
+</NotificationProvider>
 `;

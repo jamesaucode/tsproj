@@ -30,6 +30,9 @@ const NotificationMessage: NextFC<IMessage> = ({
   // delay = 3000,
   removeNotification,
 }): JSX.Element => {
+  const handleOnClick = (): void => {
+    removeNotification(id);
+  };
   return (
     <Wrapper key={id}>
       <Message success={success}>
@@ -41,7 +44,7 @@ const NotificationMessage: NextFC<IMessage> = ({
           )}
           {message}
         </div>
-        <SVGWrapper onClick={(): void => removeNotification(id)}>
+        <SVGWrapper onClick={handleOnClick}>
           <SVG className="small-icon" src="/static/images/close.svg" />
         </SVGWrapper>
       </Message>

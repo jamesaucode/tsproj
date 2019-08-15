@@ -26,7 +26,7 @@ const DropDownContext = React.createContext<ContextTypes>(null);
 
 const SOption = styled.li<SOptionProps>`
   background-color: ${({ selected }): string =>
-    selected ? `${colors.brand}40` : "#fff"};
+    selected ? `${colors.blue}40` : "#fff"};
   border-radius: 3px;
   padding: 10px;
   margin: 5px 0;
@@ -34,11 +34,11 @@ const SOption = styled.li<SOptionProps>`
   &:hover {
     cursor: pointer;
     background-color: ${({ selected }): string =>
-      selected ? `${colors.brand}40` : "#eee"};
+      selected ? `${colors.blue}40` : "#eee"};
   }
 
   & > span {
-    color: ${({ selected }): string => (selected ? colors.brand : "#555")};
+    color: ${({ selected }): string => (selected ? colors.blue : "#555")};
     font-size: ${font.fontSize.sm};
     font-weight: 500;
     margin-left: 20px;
@@ -79,6 +79,9 @@ const MenuWrapper = styled.ul<WrapperProps>`
     font-size: ${font.fontSize.sm};
     padding: 10px;
     margin: 10px 0;
+    &:hover {
+      background-color: #ddd;
+    }
   }
 `;
 const Toggle = styled.button`
@@ -126,14 +129,21 @@ interface OptionPropTypes {
 interface ButtonPropTypes {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
+interface DropDownMenuPropTypes {
+  initSelect?: string;
+  children?: {};
+}
 
 const useDropDownContext = (): ContextTypes => {
   const context = useContext(DropDownContext);
   return context;
 };
-const DropDownMenu: CompoundComponent = (props): JSX.Element => {
+const DropDownMenu: CompoundComponent<DropDownMenuPropTypes> = ({
+  children,
+  initSelect = "Choose",
+}): JSX.Element => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [selected, setSelected] = useState("Choose");
+  const [selected, setSelected] = useState(initSelect);
   const value = {
     selected,
     setSelected,
@@ -153,7 +163,7 @@ const DropDownMenu: CompoundComponent = (props): JSX.Element => {
       <Wrapper role="menu">
         <Toggle onClick={handleClick}>{`${selected} ▼`}</Toggle>
         <MenuWrapper expanded={isExpanded}>
-          {isExpanded ? props.children : null}
+          {isExpanded ? children : null}
         </MenuWrapper>
       </Wrapper>
     </DropDownContext.Provider>
@@ -201,7 +211,7 @@ const Option: React.FunctionComponent<OptionPropTypes> = ({
       <Circle
         width={12}
         height={12}
-        fill={optionIsSelected ? colors.brand : "#ddd"}
+        fill={optionIsSelected ? colors.blue : "#ddd"}
       />
       <span>{children}</span>
     </SOption>

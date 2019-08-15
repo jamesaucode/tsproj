@@ -1,0 +1,415 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StudyCard Component renders 1`] = `
+<UserProvider>
+  <style__HeadingBase>
+    <StyledComponent
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "style__HeadingBase-oz4l5n-3",
+            "isStatic": false,
+            "lastClassName": "cpnjeR",
+            "rules": Array [
+              "text-align:",
+              [Function],
+              ";font-size:",
+              [Function],
+              ";font-weight:600;margin:1rem 0;color:",
+              [Function],
+              ";",
+            ],
+          },
+          "displayName": "style__HeadingBase",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "style__HeadingBase-oz4l5n-3",
+          "target": "h1",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+    >
+      <h1
+        className="style__HeadingBase-oz4l5n-3 cpnjeR"
+      >
+        Something went wrong during data fetching...
+      </h1>
+    </StyledComponent>
+  </style__HeadingBase>
+  <NotificationProvider>
+    <Notification__AllNotificationsWrapper
+      os={0}
+      windowHeight={768}
+    >
+      <StyledComponent
+        forwardedComponent={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "attrs": Array [],
+            "componentStyle": ComponentStyle {
+              "componentId": "Notification__AllNotificationsWrapper-sc-14z8rhj-0",
+              "isStatic": true,
+              "lastClassName": "kdjGqQ",
+              "rules": Array [
+                "height:0;top:0px;font-size:calc(0.35vw + 16px);width:100%;position:absolute;z-index:1000;",
+              ],
+            },
+            "displayName": "Notification__AllNotificationsWrapper",
+            "foldedComponentIds": Array [],
+            "render": [Function],
+            "styledComponentId": "Notification__AllNotificationsWrapper-sc-14z8rhj-0",
+            "target": "div",
+            "toString": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+          }
+        }
+        forwardedRef={null}
+        os={0}
+        windowHeight={768}
+      >
+        <div
+          className="Notification__AllNotificationsWrapper-sc-14z8rhj-0 kdjGqQ"
+        />
+      </StyledComponent>
+    </Notification__AllNotificationsWrapper>
+    <StudyCard>
+      <StudyCard__Wrapper>
+        <StyledComponent
+          forwardedComponent={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "attrs": Array [],
+              "componentStyle": ComponentStyle {
+                "componentId": "StudyCard__Wrapper-sc-77egjm-2",
+                "isStatic": true,
+                "lastClassName": "kPwpOv",
+                "rules": Array [
+                  "width:100%;max-width:688px;padding:1rem;",
+                ],
+              },
+              "displayName": "StudyCard__Wrapper",
+              "foldedComponentIds": Array [],
+              "render": [Function],
+              "styledComponentId": "StudyCard__Wrapper-sc-77egjm-2",
+              "target": "section",
+              "toString": [Function],
+              "warnTooManyClasses": [Function],
+              "withComponent": [Function],
+            }
+          }
+          forwardedRef={null}
+        >
+          <section
+            className="StudyCard__Wrapper-sc-77egjm-2 kPwpOv"
+          >
+            <DropDownMenu
+              initSelect={null}
+            >
+              <DropDownMenu__Wrapper
+                role="menu"
+              >
+                <StyledComponent
+                  forwardedComponent={
+                    Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "attrs": Array [],
+                      "componentStyle": ComponentStyle {
+                        "componentId": "DropDownMenu__Wrapper-sc-1pyz6ng-1",
+                        "isStatic": true,
+                        "lastClassName": "irgNyQ",
+                        "rules": Array [
+                          "width:100%;max-width:250px;position:relative;",
+                        ],
+                      },
+                      "displayName": "DropDownMenu__Wrapper",
+                      "foldedComponentIds": Array [],
+                      "render": [Function],
+                      "styledComponentId": "DropDownMenu__Wrapper-sc-1pyz6ng-1",
+                      "target": "div",
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                    }
+                  }
+                  forwardedRef={null}
+                  role="menu"
+                >
+                  <div
+                    className="DropDownMenu__Wrapper-sc-1pyz6ng-1 irgNyQ"
+                    role="menu"
+                  >
+                    <DropDownMenu__Toggle
+                      onClick={[Function]}
+                    >
+                      <StyledComponent
+                        forwardedComponent={
+                          Object {
+                            "$$typeof": Symbol(react.forward_ref),
+                            "attrs": Array [],
+                            "componentStyle": ComponentStyle {
+                              "componentId": "DropDownMenu__Toggle-sc-1pyz6ng-3",
+                              "isStatic": true,
+                              "lastClassName": "dUSfAA",
+                              "rules": Array [
+                                "border:0;border-radius:3px;color:",
+                                "#222222",
+                                ";padding:10px 20px;margin-bottom:1rem;font-size:0.8em;font-weight:600;font-family:",
+                                "-apple-system, BlinkMacSystemFont, \\"Segoe UI\\", Roboto, Helvetica, Arial, sans-serif, \\"Apple Color Emoji\\", \\"Segoe UI Emoji\\", \\"Segoe UI Symbol\\"",
+                                ";text-align:left;z-index:100;&:hover{cursor:pointer;}",
+                              ],
+                            },
+                            "displayName": "DropDownMenu__Toggle",
+                            "foldedComponentIds": Array [],
+                            "render": [Function],
+                            "styledComponentId": "DropDownMenu__Toggle-sc-1pyz6ng-3",
+                            "target": "button",
+                            "toString": [Function],
+                            "warnTooManyClasses": [Function],
+                            "withComponent": [Function],
+                          }
+                        }
+                        forwardedRef={null}
+                        onClick={[Function]}
+                      >
+                        <button
+                          className="DropDownMenu__Toggle-sc-1pyz6ng-3 dUSfAA"
+                          onClick={[Function]}
+                        >
+                          null ▼
+                        </button>
+                      </StyledComponent>
+                    </DropDownMenu__Toggle>
+                    <DropDownMenu__MenuWrapper
+                      expanded={false}
+                    >
+                      <StyledComponent
+                        expanded={false}
+                        forwardedComponent={
+                          Object {
+                            "$$typeof": Symbol(react.forward_ref),
+                            "attrs": Array [],
+                            "componentStyle": ComponentStyle {
+                              "componentId": "DropDownMenu__MenuWrapper-sc-1pyz6ng-2",
+                              "isStatic": false,
+                              "lastClassName": "LmCiw",
+                              "rules": Array [
+                                "border-bottom-left-radius:4px;border-bottom-right-radius:4px;background-color:#fff;box-shadow:0px 0px 20px rgba(0,0,0,0.15);display:flex;flex-direction:column;padding:",
+                                [Function],
+                                ";position:absolute;top:40px;width:100%;z-index:100;transition:transform 300ms ease;transform-origin:top left;transform:",
+                                [Function],
+                                ";input{border:none;border-radius:3px;background-color:#eee;font-size:",
+                                "0.8em",
+                                ";padding:10px;margin:10px 0;&:hover{background-color:#ddd;}}",
+                              ],
+                            },
+                            "displayName": "DropDownMenu__MenuWrapper",
+                            "foldedComponentIds": Array [],
+                            "render": [Function],
+                            "styledComponentId": "DropDownMenu__MenuWrapper-sc-1pyz6ng-2",
+                            "target": "ul",
+                            "toString": [Function],
+                            "warnTooManyClasses": [Function],
+                            "withComponent": [Function],
+                          }
+                        }
+                        forwardedRef={null}
+                      >
+                        <ul
+                          className="DropDownMenu__MenuWrapper-sc-1pyz6ng-2 LmCiw"
+                        />
+                      </StyledComponent>
+                    </DropDownMenu__MenuWrapper>
+                  </div>
+                </StyledComponent>
+              </DropDownMenu__Wrapper>
+            </DropDownMenu>
+            <StudyCard__CardWrapper>
+              <StyledComponent
+                forwardedComponent={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "attrs": Array [],
+                    "componentStyle": ComponentStyle {
+                      "componentId": "StudyCard__CardWrapper-sc-77egjm-0",
+                      "isStatic": true,
+                      "lastClassName": "dzZgLX",
+                      "rules": Array [
+                        "box-shadow:0px 0px 20px ",
+                        "#222222",
+                        "25;border-radius:3px;margin-bottom:20px;display:flex;flex-direction:column;background:#fff;font-size:calc(0.35vw + 16px);width:100%;height:auto;",
+                      ],
+                    },
+                    "displayName": "StudyCard__CardWrapper",
+                    "foldedComponentIds": Array [],
+                    "render": [Function],
+                    "styledComponentId": "StudyCard__CardWrapper-sc-77egjm-0",
+                    "target": "div",
+                    "toString": [Function],
+                    "warnTooManyClasses": [Function],
+                    "withComponent": [Function],
+                  }
+                }
+                forwardedRef={null}
+              >
+                <div
+                  className="StudyCard__CardWrapper-sc-77egjm-0 dzZgLX"
+                >
+                  <StudyCard__InputArea
+                    name="question"
+                    onChange={[Function]}
+                    onKeyDown={[Function]}
+                    placeholder="Question"
+                    value=""
+                  >
+                    <StyledComponent
+                      forwardedComponent={
+                        Object {
+                          "$$typeof": Symbol(react.forward_ref),
+                          "attrs": Array [],
+                          "componentStyle": ComponentStyle {
+                            "componentId": "StudyCard__InputArea-sc-77egjm-1",
+                            "isStatic": true,
+                            "lastClassName": "fKGKTo",
+                            "rules": Array [
+                              "width:100%;border:none;background:transparent;color:#333;flex:1 auto;font-size:1em;font-family:",
+                              "-apple-system, BlinkMacSystemFont, \\"Segoe UI\\", Roboto, Helvetica, Arial, sans-serif, \\"Apple Color Emoji\\", \\"Segoe UI Emoji\\", \\"Segoe UI Symbol\\"",
+                              ";padding:0.5em 1em;resize:none;box-sizing:border-box;",
+                            ],
+                          },
+                          "displayName": "StudyCard__InputArea",
+                          "foldedComponentIds": Array [],
+                          "render": [Function],
+                          "styledComponentId": "StudyCard__InputArea-sc-77egjm-1",
+                          "target": "textarea",
+                          "toString": [Function],
+                          "warnTooManyClasses": [Function],
+                          "withComponent": [Function],
+                        }
+                      }
+                      forwardedRef={null}
+                      name="question"
+                      onChange={[Function]}
+                      onKeyDown={[Function]}
+                      placeholder="Question"
+                      value=""
+                    >
+                      <textarea
+                        className="StudyCard__InputArea-sc-77egjm-1 fKGKTo"
+                        name="question"
+                        onChange={[Function]}
+                        onKeyDown={[Function]}
+                        placeholder="Question"
+                        value=""
+                      />
+                    </StyledComponent>
+                  </StudyCard__InputArea>
+                  <StudyCard__InputArea
+                    name="answer"
+                    onChange={[Function]}
+                    onKeyDown={[Function]}
+                    placeholder="Answer"
+                    value=""
+                  >
+                    <StyledComponent
+                      forwardedComponent={
+                        Object {
+                          "$$typeof": Symbol(react.forward_ref),
+                          "attrs": Array [],
+                          "componentStyle": ComponentStyle {
+                            "componentId": "StudyCard__InputArea-sc-77egjm-1",
+                            "isStatic": true,
+                            "lastClassName": "fKGKTo",
+                            "rules": Array [
+                              "width:100%;border:none;background:transparent;color:#333;flex:1 auto;font-size:1em;font-family:",
+                              "-apple-system, BlinkMacSystemFont, \\"Segoe UI\\", Roboto, Helvetica, Arial, sans-serif, \\"Apple Color Emoji\\", \\"Segoe UI Emoji\\", \\"Segoe UI Symbol\\"",
+                              ";padding:0.5em 1em;resize:none;box-sizing:border-box;",
+                            ],
+                          },
+                          "displayName": "StudyCard__InputArea",
+                          "foldedComponentIds": Array [],
+                          "render": [Function],
+                          "styledComponentId": "StudyCard__InputArea-sc-77egjm-1",
+                          "target": "textarea",
+                          "toString": [Function],
+                          "warnTooManyClasses": [Function],
+                          "withComponent": [Function],
+                        }
+                      }
+                      forwardedRef={null}
+                      name="answer"
+                      onChange={[Function]}
+                      onKeyDown={[Function]}
+                      placeholder="Answer"
+                      value=""
+                    >
+                      <textarea
+                        className="StudyCard__InputArea-sc-77egjm-1 fKGKTo"
+                        name="answer"
+                        onChange={[Function]}
+                        onKeyDown={[Function]}
+                        placeholder="Answer"
+                        value=""
+                      />
+                    </StyledComponent>
+                  </StudyCard__InputArea>
+                </div>
+              </StyledComponent>
+            </StudyCard__CardWrapper>
+            <style__Button
+              fullWidth={true}
+              onClick={[Function]}
+            >
+              <StyledComponent
+                forwardedComponent={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "attrs": Array [],
+                    "componentStyle": ComponentStyle {
+                      "componentId": "style__Button-oz4l5n-5",
+                      "isStatic": false,
+                      "lastClassName": "gPTbBw",
+                      "rules": Array [
+                        "background:",
+                        "#9e3bff",
+                        ";border:none;border-radius:3px;padding:12px 15px;font-size:",
+                        "0.8em",
+                        ";font-weight:400;color:#fff;width:",
+                        [Function],
+                        ";&:hover{cursor:pointer;}",
+                      ],
+                    },
+                    "displayName": "style__Button",
+                    "foldedComponentIds": Array [],
+                    "render": [Function],
+                    "styledComponentId": "style__Button-oz4l5n-5",
+                    "target": "button",
+                    "toString": [Function],
+                    "warnTooManyClasses": [Function],
+                    "withComponent": [Function],
+                  }
+                }
+                forwardedRef={null}
+                fullWidth={true}
+                onClick={[Function]}
+              >
+                <button
+                  className="style__Button-oz4l5n-5 gPTbBw"
+                  onClick={[Function]}
+                >
+                  Save
+                </button>
+              </StyledComponent>
+            </style__Button>
+          </section>
+        </StyledComponent>
+      </StudyCard__Wrapper>
+    </StudyCard>
+  </NotificationProvider>
+</UserProvider>
+`;

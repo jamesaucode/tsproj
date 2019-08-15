@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { Button, font, colors } from "../../utils/style";
 import { useNotification } from "../components/Notification/Notification";
@@ -34,12 +34,12 @@ const Wrapper = styled.section`
   padding: 1rem;
 `;
 const StudyCard: React.FunctionComponent = (): JSX.Element => {
+  const { pushNotification } = useNotification();
+  const { data } = useUserData();
+
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [selected, setSelected] = useState();
-
-  const { pushNotification } = useNotification();
-  const { data } = useUserData();
   const dropDownInputRef = useRef<HTMLInputElement>();
 
   const formControls: {
@@ -116,10 +116,12 @@ const StudyCard: React.FunctionComponent = (): JSX.Element => {
     }
   };
 
-  const hasExistingCardsets = data.cardSet.length > 0;
+  const hasExistingCardsets = (data && data.cardSet.length > 0) || false;
   return (
     <Wrapper>
-      <DropDownMenu>
+      <DropDownMenu
+        initSelect={hasExistingCardsets ? data.cardSet[0].name : null}
+      >
         <DropDownMenu.MenuTitle>Choose a set</DropDownMenu.MenuTitle>
         {hasExistingCardsets
           ? data.cardSet.map(

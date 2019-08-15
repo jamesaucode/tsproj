@@ -1,16 +1,25 @@
 /* eslint-disable */
 import LoginForm from "./LoginForm";
 import Warning from "./Warning";
+import { NotificationProvider } from "./Notification/Notification";
 import { mount } from "enzyme";
 
 describe("LoginForm Tests", () => {
   it("Component Renders", () => {
-    const wrapper = mount(<LoginForm />);
+    const wrapper = mount(
+      <NotificationProvider>
+        <LoginForm />
+      </NotificationProvider>,
+    );
     expect(wrapper).toMatchSnapshot();
   });
 
   it("Changehandler of the component works correctly", () => {
-    const wrapper = mount(<LoginForm />);
+    const wrapper = mount(
+      <NotificationProvider>
+        <LoginForm />
+      </NotificationProvider>,
+    );
     wrapper.find("input[name='username']").simulate("change", {
       target: { value: "Hello world", name: "username" },
     });
@@ -26,7 +35,11 @@ describe("LoginForm Tests", () => {
   });
 
   it("Login button should be disabled if input is not validated, and vice versa", () => {
-    const wrapper = mount(<LoginForm />);
+    const wrapper = mount(
+      <NotificationProvider>
+        <LoginForm />
+      </NotificationProvider>,
+    );
     expect(wrapper.find("button").prop("disabled")).toBeTruthy();
     wrapper.find("input[name='username']").simulate("change", {
       target: { value: "testing@gmail.com", name: "username" },
@@ -38,7 +51,11 @@ describe("LoginForm Tests", () => {
   });
 
   it("Warning should not display on mount, and should display after first failed login attempt", () => {
-    const wrapper = mount(<LoginForm />);
+    const wrapper = mount(
+      <NotificationProvider>
+        <LoginForm />
+      </NotificationProvider>,
+    );
     expect(wrapper.find(Warning).exists()).toBeFalsy();
     wrapper.find("input[name='username']").simulate("change", {
       target: { value: "testing@gmail.com", name: "username" },
@@ -50,7 +67,11 @@ describe("LoginForm Tests", () => {
   });
 
   it("Should show login form on mount, show signup form if user clicks the signup link", () => {
-    const wrapper = mount(<LoginForm />);
+    const wrapper = mount(
+      <NotificationProvider>
+        <LoginForm />
+      </NotificationProvider>,
+    );
     expect(wrapper.find("style__FormBottom").text()).toBe(
       "New user ? Signup here!",
     );

@@ -3,8 +3,7 @@ import NotificationMessage from "./NotificationMessage";
 import { IMessage } from "../../../interfaces/message";
 import styled from "styled-components";
 import { useWindowSize } from "../../hooks/useWindowSize";
-
-const uuid = require("uuid");
+import uuid from "uuid";
 
 interface PropTypes {
   children: React.ReactChild;
@@ -81,10 +80,7 @@ export const NotificationProvider: React.FunctionComponent<PropTypes> = ({
               return (
                 <NotificationMessage
                   key={notification.id}
-                  message={notification.message}
-                  success={notification.success}
-                  id={notification.id}
-                  delay={notification.delay}
+                  {...notification}
                   removeNotification={removeNotification}
                 />
               );

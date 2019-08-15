@@ -64,7 +64,10 @@ exports[`NavBar Component renders 1`] = `
                 href="/"
               >
                 <NavBar__NavLink
+                  isActive={false}
                   onClick={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseOver={[Function]}
                 >
                   <StyledComponent
                     forwardedComponent={
@@ -73,12 +76,14 @@ exports[`NavBar Component renders 1`] = `
                         "attrs": Array [],
                         "componentStyle": ComponentStyle {
                           "componentId": "NavBar__NavLink-xnd01y-2",
-                          "isStatic": true,
-                          "lastClassName": "hLNIlQ",
+                          "isStatic": false,
+                          "lastClassName": "bVExdB",
                           "rules": Array [
                             "color:#333333;cursor:pointer;font-size:0.9em;font-weight:600;letter-spacing:1px;list-style:none;margin-right:4em;position:relative;text-transform:uppercase;&::before{background-color:",
-                            "#0f76fc",
-                            "80;bottom:-10px;content:\\"\\";height:4px;position:absolute;width:100%;transition:400ms ease transform;transform:scaleX(0);transform-origin:center;}&:hover:before{transform:scaleX(1);}",
+                            "#9e3bff",
+                            ";bottom:-10px;content:\\"\\";height:4px;position:absolute;width:100%;transition:400ms ease transform;transform:",
+                            [Function],
+                            ";transform-origin:left;}&:hover:before{transform:scaleX(1);}",
                           ],
                         },
                         "displayName": "NavBar__NavLink",
@@ -92,11 +97,16 @@ exports[`NavBar Component renders 1`] = `
                       }
                     }
                     forwardedRef={null}
+                    isActive={false}
                     onClick={[Function]}
+                    onMouseLeave={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <li
-                      className="NavBar__NavLink-xnd01y-2 hLNIlQ"
+                      className="NavBar__NavLink-xnd01y-2 bVExdB"
                       onClick={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseOver={[Function]}
                     >
                       Home
                     </li>

@@ -98,12 +98,10 @@ const Register: React.FunctionComponent<Props> = (props): JSX.Element => {
         }),
       });
       const json = await response.json();
-      if (response.ok && json) {
-        pushNotification(json.message, true);
-      }
+      pushNotification(json.message, response.ok);
     } catch (error) {
       setShowWarning(true);
-      pushNotification(error.message, true);
+      pushNotification(error.message, false);
       console.error(error.message);
     }
   };

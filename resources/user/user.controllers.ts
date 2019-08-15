@@ -25,7 +25,7 @@ export default {
 
       if (userExist) {
         console.log("User already exist!");
-        res.status(400).end();
+        res.status(400).json({ message: "User already exist" });
       }
 
       const hashedPassword = bcrypt.hashSync(req.body.password, SALTROUNDS);
@@ -36,7 +36,9 @@ export default {
         displayName,
       });
       if (!newUser) {
-        res.status(400).end();
+        res
+          .status(400)
+          .json({ message: "Something went wrong with this request..." });
       }
       res.status(200).json({ data: newUser });
     } catch (e) {

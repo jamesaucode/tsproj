@@ -177,7 +177,10 @@ const Login: NextFC = (): JSX.Element => {
         <DividerText>or</DividerText>
       </Divider>
       <FormWrapper>
-        <FormInputWrapper text="Email" isFocused={focused === 1}>
+        <FormInputWrapper
+          text="Email"
+          isFocused={focused === 1 || !!emailInput}
+        >
           <FormInput
             onChange={(e): void => {
               setUsernameInput(e.target.value);
@@ -193,7 +196,10 @@ const Login: NextFC = (): JSX.Element => {
             type="email"
           />
         </FormInputWrapper>
-        <FormInputWrapper text="Password" isFocused={focused === 2}>
+        <FormInputWrapper
+          text="Password"
+          isFocused={focused === 2 || !!passwordInput}
+        >
           <FormInput
             onChange={(e): void => {
               setPasswordInput(e.target.value);

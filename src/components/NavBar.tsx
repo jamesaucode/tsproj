@@ -74,7 +74,7 @@ const NavBar: NextFC = (props): JSX.Element => {
     "/user/create",
     "/user/cards",
   ];
-  const { pathname } = useRouter();
+  const { pathname } = useRouter() || { pathname: "" };
   useEffect((): void => {
     setLoading(false);
     if (userData.data) {
